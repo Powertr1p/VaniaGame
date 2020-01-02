@@ -23,6 +23,13 @@ public class Player : MonoBehaviour
         float direction = CrossPlatformInputManager.GetAxis("Horizontal");
         Vector2 playerVelocity = new Vector2(direction * _speed, _rb2d.velocity.y);
         _rb2d.velocity = playerVelocity;
+        SwapFacing(direction);
     }
 
+    private void SwapFacing(float direction)
+    {
+        bool playerHorizontalSpeed = Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
+        if (playerHorizontalSpeed)
+            transform.localScale = new Vector2 (Mathf.Sign(direction), transform.localScale.y);
+    }
 }
