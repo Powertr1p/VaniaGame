@@ -7,10 +7,12 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed = 5f;
     private Rigidbody2D _rb2d;
+    private Animator _animator;
     
     private void Awake()
     {
         _rb2d = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -24,12 +26,15 @@ public class Player : MonoBehaviour
         Vector2 playerVelocity = new Vector2(direction * _speed, _rb2d.velocity.y);
         _rb2d.velocity = playerVelocity;
         SwapFacing(direction);
+
+        bool isRunning = Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
+        _animator.SetBool("Running", isRunning);
     }
 
     private void SwapFacing(float direction)
     {
         bool playerHorizontalSpeed = Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
         if (playerHorizontalSpeed)
-            transform.localScale = new Vector2 (Mathf.Sign(direction), transform.localScale.y);
+            transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
     }
 }
