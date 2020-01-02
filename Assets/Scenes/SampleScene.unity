@@ -218,7 +218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270806792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.13, y: 2.31, z: 0}
+  m_LocalPosition: {x: -0.45, y: 4.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _jumpSpeed: 11
 --- !u!1 &343545350
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,7 +2259,7 @@ GameObject:
   - component: {fileID: 1775946950}
   - component: {fileID: 1775946952}
   - component: {fileID: 1775946951}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
