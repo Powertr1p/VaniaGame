@@ -68,6 +68,10 @@ public class Player : MonoBehaviour
             float direction = CrossPlatformInputManager.GetAxisRaw("Vertical");
             Vector2 climbVelocity = new Vector2(_rb2d.velocity.x, direction * _climbSpeed);
             _rb2d.velocity = climbVelocity;
+
+            bool isVerticalMoving = Mathf.Abs(_rb2d.velocity.y) > Mathf.Epsilon;
+            _animator.SetBool("Climbing", isVerticalMoving);
+
         }
     }
 }
