@@ -237,8 +237,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.053893805, y: -0.09091601}
-  m_Size: {x: 0.4905038, y: 0.8253041}
+  m_Offset: {x: -0.039245307, y: -0.093519926}
+  m_Size: {x: 0.72097754, y: 0.87217474}
   m_Direction: 0
 --- !u!50 &270806797
 Rigidbody2D:
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 5
   _jumpSpeed: 11
-  _climbSpeed: 8
+  _climbSpeed: 3
 --- !u!1 &343545350
 GameObject:
   m_ObjectHideFlags: 0

@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
 
         if (CrossPlatformInputManager.GetButtonDown("Jump"))
         {
-            Vector2 jumpVelocity = new Vector2(0F, _jumpSpeed);
+            Vector2 jumpVelocity = new Vector2(0, _jumpSpeed);
             _rb2d.velocity += jumpVelocity;
         }
     }
