@@ -6,7 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed = 5f;
-    [SerializeField] private float _jumpSpeed = 11f;
+    [SerializeField] private float _jumpSpeed = 20f;
     [SerializeField] private float _climbSpeed = 5f;
 
     private float _normalGravityScale;
@@ -15,15 +15,15 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rb2d;
     private Animator _animator;
-    private Collider2D _collider;
-    
+    private CapsuleCollider2D _bodyCollider;
+    private BoxCollider2D _feetCollider;
 
     private void Start()
     {
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        _collider = GetComponent<Collider2D>();
-
+        _bodyCollider = GetComponent<CapsuleCollider2D>();
+        _feetCollider = GetComponent<BoxCollider2D>();
         _normalGravityScale = _rb2d.gravityScale;
     }
 
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (!_collider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
+        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
 
         if (CrossPlatformInputManager.GetButtonDown("Jump"))
         {
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
 
     private void Climbing()
     {
-        if (!_collider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
         {
             _rb2d.gravityScale = _normalGravityScale;
             _animator.SetBool("Climbing", false);
