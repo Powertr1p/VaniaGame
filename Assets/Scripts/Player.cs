@@ -9,16 +9,22 @@ public class Player : MonoBehaviour
     [SerializeField] private float _jumpSpeed = 11f;
     [SerializeField] private float _climbSpeed = 5f;
 
+    private float _normalGravityScale;
+
+    private bool IsRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
+
     private Rigidbody2D _rb2d;
     private Animator _animator;
     private Collider2D _collider;
     
 
-    private void Awake()
+    private void Start()
     {
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider2D>();
+
+        _normalGravityScale = _rb2d.gravityScale;
     }
 
     private void FixedUpdate()
@@ -36,18 +42,13 @@ public class Player : MonoBehaviour
 
         SwapFacing(direction);
 
-        _animator.SetBool("Running", IsRunning());
+        _animator.SetBool("Running", IsRunning);
     }
 
     private void SwapFacing(float direction)
     {
-        if (IsRunning())
+        if (IsRunning)
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
-    }
-
-    private bool IsRunning()
-    {
-        return Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
     }
 
     private void Jump()
@@ -56,22 +57,26 @@ public class Player : MonoBehaviour
 
         if (CrossPlatformInputManager.GetButtonDown("Jump"))
         {
-            Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
+            Vector2 jumpVelocity = new Vector2(0F, _jumpSpeed);
             _rb2d.velocity += jumpVelocity;
         }
     }
 
     private void Climbing()
     {
-        if (_collider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+        if (!_collider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
         {
-            float direction = CrossPlatformInputManager.GetAxisRaw("Vertical");
-            Vector2 climbVelocity = new Vector2(_rb2d.velocity.x, direction * _climbSpeed);
-            _rb2d.velocity = climbVelocity;
-
-            bool isVerticalMoving = Mathf.Abs(_rb2d.velocity.y) > Mathf.Epsilon;
-            _animator.SetBool("Climbing", isVerticalMoving);
-
+            _rb2d.gravityScale = _normalGravityScale;
+            _animator.SetBool("Climbing", false);
+            return;
         }
+
+        _rb2d.gravityScale = 0F;
+        float direction = CrossPlatformInputManager.GetAxisRaw("Vertical");
+        Vector2 climbVelocity = new Vector2(_rb2d.velocity.x, direction * _climbSpeed);
+        _rb2d.velocity = climbVelocity;
+
+        bool isMovingVertical = Mathf.Abs(_rb2d.velocity.y) > Mathf.Epsilon;
+        _animator.SetBool("Climbing", isMovingVertical);
     }
 }
