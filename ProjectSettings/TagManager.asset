@@ -50,3 +50,6 @@ TagManager:
   - name: Foreground
     uniqueID: 549635957
     locked: 0
+  - name: Ladder
+    uniqueID: 438082121
+    locked: 0

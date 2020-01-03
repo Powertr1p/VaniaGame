@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _jumpSpeed = 11f;
+    [SerializeField] private float _climbSpeed = 5f;
 
     private Rigidbody2D _rb2d;
     private Animator _animator;
@@ -24,11 +25,12 @@ public class Player : MonoBehaviour
     {
         Movement();
         Jump();
+        Climbing();
     }
 
     private void Movement()
     {
-        float direction = CrossPlatformInputManager.GetAxis("Horizontal");
+        float direction = CrossPlatformInputManager.GetAxisRaw("Horizontal");
         Vector2 playerVelocity = new Vector2(direction * _speed, _rb2d.velocity.y);
         _rb2d.velocity = playerVelocity;
 
@@ -56,6 +58,16 @@ public class Player : MonoBehaviour
         {
             Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
             _rb2d.velocity += jumpVelocity;
+        }
+    }
+
+    private void Climbing()
+    {
+        if (_collider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+        {
+            float direction = CrossPlatformInputManager.GetAxisRaw("Vertical");
+            Vector2 climbVelocity = new Vector2(_rb2d.velocity.x, direction * _climbSpeed);
+            _rb2d.velocity = climbVelocity;
         }
     }
 }
