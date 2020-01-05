@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     private const string _ladderLayer = "Ladder";
     private const string _enemyLayer = "Enemy";
     private const string _groundLayer = "Ground";
+    private const string _hazardsLayer = "Hazards";
     #endregion
 
     private void Start()
@@ -47,8 +48,7 @@ public class Player : MonoBehaviour
         Movement();
         Jump();
         Climbing();
-
-        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(_enemyLayer)))
+        if (CheckDieConditions())
             Die();
     }
 
@@ -98,10 +98,22 @@ public class Player : MonoBehaviour
         _animator.SetBool(_climbingAnimation, isMovingVertical);
     }
 
+    private bool CheckDieConditions()
+    {
+        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(_enemyLayer)))
+            return true;
+        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(_hazardsLayer)))
+            return true;
+        else
+            return false;
+    }
+
     private void Die()
     {
        _isAlive = false;
        _animator.SetTrigger(_diedAnimation);
        _rb2d.velocity = _deathKick;
     }
+
+    
 }
