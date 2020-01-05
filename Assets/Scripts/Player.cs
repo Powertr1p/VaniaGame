@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private float _normalGravityScale;
 
     private bool IsRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
-    private bool _isAlive;
+    public bool IsAlive = true;
 
     private Rigidbody2D _rb2d;
     private Animator _animator;
@@ -37,13 +37,11 @@ public class Player : MonoBehaviour
         _bodyCollider = GetComponent<CapsuleCollider2D>();
         _feetCollider = GetComponent<BoxCollider2D>();
         _normalGravityScale = _rb2d.gravityScale;
-
-        _isAlive = true;
     }
 
     private void FixedUpdate()
     {
-        if (!_isAlive) { return; }
+        if (!IsAlive) { return; }
         
         Movement();
         Jump();
@@ -110,7 +108,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-       _isAlive = false;
+       IsAlive = false;
        _animator.SetTrigger(_diedAnimation);
        _rb2d.velocity = _deathKick;
     }
