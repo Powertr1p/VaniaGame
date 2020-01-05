@@ -19,7 +19,7 @@ TagManager:
   - Background
   - Enemy
   - Hazards
-  - 
+  - ExitPortal
   - 
   - 
   - 
@@ -52,6 +52,9 @@ TagManager:
     locked: 0
   - name: Hazards
     uniqueID: 822170685
+    locked: 0
+  - name: ExitPortal
+    uniqueID: 1734361667
     locked: 0
   - name: Player
     uniqueID: 3753330137
