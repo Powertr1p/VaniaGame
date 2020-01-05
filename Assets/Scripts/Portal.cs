@@ -1,18 +1,26 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float _levelLoadDelay = 1F;
+    private int _nextScene;
+
+    private void Start()
     {
-        
+        _nextScene = SceneManager.GetActiveScene().buildIndex + 1;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.gameObject.GetComponent<Player>())
+            StartCoroutine(LoadNextLevel());
+    }
+
+    private IEnumerator LoadNextLevel()
+    {
+        yield return new WaitForSecondsRealtime(_levelLoadDelay);
+        SceneManager.LoadScene(_nextScene);
     }
 }
