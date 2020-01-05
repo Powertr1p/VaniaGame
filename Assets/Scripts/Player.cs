@@ -8,15 +8,26 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _jumpSpeed = 20f;
     [SerializeField] private float _climbSpeed = 5f;
+    [SerializeField] private Vector2 _deathKick;
 
     private float _normalGravityScale;
 
     private bool IsRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
+    private bool isAlive;
 
     private Rigidbody2D _rb2d;
     private Animator _animator;
     private CapsuleCollider2D _bodyCollider;
     private BoxCollider2D _feetCollider;
+
+    #region CONST
+    private const string _runningAnimation = "Running";
+    private const string _climbingAnimation = "Climbing";
+    private const string _diedAnimation = "Died";
+    private const string _ladderLayer = "Ladder";
+    private const string _enemyLayer = "Enemy";
+    private const string _groundLayer = "Ground";
+    #endregion CONST
 
     private void Start()
     {
@@ -25,13 +36,18 @@ public class Player : MonoBehaviour
         _bodyCollider = GetComponent<CapsuleCollider2D>();
         _feetCollider = GetComponent<BoxCollider2D>();
         _normalGravityScale = _rb2d.gravityScale;
+
+        isAlive = true;
     }
 
     private void FixedUpdate()
     {
+        if (!isAlive) { return; }
+        
         Movement();
         Jump();
         Climbing();
+        Die();
     }
 
     private void Movement()
@@ -40,12 +56,12 @@ public class Player : MonoBehaviour
         Vector2 playerVelocity = new Vector2(direction * _speed, _rb2d.velocity.y);
         _rb2d.velocity = playerVelocity;
 
-        SwapFacing(direction);
+        SwapSpriteFacing(direction);
 
-        _animator.SetBool("Running", IsRunning);
+        _animator.SetBool(_runningAnimation, IsRunning);
     }
 
-    private void SwapFacing(float direction)
+    private void SwapSpriteFacing(float direction)
     {
         if (IsRunning)
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
@@ -53,7 +69,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { return; }
+        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(_groundLayer))) { return; }
 
         if (CrossPlatformInputManager.GetButtonDown("Jump"))
         {
@@ -64,10 +80,10 @@ public class Player : MonoBehaviour
 
     private void Climbing()
     {
-        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
+        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(_ladderLayer)))
         {
             _rb2d.gravityScale = _normalGravityScale;
-            _animator.SetBool("Climbing", false);
+            _animator.SetBool(_climbingAnimation, false);
             return;
         }
 
@@ -77,6 +93,16 @@ public class Player : MonoBehaviour
         _rb2d.velocity = climbVelocity;
 
         bool isMovingVertical = Mathf.Abs(_rb2d.velocity.y) > Mathf.Epsilon;
-        _animator.SetBool("Climbing", isMovingVertical);
+        _animator.SetBool(_climbingAnimation, isMovingVertical);
+    }
+
+    private void Die()
+    {
+        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(_enemyLayer)))
+        { 
+            isAlive = false;
+            _animator.SetTrigger(_diedAnimation);
+            _rb2d.velocity = _deathKick;
+        }
     }
 }
