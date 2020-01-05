@@ -28,3 +28,8 @@ MonoBehaviour:
     m_Blend:
       m_Style: 2
       m_Time: 1
+  - m_From: Virtual Camera Idle
+    m_To: Virtual Camera Run
+    m_Blend:
+      m_Style: 2
+      m_Time: 6
