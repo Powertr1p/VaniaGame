@@ -13,21 +13,21 @@ public class Player : MonoBehaviour
     private float _normalGravityScale;
 
     private bool IsRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
-    private bool isAlive;
+    private bool _isAlive;
 
     private Rigidbody2D _rb2d;
     private Animator _animator;
     private CapsuleCollider2D _bodyCollider;
     private BoxCollider2D _feetCollider;
 
-    #region CONST
+    #region CONST_STRINGS
     private const string _runningAnimation = "Running";
     private const string _climbingAnimation = "Climbing";
     private const string _diedAnimation = "Died";
     private const string _ladderLayer = "Ladder";
     private const string _enemyLayer = "Enemy";
     private const string _groundLayer = "Ground";
-    #endregion CONST
+    #endregion
 
     private void Start()
     {
@@ -37,17 +37,19 @@ public class Player : MonoBehaviour
         _feetCollider = GetComponent<BoxCollider2D>();
         _normalGravityScale = _rb2d.gravityScale;
 
-        isAlive = true;
+        _isAlive = true;
     }
 
     private void FixedUpdate()
     {
-        if (!isAlive) { return; }
+        if (!_isAlive) { return; }
         
         Movement();
         Jump();
         Climbing();
-        Die();
+
+        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(_enemyLayer)))
+            Die();
     }
 
     private void Movement()
@@ -98,11 +100,8 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(_enemyLayer)))
-        { 
-            isAlive = false;
-            _animator.SetTrigger(_diedAnimation);
-            _rb2d.velocity = _deathKick;
-        }
+       _isAlive = false;
+       _animator.SetTrigger(_diedAnimation);
+       _rb2d.velocity = _deathKick;
     }
 }
