@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
-    [SerializeField] private int _playerLives = 3;
+    public int PlayerLives { get; private set; }
 
     private void Awake()
     {
@@ -15,11 +13,13 @@ public class GameSession : MonoBehaviour
             Destroy(gameObject);
         else
             DontDestroyOnLoad(gameObject);
+
+        PlayerLives = 3;
     }
 
     public void ProcessPlayerDeath()
     {
-        if (_playerLives > 1)
+        if (PlayerLives > 0)
             StartCoroutine(TakeLife());
         else
             StartCoroutine(ResetGameSession());
@@ -27,7 +27,7 @@ public class GameSession : MonoBehaviour
 
     private IEnumerator TakeLife()
     {
-        _playerLives--;
+        PlayerLives--;
         yield return new WaitForSecondsRealtime(2F);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
