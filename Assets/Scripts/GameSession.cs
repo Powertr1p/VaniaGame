@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameSession : MonoBehaviour
 {
     public int PlayerLives { get; private set; }
+    public int CoinsCount { get; private set; }
 
     private void Awake()
     {
@@ -15,6 +16,10 @@ public class GameSession : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
         PlayerLives = 3;
+
+        CoinPickup[] activeCoinsOnScene = FindObjectsOfType<CoinPickup>();
+        foreach (var coin in activeCoinsOnScene)
+            coin.OnCoinPickup += IncreaseCoinsCount;
     }
 
     public void ProcessPlayerDeath()
@@ -37,5 +42,10 @@ public class GameSession : MonoBehaviour
         yield return new WaitForSecondsRealtime(2F);
         SceneManager.LoadScene(0);
         Destroy(gameObject);
+    }
+
+    private void IncreaseCoinsCount()
+    {
+        CoinsCount++;
     }
 }
