@@ -3,25 +3,31 @@ using UnityEngine.SceneManagement;
 
 public class ScenePersistance : MonoBehaviour
 {
+    private static ScenePersistance _insance = null;
     private int _startingSceneIndex;
-
-    private void Awake()
-    {
-        if (FindObjectsOfType<ScenePersistance>().Length > 1)
-            Destroy(gameObject);
-        else
-            DontDestroyOnLoad(gameObject);
-    }
 
     private void Start()
     {
-        _startingSceneIndex = SceneManager.GetActiveScene().buildIndex;
-    }
-
-    private void Update()
-    {
-        if (SceneManager.GetActiveScene().buildIndex != _startingSceneIndex)
+        if (!_insance)
+        {
+            _insance = this;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            _startingSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (_insance != this)
+        {
             Destroy(gameObject);
+        }
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (_startingSceneIndex != SceneManager.GetActiveScene().buildIndex)
+        {
+            _insance = null;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            Destroy(gameObject);
+        }
+    }
 }
