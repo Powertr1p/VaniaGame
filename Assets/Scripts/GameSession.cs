@@ -4,10 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
-    private Portal _levelEndPortal;
-
-    private int _coinsRemainOnPlayerWhenLevelStart;
-
     public int PlayerLives { get; private set; } = 3;
     public int CoinsCount { get; private set; }
  
@@ -19,9 +15,6 @@ public class GameSession : MonoBehaviour
             Destroy(gameObject);
         else
             DontDestroyOnLoad(gameObject);
-
-        _levelEndPortal = FindObjectOfType<Portal>();
-        _levelEndPortal.OnLevelPassed += OnLevelEnd;
     }
 
     public void ProcessPlayerDeath()
@@ -37,8 +30,6 @@ public class GameSession : MonoBehaviour
         PlayerLives--;
         yield return new WaitForSecondsRealtime(2F);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        yield return new WaitForSecondsRealtime(1F);
-        CoinsCount = _coinsRemainOnPlayerWhenLevelStart;
     }
 
     private IEnumerator ResetGameSession()
@@ -51,21 +42,5 @@ public class GameSession : MonoBehaviour
     public void IncreaseCoinsCount(int amount)
     {
         CoinsCount += amount;
-    }
-
-    private void OnLevelEnd()
-    {
-        StartCoroutine(ProceedToNextLevel());
-    }
-
-    private IEnumerator ProceedToNextLevel()
-    {
-        _coinsRemainOnPlayerWhenLevelStart = CoinsCount;
-
-        yield return new WaitForSeconds(2F);
-       
-        CoinsCount = _coinsRemainOnPlayerWhenLevelStart;
-        _levelEndPortal = FindObjectOfType<Portal>();
-        _levelEndPortal.OnLevelPassed += OnLevelEnd;
     }
 }
