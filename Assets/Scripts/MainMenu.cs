@@ -13,8 +13,9 @@ public class MainMenu : MonoBehaviour
 
     public void StartFirstLevel()
     {
-        FindObjectOfType<Canvas>().gameObject.SetActive(false);
         _player.IsAlive = true;
+        FindObjectOfType<MianBossDissapears>().MakeLaugh();
+        FindObjectOfType<Canvas>().gameObject.SetActive(false);
     }
 
     public void StartNewGame()
