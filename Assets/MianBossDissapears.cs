@@ -5,12 +5,10 @@ using UnityEngine;
 public class MianBossDissapears : MonoBehaviour
 {
     [SerializeField] private AudioClip _laughAudioClip;
-    private AudioSource _audioSource;
     private Animator _animator;
 
     private void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
     }
 
