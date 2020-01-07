@@ -62,3 +62,6 @@ TagManager:
   - name: Foreground
     uniqueID: 549635957
     locked: 0
+  - name: Water
+    uniqueID: 4283983395
+    locked: 0

@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         _normalGravityScale = _rb2d.gravityScale;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!IsAlive) { return; }
         
