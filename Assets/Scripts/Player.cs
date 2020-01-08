@@ -5,6 +5,12 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour
 {
+    [Header("Projectile")]
+    [SerializeField] private GameObject _projectile;
+    [SerializeField] private float _projectileSpeed = 10F;
+    private bool _isShooting;
+
+    [Header("Player Config")]
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _jumpSpeed = 20f;
     [SerializeField] private float _climbSpeed = 5f;
@@ -22,6 +28,7 @@ public class Player : MonoBehaviour
 
     #region CONST_STRINGS
     private const string _runningAnimation = "Running";
+    private const string _shootingAnimation = "Shoot";
     private const string _climbingAnimation = "Climbing";
     private const string _diedAnimation = "Died";
     private const string _ladderLayer = "Ladder";
@@ -42,10 +49,14 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if (!IsAlive) { return; }
-        
+        // переделать все что тут есть в корутины
         Movement();
         Jump();
         Climbing();
+
+        if (CrossPlatformInputManager.GetButtonDown("Fire1"))
+            StartCoroutine(Attack());
+
         if (CheckDieConditions())
             Die();
     }
@@ -112,5 +123,19 @@ public class Player : MonoBehaviour
        _animator.SetTrigger(_diedAnimation);
        _rb2d.velocity = _deathKick;
         FindObjectOfType<GameSession>().ProcessPlayerDeath();
+    }
+
+    private IEnumerator Attack()
+    {
+        if (!_isShooting)
+        {
+            _isShooting = true;
+            _animator.SetTrigger(_shootingAnimation);
+            yield return new WaitForSeconds(0.3F); //сделать зацепку от анимации
+            GameObject arrow = Instantiate(_projectile, transform.position, Quaternion.identity) as GameObject;
+            arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(_projectileSpeed, 0);
+            yield return new WaitForSeconds(0.4F);
+            _isShooting = false;
+        }
     }
 }
