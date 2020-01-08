@@ -19,6 +19,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (!collision.gameObject.GetComponent<Player>())
         MoveOppositeSide();
     }
 
