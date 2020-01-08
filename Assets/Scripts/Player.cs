@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
         {
             _isShooting = true;
             _animator.SetTrigger(_shootingAnimation);
-            yield return new WaitForSeconds(0.3F); //сделать зацепку от анимации
+            yield return new WaitForSeconds(0.3F);
             GameObject arrow = Instantiate(_projectile, transform.position, Quaternion.identity) as GameObject;
             arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(_projectileSpeed, 0);
             yield return new WaitForSeconds(0.4F);
