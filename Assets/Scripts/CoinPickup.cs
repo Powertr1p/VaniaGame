@@ -6,6 +6,8 @@ public class CoinPickup : MonoBehaviour
     [SerializeField] private GameSession _gameSession;
     [SerializeField] private int _coinsToAdd = 1;
 
+    private bool _isAddedToScore;
+
     private void Awake()
     {
         _gameSession = FindObjectOfType<GameSession>();
@@ -13,8 +15,12 @@ public class CoinPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-            AudioSource.PlayClipAtPoint(_coinPickUpSFX, Camera.main.transform.position);
+        if (!_isAddedToScore)
+        {
+            _isAddedToScore = true;
+            AudioSource.PlayClipAtPoint(_coinPickUpSFX, Camera.main.transform.position, 0.3F);
             _gameSession.IncreaseCoinsCount(_coinsToAdd);
             Destroy(gameObject);
+        }
     }
 }

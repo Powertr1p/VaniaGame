@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
     {
         _player.IsAlive = true;
         FindObjectOfType<MianBossDissapears>().MakeLaugh();
+        Cursor.visible = false;
         FindObjectOfType<Canvas>().gameObject.SetActive(false);
     }
 

@@ -7,7 +7,7 @@ public class Portal : MonoBehaviour
 {
     public UnityAction OnLevelPassed;
 
-    [SerializeField] private float _levelLoadDelay = 1F;
+    [SerializeField] private float _levelLoadDelay = 0.1F;
     private int _nextScene;
 
     private void Start()

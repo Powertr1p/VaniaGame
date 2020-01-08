@@ -106,7 +106,7 @@ BoxCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   serializedVersion: 2
   m_Size: {x: 0.50398254, y: 0.50397944}
   m_EdgeRadius: 0
@@ -142,6 +142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coinPickUpSFX: {fileID: 8300000, guid: 11fc4bf5a944df440a88538979571ebb, type: 3}
+  _gameSession: {fileID: 0}
+  _coinsToAdd: 1
 --- !u!82 &1430238786397121998
 AudioSource:
   m_ObjectHideFlags: 0
