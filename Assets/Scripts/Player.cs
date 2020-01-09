@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Events;
 
@@ -58,7 +56,7 @@ public class Player : MonoBehaviour
         if (CrossPlatformInputManager.GetButtonDown("Fire1"))
             Attack();
 
-        if (CheckDieConditions())
+        if (IsKilled())
             Die();
     }
 
@@ -111,7 +109,7 @@ public class Player : MonoBehaviour
         _animator.SetBool(_climbingAnimation, isMovingVertical);
     }
 
-    private bool CheckDieConditions()
+    private bool IsKilled()
     {
         if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(_enemyLayer)))
             return true;

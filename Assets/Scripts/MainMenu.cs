@@ -8,7 +8,10 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
+        { 
             _player.IsAlive = false;
+            Cursor.visible = true;
+        }
     }
 
     public void StartFirstLevel()
