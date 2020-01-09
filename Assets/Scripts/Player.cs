@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    [Header("Projectile")]
-    [SerializeField] private GameObject _projectile;
-    [SerializeField] private float _projectileSpeed = 10F;
+    public UnityAction OnAttack;
+
+    private PlayerWeapon _weapon;
     private bool _isShooting;
 
     [Header("Player Config")]
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
         _bodyCollider = GetComponent<CapsuleCollider2D>();
         _feetCollider = GetComponent<BoxCollider2D>();
+        _weapon = GetComponentInChildren<PlayerWeapon>();
         _normalGravityScale = _rb2d.gravityScale;
     }
 
@@ -55,7 +57,7 @@ public class Player : MonoBehaviour
         Climbing();
 
         if (CrossPlatformInputManager.GetButtonDown("Fire1"))
-            StartCoroutine(Attack());
+            Attack();
 
         if (CheckDieConditions())
             Die();
@@ -75,7 +77,10 @@ public class Player : MonoBehaviour
     private void SwapSpriteFacing(float direction)
     {
         if (IsRunning)
+        { 
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
+            _weapon.transform.localScale = transform.localScale;
+        }
     }
 
     private void Jump()
@@ -125,17 +130,17 @@ public class Player : MonoBehaviour
         FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 
-    private IEnumerator Attack()
+    private void Attack()
     {
         if (!_isShooting)
         {
-            _isShooting = true;
             _animator.SetTrigger(_shootingAnimation);
-            yield return new WaitForSeconds(0.3F);
-            GameObject arrow = Instantiate(_projectile, transform.position, Quaternion.identity) as GameObject;
-            arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(_projectileSpeed, 0);
-            yield return new WaitForSeconds(0.4F);
-            _isShooting = false;
+            OnAttack?.Invoke();
         }
+    }
+
+    private void ChangeShootingState()
+    {
+        _isShooting = !_isShooting;
     }
 }
