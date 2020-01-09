@@ -14,7 +14,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-            _rb2d.velocity = new Vector2(_speed, _rb2d.velocity.y);
+        _rb2d.velocity = new Vector2(Mathf.Sign(transform.localScale.x) * _speed, _rb2d.velocity.y);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -26,6 +26,5 @@ public class EnemyMovement : MonoBehaviour
     private void MoveOppositeSide()
     {
             transform.localScale = new Vector2(-(Mathf.Sign(_rb2d.velocity.x)), 1F);
-            _speed = -_speed;
     }
 }
