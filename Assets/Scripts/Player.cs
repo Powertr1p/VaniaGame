@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     public UnityAction OnAttack;
+    public UnityAction OnDied;
 
     private PlayerWeapon _weapon;
     private bool _isShooting;
@@ -51,7 +52,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if (!IsAlive) { return; }
-        // переделать все что тут есть в корутины
         Movement();
         Jump();
         Climbing();
