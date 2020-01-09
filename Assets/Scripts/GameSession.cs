@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
+    private Player _player;
+
     public int PlayerLives { get; private set; } = 3;
     public int CoinsCount { get; private set; }
 
@@ -30,7 +32,6 @@ public class GameSession : MonoBehaviour
         PlayerLives--;
         yield return new WaitForSecondsRealtime(2F);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
     }
 
     private IEnumerator ResetGameSession()
@@ -43,10 +44,5 @@ public class GameSession : MonoBehaviour
     public void IncreaseCoinsCount(int amount)
     {
         CoinsCount += amount;
-    }
-
-    private void OnDestroy()
-    {
-        FindObjectOfType<Player>().OnDied -= ProcessPlayerDeath;
     }
 }

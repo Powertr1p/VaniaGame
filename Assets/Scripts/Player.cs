@@ -7,7 +7,6 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     public UnityAction OnAttack;
-    public UnityAction OnDied;
 
     private PlayerWeapon _weapon;
     private bool _isShooting;
@@ -127,7 +126,7 @@ public class Player : MonoBehaviour
        IsAlive = false;
        _animator.SetTrigger(_diedAnimation);
        _rb2d.velocity = _deathKick;
-        FindObjectOfType<GameSession>().ProcessPlayerDeath();
+       FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 
     private void Attack()
