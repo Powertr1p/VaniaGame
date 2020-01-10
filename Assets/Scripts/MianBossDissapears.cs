@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MianBossDissapears : MonoBehaviour
 {
     [SerializeField] private AudioClip _laughAudioClip;
     private Animator _animator;
+
+    private const string _dissapearAnimation = "Dissapear";
 
     private void Start()
     {
@@ -20,6 +20,6 @@ public class MianBossDissapears : MonoBehaviour
 
     private void StartDissapear()
     {
-        _animator.SetTrigger("New Trigger");
+        _animator.SetTrigger(_dissapearAnimation);
     }
 }
