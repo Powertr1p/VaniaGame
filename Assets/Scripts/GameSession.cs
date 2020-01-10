@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
-    private Player _player;
-
     public int PlayerLives { get; private set; } = 3;
     public int CoinsCount { get; private set; }
 
