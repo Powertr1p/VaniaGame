@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     private const string _runningAnimation = "Running";
     private const string _shootingAnimation = "Shoot";
     private const string _climbingAnimation = "Climbing";
+    private const string _climbingAnimationSpeed = "ClimbingSpeed";
     private const string _diedAnimation = "Died";
     private const string _ladderLayer = "Ladder";
     private const string _enemyLayer = "Enemy";
@@ -104,9 +105,11 @@ public class Player : MonoBehaviour
         float direction = CrossPlatformInputManager.GetAxisRaw("Vertical");
         Vector2 climbVelocity = new Vector2(_rb2d.velocity.x, direction * _climbSpeed);
         _rb2d.velocity = climbVelocity;
+        _animator.SetBool(_climbingAnimation, true);
 
         bool isMovingVertical = Mathf.Abs(_rb2d.velocity.y) > Mathf.Epsilon;
-        _animator.SetBool(_climbingAnimation, isMovingVertical);
+        int animationSpeed = isMovingVertical ? 1 : 0;
+        _animator.SetFloat(_climbingAnimationSpeed, animationSpeed);
     }
 
     private bool IsKilled()
