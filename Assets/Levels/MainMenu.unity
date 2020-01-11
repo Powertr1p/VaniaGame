@@ -13500,10 +13500,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 10
-  m_XDamping: 2.6
+  m_XDamping: 5.1
   m_YDamping: 1
   m_ZDamping: 1
-  m_ScreenX: 0.209
+  m_ScreenX: 0.289
   m_ScreenY: 0.5
   m_CameraDistance: 10
   m_DeadZoneWidth: 0.1
