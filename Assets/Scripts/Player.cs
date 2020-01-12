@@ -11,14 +11,13 @@ public class Player : MonoBehaviour
     private bool _isJumping;
 
     [Header("Player Config")]
-    [SerializeField] private float _speed = 5f;
-    [SerializeField] private float _jumpTime = 2f;
+    [SerializeField] private float _movementSpeed = 5f;
     [SerializeField] private float _jumpSpeed = 5f;
+    [SerializeField] private float _maxJumpHeight = 15f;
     [SerializeField] private float _climbSpeed = 5f;
     [SerializeField] private Vector2 _deathKick;
 
     private float _normalGravityScale;
-    private float _jumpTimeCounter;
 
     private bool IsRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
     public bool IsAlive = true;
@@ -67,7 +66,7 @@ public class Player : MonoBehaviour
     private void Movement()
     {
         float direction = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-        Vector2 playerVelocity = new Vector2(direction * _speed, _rb2d.velocity.y);
+        Vector2 playerVelocity = new Vector2(direction * _movementSpeed, _rb2d.velocity.y);
         _rb2d.velocity = playerVelocity;
 
         SwapSpriteFacing(direction);
@@ -93,12 +92,11 @@ public class Player : MonoBehaviour
         {
             _isJumping = true;
             _rb2d.velocity += jumpVelocity;
-            _jumpTimeCounter = _jumpTime;
         }
 
         if (CrossPlatformInputManager.GetButton("Jump") && _isJumping)
         {
-            if (_rb2d.velocity.y <= 15f)
+            if (_rb2d.velocity.y <= _maxJumpHeight)
                 _rb2d.velocity += jumpVelocity;
             else
                 _isJumping = false;

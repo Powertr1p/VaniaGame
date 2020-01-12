@@ -202,8 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _jumpTime: 0.09
-  _jumpSpeed: 4
+  _jumpSpeed: 3.8
   _climbSpeed: 3
   _deathKick: {x: 0, y: 15}
   IsAlive: 1
