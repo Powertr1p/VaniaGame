@@ -2542,8 +2542,8 @@ MonoBehaviour:
   m_XDamping: 5.1
   m_YDamping: 1
   m_ZDamping: 1
-  m_ScreenX: 0.289
-  m_ScreenY: 0.5
+  m_ScreenX: 0.5
+  m_ScreenY: 0.537
   m_CameraDistance: 10
   m_DeadZoneWidth: 0.1
   m_DeadZoneHeight: 0.1
@@ -2667,7 +2667,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2691,7 +2691,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.407963, y: -1.9600561, z: -7.1418753}
+  m_LocalPosition: {x: 15.053073, y: -0.5953322, z: 2.828125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1328449884}
@@ -21334,6 +21334,8 @@ MonoBehaviour:
     m_ParentHash: 756556552
   - m_Hash: -524152464
     m_ParentHash: 756556552
+  - m_Hash: 2009151712
+    m_ParentHash: 756556552
 --- !u!4 &906608019
 Transform:
   m_ObjectHideFlags: 0
@@ -22373,7 +22375,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 549635957
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.016129017, y: 0.016129017, z: 0}

@@ -8,10 +8,12 @@ public class Player : MonoBehaviour
 
     private PlayerWeapon _weapon;
     private bool _isShooting;
+    private bool _isJumping;
 
     [Header("Player Config")]
-    [SerializeField] private float _speed = 5f;
-    [SerializeField] private float _jumpSpeed = 20f;
+    [SerializeField] private float _movementSpeed = 5f;
+    [SerializeField] private float _jumpSpeed = 5f;
+    [SerializeField] private float _maxJumpHeight = 15f;
     [SerializeField] private float _climbSpeed = 5f;
     [SerializeField] private Vector2 _deathKick;
 
@@ -64,7 +66,7 @@ public class Player : MonoBehaviour
     private void Movement()
     {
         float direction = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-        Vector2 playerVelocity = new Vector2(direction * _speed, _rb2d.velocity.y);
+        Vector2 playerVelocity = new Vector2(direction * _movementSpeed, _rb2d.velocity.y);
         _rb2d.velocity = playerVelocity;
 
         SwapSpriteFacing(direction);
@@ -83,13 +85,25 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(_groundLayer))) { return; }
+        bool isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(_groundLayer));
+        Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
 
-        if (CrossPlatformInputManager.GetButtonDown("Jump"))
+        if (CrossPlatformInputManager.GetButtonDown("Jump") && isGrounded)
         {
-            Vector2 jumpVelocity = new Vector2(0F, _jumpSpeed);
+            _isJumping = true;
             _rb2d.velocity += jumpVelocity;
         }
+
+        if (CrossPlatformInputManager.GetButton("Jump") && _isJumping)
+        {
+            if (_rb2d.velocity.y <= _maxJumpHeight)
+                _rb2d.velocity += jumpVelocity;
+            else
+                _isJumping = false;
+        }
+
+        if (CrossPlatformInputManager.GetButtonUp("Jump"))
+            _isJumping = false;
     }
 
     private void Climbing()
