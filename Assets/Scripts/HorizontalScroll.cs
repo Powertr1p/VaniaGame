@@ -8,20 +8,13 @@ public class HorizontalScroll : MonoBehaviour
     [SerializeField] private float _scrollRate = 1F;
 
     private bool _isStarted = false;
+    public bool IsStarted { get => _isStarted; set => _isStarted = value; }
 
-private void Update()
-{
-    while(_isStarted)
+    private void Update()
     {
-        transform.Translate(new Vector2(_scrollRate * Time.deltaTime, 0f));
+        if(IsStarted)
+            transform.Translate(new Vector2(_scrollRate * Time.deltaTime, 0f));
     }
-}
-
-private void OnTriggerEnter2D (Collider2D collision)
-{
-    _isStarted = true;
-}
     
-    private void DestroyItself() => Destroy(gameObject, 20f);
-
+    public void DestroyItself() => Destroy(gameObject, 20f);
 }
