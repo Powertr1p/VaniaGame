@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
         if (IsRunning)
         { 
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
-            _weapon.transform.localScale = transform.localScale;
+            _weapon.transform.localScale = transform.localScale; 
         }
     }
 
