@@ -201,11 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae7357dc6cee6b84283b1d9fa28a125e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectile: {fileID: 6238555922268370228, guid: fd19275bb0fc20748977ef833e106ec1,
-    type: 3}
-  _projectileSpeed: 10
   _speed: 5
-  _jumpSpeed: 20
+  _jumpTime: 0.09
+  _jumpSpeed: 4
   _climbSpeed: 3
   _deathKick: {x: 0, y: 15}
   IsAlive: 1
