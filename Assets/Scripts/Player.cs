@@ -8,14 +8,17 @@ public class Player : MonoBehaviour
 
     private PlayerWeapon _weapon;
     private bool _isShooting;
+    private bool _isJumping;
 
     [Header("Player Config")]
     [SerializeField] private float _speed = 5f;
-    [SerializeField] private float _jumpSpeed = 20f;
+    [SerializeField] private float _jumpTime = 2f;
+    [SerializeField] private float _jumpSpeed = 5f;
     [SerializeField] private float _climbSpeed = 5f;
     [SerializeField] private Vector2 _deathKick;
 
     private float _normalGravityScale;
+    private float _jumpTimeCounter;
 
     private bool IsRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
     public bool IsAlive = true;
@@ -77,19 +80,32 @@ public class Player : MonoBehaviour
         if (IsRunning)
         { 
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
-            _weapon.transform.localScale = transform.localScale; 
+            _weapon.transform.localScale = transform.localScale;
         }
     }
 
     private void Jump()
     {
-        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(_groundLayer))) { return; }
+        bool isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(_groundLayer));
+        Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
 
-        if (CrossPlatformInputManager.GetButtonDown("Jump"))
+        if (CrossPlatformInputManager.GetButtonDown("Jump") && isGrounded)
         {
-            Vector2 jumpVelocity = new Vector2(0F, _jumpSpeed);
+            _isJumping = true;
             _rb2d.velocity += jumpVelocity;
+            _jumpTimeCounter = _jumpTime;
         }
+
+        if (CrossPlatformInputManager.GetButton("Jump") && _isJumping)
+        {
+            if (_rb2d.velocity.y <= 15f)
+                _rb2d.velocity += jumpVelocity;
+            else
+                _isJumping = false;
+        }
+
+        if (CrossPlatformInputManager.GetButtonUp("Jump"))
+            _isJumping = false;
     }
 
     private void Climbing()
