@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public UnityAction OnAttack;
 
-    private PlayerWeapon _weapon;
+    private Transform _weapon;
     private bool _isShooting;
     private bool _isJumping;
 
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
         _bodyCollider = GetComponent<CapsuleCollider2D>();
         _feetCollider = GetComponent<BoxCollider2D>();
-        _weapon = GetComponentInChildren<PlayerWeapon>();
+        _weapon = GetComponentInChildren<PlayerWeapon>().transform;
         _normalGravityScale = _rb2d.gravityScale;
     }
 
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         if (IsRunning)
         { 
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
-            _weapon.transform.localScale = transform.localScale;
+            _weapon.localScale = transform.localScale;
         }
     }
 
