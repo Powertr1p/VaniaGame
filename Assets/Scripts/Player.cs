@@ -12,12 +12,13 @@ public class Player : MonoBehaviour
 
     [Header("Player Config")]
     [SerializeField] private float _movementSpeed = 5f;
-    [SerializeField] private float _jumpSpeed = 5f;
-    [SerializeField] private float _maxJumpHeight = 15f;
+    [SerializeField] private float _jumpSpeed = 2.5f;
+    [SerializeField] private float _jumpTime = 0.11f;
     [SerializeField] private float _climbSpeed = 5f;
     [SerializeField] private Vector2 _deathKick;
 
     private float _normalGravityScale;
+    private float _jumpTimeCounter;
 
     private bool IsRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
     public bool IsAlive = true;
@@ -91,15 +92,21 @@ public class Player : MonoBehaviour
         if (CrossPlatformInputManager.GetButtonDown("Jump") && isGrounded)
         {
             _isJumping = true;
+            _jumpTimeCounter = _jumpTime;
             _rb2d.velocity += jumpVelocity;
         }
 
         if (CrossPlatformInputManager.GetButton("Jump") && _isJumping)
         {
-            if (_rb2d.velocity.y <= _maxJumpHeight)
+            if (_jumpTimeCounter > 0)
+            { 
                 _rb2d.velocity += jumpVelocity;
+                _jumpTimeCounter -= Time.deltaTime;
+            }
             else
+            { 
                 _isJumping = false;
+            }
         }
 
         if (CrossPlatformInputManager.GetButtonUp("Jump"))

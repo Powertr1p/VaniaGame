@@ -201,8 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae7357dc6cee6b84283b1d9fa28a125e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
-  _jumpSpeed: 3.8
+  _movementSpeed: 5
+  _jumpSpeed: 2.5
+  _jumpTime: 0.11
   _climbSpeed: 3
   _deathKick: {x: 0, y: 15}
   IsAlive: 1
