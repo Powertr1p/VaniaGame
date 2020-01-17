@@ -87,9 +87,11 @@ public class Player : MonoBehaviour
     private void Jump()
     {
         bool isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(_groundLayer));
+        bool isLadder = _feetCollider.IsTouchingLayers(LayerMask.GetMask(_ladderLayer));
+
         Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
 
-        if (CrossPlatformInputManager.GetButtonDown("Jump") && isGrounded)
+        if (CrossPlatformInputManager.GetButtonDown("Jump") && (isGrounded || isLadder))
         {
             _isJumping = true;
             _jumpTimeCounter = _jumpTime;
