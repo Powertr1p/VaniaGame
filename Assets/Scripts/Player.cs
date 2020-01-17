@@ -6,16 +6,19 @@ public class Player : MonoBehaviour
 {
     public UnityAction OnAttack;
 
-    private PlayerWeapon _weapon;
+    private Transform _weapon;
     private bool _isShooting;
+    private bool _isJumping;
 
     [Header("Player Config")]
-    [SerializeField] private float _speed = 5f;
-    [SerializeField] private float _jumpSpeed = 20f;
+    [SerializeField] private float _movementSpeed = 5f;
+    [SerializeField] private float _jumpSpeed = 2.5f;
+    [SerializeField] private float _jumpTime = 0.11f;
     [SerializeField] private float _climbSpeed = 5f;
     [SerializeField] private Vector2 _deathKick;
 
     private float _normalGravityScale;
+    private float _jumpTimeCounter;
 
     private bool IsRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
     public bool IsAlive = true;
@@ -43,7 +46,7 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
         _bodyCollider = GetComponent<CapsuleCollider2D>();
         _feetCollider = GetComponent<BoxCollider2D>();
-        _weapon = GetComponentInChildren<PlayerWeapon>();
+        _weapon = GetComponentInChildren<PlayerWeapon>().transform;
         _normalGravityScale = _rb2d.gravityScale;
     }
 
@@ -64,7 +67,7 @@ public class Player : MonoBehaviour
     private void Movement()
     {
         float direction = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-        Vector2 playerVelocity = new Vector2(direction * _speed, _rb2d.velocity.y);
+        Vector2 playerVelocity = new Vector2(direction * _movementSpeed, _rb2d.velocity.y);
         _rb2d.velocity = playerVelocity;
 
         SwapSpriteFacing(direction);
@@ -77,25 +80,46 @@ public class Player : MonoBehaviour
         if (IsRunning)
         { 
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
-            _weapon.transform.localScale = transform.localScale;
+            _weapon.localScale = transform.localScale;
         }
     }
 
     private void Jump()
     {
-        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(_groundLayer))) { return; }
+        bool isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(_groundLayer));
+        bool isLadder = _feetCollider.IsTouchingLayers(LayerMask.GetMask(_ladderLayer));
 
-        if (CrossPlatformInputManager.GetButtonDown("Jump"))
+        Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
+
+        if (CrossPlatformInputManager.GetButtonDown("Jump") && (isGrounded || isLadder))
         {
-            Vector2 jumpVelocity = new Vector2(0F, _jumpSpeed);
+            _isJumping = true;
+            _jumpTimeCounter = _jumpTime;
             _rb2d.velocity += jumpVelocity;
         }
+
+        if (CrossPlatformInputManager.GetButton("Jump") && _isJumping)
+        {
+            if (_jumpTimeCounter > 0)
+            { 
+                _rb2d.velocity += jumpVelocity;
+                _jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            { 
+                _isJumping = false;
+            }
+        }
+
+        if (CrossPlatformInputManager.GetButtonUp("Jump"))
+            _isJumping = false;
     }
 
     private void Climbing()
     {
         if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(_ladderLayer)))
         {
+            _isShooting = false;
             _rb2d.gravityScale = _normalGravityScale;
             _animator.SetBool(_climbingAnimation, false);
             return;
@@ -107,6 +131,12 @@ public class Player : MonoBehaviour
         _rb2d.velocity = climbVelocity;
         _animator.SetBool(_climbingAnimation, true);
 
+        SwitchClimbingAnimation();
+        PreventAttackModeWhileClimbing();
+    }
+
+    private void SwitchClimbingAnimation()
+    {
         bool isMovingVertical = Mathf.Abs(_rb2d.velocity.y) > Mathf.Epsilon;
         int animationSpeed = isMovingVertical ? 1 : 0;
         _animator.SetFloat(_climbingAnimationSpeed, animationSpeed);
@@ -137,6 +167,11 @@ public class Player : MonoBehaviour
             _animator.SetTrigger(_shootingAnimation);
             OnAttack?.Invoke();
         }
+    }
+
+    private void PreventAttackModeWhileClimbing()
+    {
+        _isShooting = true;
     }
 
     private void ChangeShootingState()

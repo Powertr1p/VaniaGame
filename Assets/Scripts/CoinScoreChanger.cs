@@ -16,5 +16,4 @@ public class CoinScoreChanger : MonoBehaviour
     {
         _coinScoreText.text = _gameSession.CoinsCount.ToString();
     }
-
 }
