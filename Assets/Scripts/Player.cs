@@ -117,6 +117,7 @@ public class Player : MonoBehaviour
     {
         if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(_ladderLayer)))
         {
+            _isShooting = false;
             _rb2d.gravityScale = _normalGravityScale;
             _animator.SetBool(_climbingAnimation, false);
             return;
@@ -128,6 +129,12 @@ public class Player : MonoBehaviour
         _rb2d.velocity = climbVelocity;
         _animator.SetBool(_climbingAnimation, true);
 
+        SwitchClimbingAnimation();
+        PreventAttackModeWhileClimbing();
+    }
+
+    private void SwitchClimbingAnimation()
+    {
         bool isMovingVertical = Mathf.Abs(_rb2d.velocity.y) > Mathf.Epsilon;
         int animationSpeed = isMovingVertical ? 1 : 0;
         _animator.SetFloat(_climbingAnimationSpeed, animationSpeed);
@@ -158,6 +165,11 @@ public class Player : MonoBehaviour
             _animator.SetTrigger(_shootingAnimation);
             OnAttack?.Invoke();
         }
+    }
+
+    private void PreventAttackModeWhileClimbing()
+    {
+        _isShooting = true;
     }
 
     private void ChangeShootingState()
