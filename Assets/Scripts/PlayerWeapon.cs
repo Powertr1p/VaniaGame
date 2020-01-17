@@ -27,7 +27,8 @@ public class PlayerWeapon : MonoBehaviour
 
     private void OnDisable()
     {
-        GetComponentInParent<Player>().OnAttack -= Attack;
+        if (GetComponentInParent<Player>() != null)
+            GetComponentInParent<Player>().OnAttack -= Attack;
     }
 
 }
