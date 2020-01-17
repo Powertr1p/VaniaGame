@@ -5,6 +5,7 @@ public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject _projectile;
     [SerializeField] private float _projectileSpeed = 10F;
+
     private bool _isShooting = false;
 
     private void OnEnable()
@@ -30,5 +31,4 @@ public class PlayerWeapon : MonoBehaviour
         if (GetComponentInParent<Player>() != null)
             GetComponentInParent<Player>().OnAttack -= Attack;
     }
-
 }
