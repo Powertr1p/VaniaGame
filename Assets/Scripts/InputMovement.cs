@@ -113,20 +113,30 @@ public class InputMovement : MonoBehaviour
     {
         if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(_ladderLayer)))
         {
-            IsClimbing = false;
-            _rb2d.gravityScale = _normalGravityScale;
-            _animator.SetBool(_climbingAnimation, false);
+            EndClimbing();
             return;
         }
 
+        StartClimbing();
+        SwitchClimbingAnimation();
+    }
+
+    private void EndClimbing()
+    {
+        IsClimbing = false;
+        _rb2d.gravityScale = _normalGravityScale;
+        _animator.SetBool(_climbingAnimation, false);
+    }
+
+    private void StartClimbing()
+    {
         _rb2d.gravityScale = 0F;
         float direction = CrossPlatformInputManager.GetAxisRaw("Vertical");
         Vector2 climbVelocity = new Vector2(_rb2d.velocity.x, direction * _climbSpeed);
         _rb2d.velocity = climbVelocity;
         _animator.SetBool(_climbingAnimation, true);
         IsClimbing = true;
-        SwitchClimbingAnimation();
-    }   
+    }
 
     private void SwitchClimbingAnimation()
     {
