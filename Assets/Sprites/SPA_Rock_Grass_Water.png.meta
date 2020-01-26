@@ -124,20 +124,20 @@ TextureImporter:
     filterMode: 0
     aniso: -1
     mipBias: -100
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 2
+    wrapV: 2
+    wrapW: 2
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 31
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -152,7 +152,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
@@ -164,7 +164,7 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
@@ -176,7 +176,7 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
@@ -208,6 +208,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -216,21 +228,17 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 190
+        y: 160
         width: 32
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -16, y: 16}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 16}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e142b26285e9af49936431819cfeaae
+      spriteID: e4f2d4994dc6540aeb457038a6a417d4
       internalID: -2464266514383608195
       vertices: []
       indices: 
@@ -240,8 +248,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_1
       rect:
         serializedVersion: 2
-        x: 38
-        y: 190
+        x: 32
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -251,7 +259,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8256728ca24222047a849d0c1d3e992f
+      spriteID: fd3e0171813c6403fb084c6d668d7c32
       internalID: -3326836957996475874
       vertices: []
       indices: 
@@ -261,8 +269,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_2
       rect:
         serializedVersion: 2
-        x: 76
-        y: 190
+        x: 64
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -272,7 +280,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd2395c24bfed5e4685605c86fc70a5b
+      spriteID: 07075d56d8273486cbf24083128781e2
       internalID: -1236713991046615032
       vertices: []
       indices: 
@@ -282,8 +290,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_3
       rect:
         serializedVersion: 2
-        x: 114
-        y: 190
+        x: 96
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -293,7 +301,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fd50f381b22d8c43999a668820d446b
+      spriteID: 6845aea71746a4c0393ce17824f7e7a8
       internalID: 7323906098350758705
       vertices: []
       indices: 
@@ -303,8 +311,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_4
       rect:
         serializedVersion: 2
-        x: 152
-        y: 190
+        x: 128
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -314,7 +322,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc31c6b689ec4ba4ab868f79c4cde6d2
+      spriteID: 1339f1d34e50f45da95158f48b27630b
       internalID: -5972448355421142556
       vertices: []
       indices: 
@@ -325,7 +333,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 152
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -335,7 +343,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8fd371a3cdef0ab449af8a4d68714b10
+      spriteID: 3c6bc80397f284fecbd25570337e446e
       internalID: -4977721373819348528
       vertices: []
       indices: 
@@ -345,8 +353,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_6
       rect:
         serializedVersion: 2
-        x: 38
-        y: 152
+        x: 32
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -356,7 +364,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a558630b5dd29340824f7069cc43545
+      spriteID: 23b7385c079864fc79410631afda89cf
       internalID: 7953296568139915108
       vertices: []
       indices: 
@@ -366,8 +374,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_7
       rect:
         serializedVersion: 2
-        x: 76
-        y: 152
+        x: 64
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -377,7 +385,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69e7f5df32caca14ba18db4c6c27c071
+      spriteID: 0380eb96d63c7405ba0308637e67929f
       internalID: 1958745200148787322
       vertices: []
       indices: 
@@ -387,8 +395,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_8
       rect:
         serializedVersion: 2
-        x: 114
-        y: 152
+        x: 96
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -398,7 +406,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf927e14022914a4c92bf16d5dd3a83d
+      spriteID: 120e793ecdaae4b0f874f3030bddbee3
       internalID: 7799159119227759483
       vertices: []
       indices: 
@@ -408,8 +416,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_9
       rect:
         serializedVersion: 2
-        x: 152
-        y: 152
+        x: 128
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -419,7 +427,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 808760e3e6b15784c80138be9b5c7726
+      spriteID: dbafb9df4ad1d414b9faca140a024f30
       internalID: -2755257858965140955
       vertices: []
       indices: 
@@ -430,7 +438,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 114
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -440,7 +448,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ec599ef5e0141542830c90e52921fc1
+      spriteID: 47bb4972b9d19494188dca027b073acd
       internalID: -3493280607249542649
       vertices: []
       indices: 
@@ -450,8 +458,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_11
       rect:
         serializedVersion: 2
-        x: 38
-        y: 114
+        x: 32
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -461,7 +469,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c3961e0a62e9114ba01aa8dd08090bb
+      spriteID: a70d04545871a4ad5b66297dc98d0903
       internalID: -7832389824997676707
       vertices: []
       indices: 
@@ -471,8 +479,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_12
       rect:
         serializedVersion: 2
-        x: 76
-        y: 114
+        x: 64
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -482,7 +490,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a98a25c4c3c59b43ba2fbf910e48973
+      spriteID: 022069c755ab642e1aa5de00c825e89d
       internalID: 6972465368094823745
       vertices: []
       indices: 
@@ -492,8 +500,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_13
       rect:
         serializedVersion: 2
-        x: 114
-        y: 114
+        x: 96
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -503,7 +511,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a93ce7fba9b9f904d8cdc6bb52aa2d30
+      spriteID: 558351e19b88d427a876eaea9869bbfc
       internalID: -7671020578840251174
       vertices: []
       indices: 
@@ -513,8 +521,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_14
       rect:
         serializedVersion: 2
-        x: 152
-        y: 114
+        x: 128
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -524,7 +532,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09bb2f7876d181f4cbcc0a1fcd61782c
+      spriteID: 8077ba8a2a4b54c6b8a78703d098b3b5
       internalID: 2766323726693326924
       vertices: []
       indices: 
@@ -535,7 +543,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 76
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -545,7 +553,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8feb1cc78ef1cf499f9390861e094e6
+      spriteID: 187c03a02b0ba455d9442822f79ab822
       internalID: -3503154757471595975
       vertices: []
       indices: 
@@ -555,8 +563,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_16
       rect:
         serializedVersion: 2
-        x: 38
-        y: 76
+        x: 32
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -566,7 +574,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c158c38f735e6b041b0cbd313b414455
+      spriteID: 9c1155b1905e8497aad6a586765069bd
       internalID: -1667590691872097069
       vertices: []
       indices: 
@@ -576,8 +584,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_17
       rect:
         serializedVersion: 2
-        x: 76
-        y: 76
+        x: 64
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -587,7 +595,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f12cf32da8dc97b4188cefa9ce67d209
+      spriteID: 2d583b24b11614f3a9a7ab7233196d25
       internalID: -2488111991826676060
       vertices: []
       indices: 
@@ -597,8 +605,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_18
       rect:
         serializedVersion: 2
-        x: 114
-        y: 76
+        x: 96
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -608,7 +616,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da135eb17326ee84f9355e3736e0eea4
+      spriteID: 250e7cb0545604619bbb038065207898
       internalID: -7175372319361646676
       vertices: []
       indices: 
@@ -618,8 +626,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_19
       rect:
         serializedVersion: 2
-        x: 152
-        y: 76
+        x: 128
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -629,7 +637,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc4e44240af59d443a1a80800f690031
+      spriteID: 1c464080df9e048fca4b52223106bd50
       internalID: -7647882774218309960
       vertices: []
       indices: 
@@ -640,7 +648,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 38
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -650,7 +658,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fce7ed8e46d73194894d1f5513d21d3b
+      spriteID: 205509e6ae93e449f9558746f5c74c0c
       internalID: -3542295685721467227
       vertices: []
       indices: 
@@ -660,8 +668,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_21
       rect:
         serializedVersion: 2
-        x: 38
-        y: 38
+        x: 32
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -671,7 +679,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: edd268ca16d0f8143a22deaf6c1c4600
+      spriteID: a461e934b00e34202b8408c55c26c7ba
       internalID: -8076291029264883859
       vertices: []
       indices: 
@@ -681,8 +689,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_22
       rect:
         serializedVersion: 2
-        x: 76
-        y: 38
+        x: 64
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -692,7 +700,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49ee7c4e29fcf2444ad556b671e286f9
+      spriteID: fc1b3fc269a774914bd1a3cb7797ec1c
       internalID: -3487811798477773700
       vertices: []
       indices: 
@@ -702,8 +710,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_23
       rect:
         serializedVersion: 2
-        x: 114
-        y: 38
+        x: 96
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -713,7 +721,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd85005d04aa2a6428de20c32d20cf6f
+      spriteID: ed76967aca333478883bc24aed738fab
       internalID: -5134054752372163016
       vertices: []
       indices: 
@@ -723,8 +731,8 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_24
       rect:
         serializedVersion: 2
-        x: 152
-        y: 38
+        x: 128
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -734,7 +742,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52716e9e8a31d2d489d27098d10ea2b5
+      spriteID: 61c177fbb93be4db09e12d4331d41815
       internalID: 6192572789505845407
       vertices: []
       indices: 
@@ -755,7 +763,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a848f68573ef7ff4cb742174621b4fe3
+      spriteID: be350ba4a803a4027847dee6c3f7903b
       internalID: -4897907173415269231
       vertices: []
       indices: 
@@ -765,7 +773,7 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_26
       rect:
         serializedVersion: 2
-        x: 38
+        x: 32
         y: 0
         width: 32
         height: 32
@@ -776,7 +784,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6af91661cd010c488f9457b39a395ad
+      spriteID: d6cca3687b2bb4d03995341adc5eb8d5
       internalID: 3803662930465603148
       vertices: []
       indices: 
@@ -786,7 +794,7 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_27
       rect:
         serializedVersion: 2
-        x: 76
+        x: 64
         y: 0
         width: 32
         height: 32
@@ -797,7 +805,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c36bc131687d22942bfd139bdc2aadb9
+      spriteID: c17c8b4a959464bfca1fcbd4217faca1
       internalID: -1076426586580465502
       vertices: []
       indices: 
@@ -807,7 +815,7 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_28
       rect:
         serializedVersion: 2
-        x: 114
+        x: 96
         y: 0
         width: 32
         height: 32
@@ -818,7 +826,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6138e4cf69e79114281168b5daf39239
+      spriteID: f602b6ccd314f4509a3f7cfdf19f8153
       internalID: -5576478142290952502
       vertices: []
       indices: 
@@ -828,7 +836,7 @@ TextureImporter:
       name: SPA_Rock_Grass_Water_29
       rect:
         serializedVersion: 2
-        x: 152
+        x: 128
         y: 0
         width: 32
         height: 32
@@ -839,7 +847,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd56fd1805f8221418aa00995a899baa
+      spriteID: fc585119bf0514e21afad78c33f7e0f1
       internalID: 3747544219709766277
       vertices: []
       indices: 
