@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(HorizontalScroll))]
 public class Detector : MonoBehaviour
 {
     private HorizontalScroll _movingWall;
