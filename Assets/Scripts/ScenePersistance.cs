@@ -3,19 +3,19 @@ using UnityEngine.SceneManagement;
 
 public class ScenePersistance : MonoBehaviour
 {
-    private static ScenePersistance _insance = null;
+    private static ScenePersistance _instance = null;
     private int _startingSceneIndex;
 
     private void Start()
     {
-        if (!_insance)
+        if (!_instance)
         {
-            _insance = this;
+            _instance = this;
             SceneManager.sceneLoaded += OnSceneLoaded;
             _startingSceneIndex = SceneManager.GetActiveScene().buildIndex;
             DontDestroyOnLoad(gameObject);
         }
-        else if (_insance != this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
         }
@@ -25,7 +25,7 @@ public class ScenePersistance : MonoBehaviour
     {
         if (_startingSceneIndex != SceneManager.GetActiveScene().buildIndex)
         {
-            _insance = null;
+            _instance = null;
             SceneManager.sceneLoaded -= OnSceneLoaded;
             Destroy(gameObject);
         }

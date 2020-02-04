@@ -44,10 +44,10 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-       IsAlive = false;
-       _animator.SetTrigger(_diedAnimation);
-       _rb2d.velocity = _deathKick;
+        IsAlive = false;
+        _animator.SetTrigger(_diedAnimation);
+        _rb2d.velocity = _deathKick;
 
-       FindObjectOfType<GameSession>().ProcessPlayerDeath();
+        FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 }

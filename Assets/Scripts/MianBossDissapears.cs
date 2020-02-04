@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class MianBossDissapears : MonoBehaviour
 {
     [SerializeField] private AudioClip _laughAudioClip;

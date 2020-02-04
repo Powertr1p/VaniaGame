@@ -17,10 +17,10 @@ public class HealthBarState : MonoBehaviour
 
     private void Update()
     {
-        ChangeAnimationUI();
+        ChangePlayerHealthUI();
     }
 
-    public void ChangeAnimationUI()
+    public void ChangePlayerHealthUI()
     {
         _image.sprite = _healthBars[_gameSession.PlayerLives];
     }
