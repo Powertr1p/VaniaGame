@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(HorizontalScroll))]
 public class Detector : MonoBehaviour
 {
     private HorizontalScroll _movingWall;

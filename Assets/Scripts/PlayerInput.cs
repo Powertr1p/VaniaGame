@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Player))]
-public class InputMovement : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
     public UnityAction OnAttack;
 

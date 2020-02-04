@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject _projectile;
@@ -13,7 +14,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponentInParent<InputMovement>().OnAttack += Attack;
+        GetComponentInParent<PlayerInput>().OnAttack += Attack;
     }
 
     private void Start()
@@ -23,7 +24,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Attack()
     {
-        if (!IsShooting && !GetComponentInParent<InputMovement>().IsClimbing)
+        if (!IsShooting && !GetComponentInParent<PlayerInput>().IsClimbing)
         {
             _animator.SetTrigger(_shootingAnimation);
             StartCoroutine(SpawnProjectile());
@@ -42,7 +43,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private void OnDisable()
     {
-        if (GetComponentInParent<InputMovement>() != null)
-            GetComponentInParent<InputMovement>().OnAttack -= Attack;
+        if (GetComponentInParent<PlayerInput>() != null)
+            GetComponentInParent<PlayerInput>().OnAttack -= Attack;
     }
 }

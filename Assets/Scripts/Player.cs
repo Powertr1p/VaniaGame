@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
-using UnityEngine.Events;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private Vector2 _deathKick;
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
     {
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-         _bodyCollider = GetComponent<CapsuleCollider2D>();
+        _bodyCollider = GetComponent<CapsuleCollider2D>();
     }
 
     private void Update()

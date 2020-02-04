@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Text))]
 public class CoinScoreChanger : MonoBehaviour
 {
     private GameSession _gameSession;
