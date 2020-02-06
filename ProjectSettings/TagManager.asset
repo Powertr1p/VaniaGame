@@ -22,7 +22,7 @@ TagManager:
   - Interactables
   - Projectile
   - GroundChecker
-  - 
+  - Environment
   - 
   - 
   - 
@@ -52,6 +52,9 @@ TagManager:
     locked: 0
   - name: Hazards
     uniqueID: 822170685
+    locked: 0
+  - name: Environment
+    uniqueID: 3593394503
     locked: 0
   - name: Interactables
     uniqueID: 1734361667
