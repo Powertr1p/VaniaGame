@@ -11,8 +11,10 @@ public class ScenePersistance : MonoBehaviour
         if (!_instance)
         {
             _instance = this;
+
             SceneManager.sceneLoaded += OnSceneLoaded;
             _startingSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            
             DontDestroyOnLoad(gameObject);
         }
         else if (_instance != this)
