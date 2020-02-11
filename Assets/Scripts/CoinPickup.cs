@@ -11,6 +11,7 @@ public class CoinPickup : MonoBehaviour
     private void Awake()
     {
         _gameSession = FindObjectOfType<GameSession>();
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -4,16 +4,23 @@ using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
+    private static GameSession _instance = null;
+    
+    public static GameSession Instance { get => _instance; }
+
     public int PlayerLives { get; private set; } = 3;
     public int CoinsCount { get; private set; }
 
     private void Awake()
     {
-        int numberGameSessions = FindObjectsOfType<GameSession>().Length;
-        if (numberGameSessions > 1)
-            Destroy(gameObject);
-        else
-            DontDestroyOnLoad(gameObject);
+        if (_instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        
+        _instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void ProcessPlayerDeath()
