@@ -3,15 +3,15 @@
 public class CoinPickup : MonoBehaviour
 {
     [SerializeField] private AudioClip _coinPickUpSFX;
-    [SerializeField] private GameSession _gameSession;
     [SerializeField] private int _coinsToAdd = 1;
+
+    private GameSession _gameSession;
 
     private bool _isCoinPassed;
 
     private void Awake()
     {
-        _gameSession = FindObjectOfType<GameSession>();
-        
+        _gameSession = GameSession.Instance;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
