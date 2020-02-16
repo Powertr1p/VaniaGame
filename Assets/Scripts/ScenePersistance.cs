@@ -6,21 +6,18 @@ public class ScenePersistance : MonoBehaviour
     private static ScenePersistance _instance = null;
     private int _startingSceneIndex;
 
-    private void Start()
+    private void Awake()
     {
-        if (!_instance)
+        if (_instance != null && _instance != this)
         {
-            _instance = this;
+            Destroy(this.gameObject);
+            return;
+        }
 
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            _startingSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (_instance != this)
-        {
-            Destroy(gameObject);
-        }
+        _instance = this;
+        DontDestroyOnLoad(this.gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        _startingSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
