@@ -1,21 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ScenePersistance : MonoBehaviour
+public class ScenePersistance : Singleton
 {
-    private static ScenePersistance _instance = null;
     private int _startingSceneIndex;
 
-    private void Awake()
+    private void Start()
     {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-
-        _instance = this;
-        DontDestroyOnLoad(this.gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
         _startingSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
@@ -24,7 +15,7 @@ public class ScenePersistance : MonoBehaviour
     {
         if (_startingSceneIndex != SceneManager.GetActiveScene().buildIndex)
         {
-            _instance = null;
+            Instance = null;
             SceneManager.sceneLoaded -= OnSceneLoaded;
             Destroy(gameObject);
         }
