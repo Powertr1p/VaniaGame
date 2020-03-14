@@ -99,7 +99,7 @@ public class PlayerInput : MonoBehaviour
             if (_jumpTimeCounter > 0)
             {
                 _rb2d.velocity += jumpVelocity;
-                _jumpTimeCounter -= Time.deltaTime;
+                _jumpTimeCounter -= Time.fixedDeltaTime;
             }
             else
             {
