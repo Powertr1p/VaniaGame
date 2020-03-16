@@ -30,14 +30,6 @@ public class PlayerInput : MonoBehaviour
     private bool _isRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
     private bool _canMove => _player.IsAlive;
 
-    #region CONST_STRINGS
-    private const string _runningAnimation = "Running";
-    private const string _climbingAnimation = "Climbing";
-    private const string _climbingAnimationSpeed = "ClimbingSpeed";
-    private const string _ladderLayer = "Ladder";
-    private const string _groundLayer = "Ground";
-    #endregion
-
     private void Start()
     {
         _player = GetComponent<Player>();
@@ -68,7 +60,7 @@ public class PlayerInput : MonoBehaviour
 
         SwapSpriteFacing(direction);
 
-        _animator.SetBool(_runningAnimation, _isRunning);
+        _animator.SetBool(Constants.Running, _isRunning);
     }
 
     private void SwapSpriteFacing(float direction)
@@ -82,8 +74,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Jump()
     {
-        bool isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(_groundLayer));
-        bool isLadder = _feetCollider.IsTouchingLayers(LayerMask.GetMask(_ladderLayer));
+        bool isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
+        bool isLadder = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ladder));
 
         Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
 
@@ -113,7 +105,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Climbing()
     {
-        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(_ladderLayer)))
+        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ladder)))
         {
             EndClimbing();
             return;
@@ -127,7 +119,7 @@ public class PlayerInput : MonoBehaviour
     {
         IsClimbing = false;
         _rb2d.gravityScale = _normalGravityScale;
-        _animator.SetBool(_climbingAnimation, false);
+        _animator.SetBool(Constants.Climbing, false);
     }
 
     private void StartClimbing()
@@ -136,7 +128,7 @@ public class PlayerInput : MonoBehaviour
         float direction = CrossPlatformInputManager.GetAxisRaw("Vertical");
         Vector2 climbVelocity = new Vector2(_rb2d.velocity.x, direction * _climbSpeed);
         _rb2d.velocity = climbVelocity;
-        _animator.SetBool(_climbingAnimation, true);
+        _animator.SetBool(Constants.Climbing, true);
         IsClimbing = true;
     }
 
@@ -144,7 +136,7 @@ public class PlayerInput : MonoBehaviour
     {
         bool isMovingVertical = Mathf.Abs(_rb2d.velocity.y) > Mathf.Epsilon;
         int animationSpeed = isMovingVertical ? 1 : 0;
-        _animator.SetFloat(_climbingAnimationSpeed, animationSpeed);
+        _animator.SetFloat(Constants.ClimbingSpeed, animationSpeed);
     }
 
     private void Attack()
