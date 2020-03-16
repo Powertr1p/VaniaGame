@@ -9,4 +9,7 @@ public class Constants
     public const string ClimbingSpeed = "ClimbingSpeed";
     public const string Ladder = "Ladder";
     public const string Ground = "Ground";
+    public const string Died = "Died";
+    public const string Enemy = "Enemy";
+    public const string Hazards = "Hazards";
 }

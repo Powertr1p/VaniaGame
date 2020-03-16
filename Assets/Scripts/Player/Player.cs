@@ -13,12 +13,6 @@ public class Player : MonoBehaviour
     private Animator _animator;
     private CapsuleCollider2D _bodyCollider;
 
-    #region CONST_STRINGS
-    private const string _diedAnimation = "Died";
-    private const string _enemyLayer = "Enemy";
-    private const string _hazardsLayer = "Hazards";
-    #endregion
-
     private void Start()
     {
         _rb2d = GetComponent<Rigidbody2D>();
@@ -34,9 +28,9 @@ public class Player : MonoBehaviour
 
     private bool IsKilled()
     {
-        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(_enemyLayer)))
+        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Enemy)))
             return true;
-        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(_hazardsLayer)))
+        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Hazards)))
             return true;
         else
             return false;
@@ -45,7 +39,7 @@ public class Player : MonoBehaviour
     private void Die()
     {
         IsAlive = false;
-        _animator.SetTrigger(_diedAnimation);
+        _animator.SetTrigger(Constants.Died);
         _rb2d.velocity = _deathKick;
 
         FindObjectOfType<GameSession>().ProcessPlayerDeath();
