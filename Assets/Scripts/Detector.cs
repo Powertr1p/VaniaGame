@@ -11,7 +11,7 @@ public class Detector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Player>())
+        if (collision.gameObject.GetComponent<PlayerState>())
         {
             _movingWall.IsStarted = true;
             _movingWall.DestroyItself();

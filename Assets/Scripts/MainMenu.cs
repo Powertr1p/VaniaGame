@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerState _player;
 
     private void Start()
     {

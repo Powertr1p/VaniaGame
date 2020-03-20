@@ -3,7 +3,7 @@
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-public class Player : MonoBehaviour
+public class PlayerState : MonoBehaviour
 {
     [SerializeField] private Vector2 _deathKick;
 
