@@ -44,10 +44,6 @@ public class PlayerInput : MonoBehaviour
 
         Movement();
         Jump();
-        Climbing();
-
-        if (CrossPlatformInputManager.GetButtonDown("Fire1"))
-            Attack();
     }
 
     private void Movement()
@@ -70,11 +66,10 @@ public class PlayerInput : MonoBehaviour
     private void Jump()
     {
         bool isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
-        bool isLadder = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ladder));
 
         Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
 
-        if (CrossPlatformInputManager.GetButtonDown("Jump") && (isGrounded || isLadder))
+        if (CrossPlatformInputManager.GetButtonDown("Jump") && (isGrounded))
         {
             _isJumping = true;
             _jumpTimeCounter = _jumpTime;
@@ -96,42 +91,6 @@ public class PlayerInput : MonoBehaviour
 
         if (CrossPlatformInputManager.GetButtonUp("Jump"))
             _isJumping = false;
-    }
-
-    private void Climbing()
-    {
-        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ladder)))
-        {
-            EndClimbing();
-            return;
-        }
-
-        StartClimbing();
-        SwitchClimbingAnimation();
-    }
-
-    private void EndClimbing()
-    {
-        IsClimbing = false;
-        _rb2d.gravityScale = _normalGravityScale;
-        _animator.SetBool(Constants.Climbing, false);
-    }
-
-    private void StartClimbing()
-    {
-        _rb2d.gravityScale = 0F;
-        float direction = CrossPlatformInputManager.GetAxisRaw("Vertical");
-        Vector2 climbVelocity = new Vector2(_rb2d.velocity.x, direction * _climbSpeed);
-        _rb2d.velocity = climbVelocity;
-        _animator.SetBool(Constants.Climbing, true);
-        IsClimbing = true;
-    }
-
-    private void SwitchClimbingAnimation()
-    {
-        bool isMovingVertical = Mathf.Abs(_rb2d.velocity.y) > Mathf.Epsilon;
-        int animationSpeed = isMovingVertical ? 1 : 0;
-        _animator.SetFloat(Constants.ClimbingSpeed, animationSpeed);
     }
 
     private void Attack()
