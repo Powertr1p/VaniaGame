@@ -42,6 +42,6 @@ public class Player : MonoBehaviour
         _animator.SetTrigger(Constants.Died);
         _rb2d.velocity = _deathKick;
 
-        FindObjectOfType<GameSession>().ProcessPlayerDeath();
+        FindObjectOfType<GameSession>().RestartLevel();
     }
 }
