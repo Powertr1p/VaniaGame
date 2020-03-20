@@ -21,8 +21,14 @@ public class GameSession : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void RestartLevel()
+    public void PlayerDeath()
     {
+        StartCoroutine(RestartLevel());
+    }
+
+    private IEnumerator RestartLevel()
+    {
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
