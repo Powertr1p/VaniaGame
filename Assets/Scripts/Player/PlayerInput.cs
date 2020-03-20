@@ -20,7 +20,6 @@ public class PlayerInput : MonoBehaviour
     private float _jumpTimeCounter;
 
     private Player _player;
-    private PlayerWeapon _weapon;
 
     private Rigidbody2D _rb2d;
     private Animator _animator;
@@ -36,7 +35,6 @@ public class PlayerInput : MonoBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _feetCollider = GetComponent<BoxCollider2D>();
-        _weapon = GetComponentInChildren<PlayerWeapon>();
         _normalGravityScale = _rb2d.gravityScale;
     }
 
@@ -66,10 +64,7 @@ public class PlayerInput : MonoBehaviour
     private void SwapSpriteFacing(float direction)
     {
         if (_isRunning)
-        {
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
-            _weapon.transform.localScale = transform.localScale;
-        }
     }
 
     private void Jump()
