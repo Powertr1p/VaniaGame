@@ -8,13 +8,13 @@ using DG.Tweening;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(PlayerState))]
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Player Config")]
     [SerializeField] private float _movementSpeed = 5f;
     [SerializeField] private float _jumpSpeed = 2.5f;
     [SerializeField] private float _jumpTime = 0.11f;
-    [SerializeField] private float _climbSpeed = 5f;
 
     private bool _isJumping;
     private float _jumpTimeCounter;
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D _feetCollider;
 
     private bool _isRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
-    private bool _canMove => _player.IsAlive;
+    public bool CanMove => _player.IsAlive;
 
     private void Start()
     {
@@ -36,17 +36,8 @@ public class PlayerMovement : MonoBehaviour
         _feetCollider = GetComponent<BoxCollider2D>();
     }
 
-    private void Update()
+    public void TryMove(float direction)
     {
-        if (!_canMove) { return; }
-
-        Movement();
-        Jump();
-    }
-
-    private void Movement()
-    {
-        float direction = CrossPlatformInputManager.GetAxisRaw("Horizontal");
         Vector2 playerVelocity = new Vector2(direction * _movementSpeed, _rb2d.velocity.y);
         _rb2d.velocity = playerVelocity;
 
@@ -60,20 +51,20 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
     }
 
-    private void Jump()
+    public void TryJump()
     {
         bool isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
 
         Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
 
-        if (CrossPlatformInputManager.GetButtonDown("Jump") && (isGrounded))
+        if (isGrounded)
         {
             _isJumping = true;
             _jumpTimeCounter = _jumpTime;
             _rb2d.velocity += jumpVelocity;
         }
 
-        if (CrossPlatformInputManager.GetButton("Jump") && _isJumping)
+        if (_isJumping)
         {
             if (_jumpTimeCounter > 0)
             {
@@ -89,5 +80,4 @@ public class PlayerMovement : MonoBehaviour
         if (CrossPlatformInputManager.GetButtonUp("Jump"))
             _isJumping = false;
     }
-
 }
