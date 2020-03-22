@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
-using DG.Tweening;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -57,10 +53,13 @@ public class PlayerMovement : MonoBehaviour
     {
         _isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
         _isInAir = !_isGrounded;
+
+        if (_isGrounded)
+            _canDoubleJump = true;
     }
 
     public void TryJump()
-    {   
+    {
         if (_isGrounded)
         {
             _canDoubleJump = true;
