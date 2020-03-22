@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
-        _isInAir = !_isGrounded;
 
         if (_isGrounded)
             _canDoubleJump = true;
@@ -63,10 +62,9 @@ public class PlayerMovement : MonoBehaviour
         if (_isGrounded)
         {
             _canDoubleJump = true;
-            _isInAir = false;
             _rb2d.velocity = Vector2.up * _jumpSpeed;
         }
-        else if (_canDoubleJump && _isInAir)
+        else if (_canDoubleJump && !_isGrounded)
         {
             _rb2d.velocity = Vector2.up * _jumpSpeed;
             _canDoubleJump = false;
