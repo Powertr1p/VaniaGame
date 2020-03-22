@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpTime = 0.11f;
 
     private bool _isJumping;
+    private bool _canDoubleJump;
     private float _jumpTimeCounter;
 
     private PlayerState _player;
@@ -51,33 +52,29 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
     }
 
+    private void FixedUpdate()
+    {
+        if (!_isJumping) return;
+
+        TryJump();
+    }
+
     public void TryJump()
     {
         bool isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
-
-        Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
-
         if (isGrounded)
         {
-            _isJumping = true;
-            _jumpTimeCounter = _jumpTime;
-            _rb2d.velocity += jumpVelocity;
+            _canDoubleJump = true;
+            _rb2d.velocity = Vector2.up * _jumpSpeed;
         }
-
-        if (_isJumping)
+        else
         {
-            if (_jumpTimeCounter > 0)
+            if (_canDoubleJump)
             {
-                _rb2d.velocity += jumpVelocity;
-                _jumpTimeCounter -= Time.fixedDeltaTime;
-            }
-            else
-            {
-                _isJumping = false;
+                _rb2d.velocity = Vector2.up * _jumpSpeed;
+                _canDoubleJump = false;
             }
         }
-
-        if (CrossPlatformInputManager.GetButtonUp("Jump"))
-            _isJumping = false;
+            
     }
 }

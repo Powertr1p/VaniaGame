@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 5
-  _jumpSpeed: 9
+  _jumpSpeed: 1.7
   _jumpTime: 0.11
 --- !u!61 &8152279515433644778
 BoxCollider2D:
