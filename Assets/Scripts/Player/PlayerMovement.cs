@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _movementSpeed = 6f;
     [SerializeField] private float _jumpVelocity;
     [SerializeField] private float _dashSpeed = 6f;
-    [SerializeField] private float _dashCooldown = 5f;
     private float _originalMovementSpeedValue;
 
     private bool _canDoubleJump;
@@ -28,13 +27,16 @@ public class PlayerMovement : MonoBehaviour
 
     public bool CanMove => _player.IsAlive;
 
-    private void Start()
+    private void Awake()
     {
         _player = GetComponent<PlayerState>();
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _feetCollider = GetComponent<BoxCollider2D>();
+    }
 
+    private void Start()
+    {
         _originalMovementSpeedValue = _movementSpeed;
     }
 
