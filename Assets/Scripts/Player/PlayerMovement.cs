@@ -9,12 +9,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Player Config")]
     [SerializeField] private float _movementSpeed = 5f;
-    [SerializeField] private float _jumpSpeed = 2.5f;
-    [SerializeField] private float _jumpTime = 0.11f;
+    [SerializeField] private float _jumpVelocity;
 
-    private bool _isInAir;
     private bool _canDoubleJump;
-    private float _jumpTimeCounter;
     private bool _isGrounded;
 
     private PlayerState _player;
@@ -62,11 +59,11 @@ public class PlayerMovement : MonoBehaviour
         if (_isGrounded)
         {
             _canDoubleJump = true;
-            _rb2d.velocity = Vector2.up * _jumpSpeed;
+            _rb2d.velocity = Vector2.up * _jumpVelocity;
         }
         else if (_canDoubleJump && !_isGrounded)
         {
-            _rb2d.velocity = Vector2.up * _jumpSpeed;
+            _rb2d.velocity = Vector2.up * _jumpVelocity;
             _canDoubleJump = false;
         }
     }
