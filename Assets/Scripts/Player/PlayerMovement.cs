@@ -13,11 +13,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _movementSpeed = 6f;
     [SerializeField] private float _jumpVelocity;
     [SerializeField] private float _dashSpeed = 6f;
+    [SerializeField] private float _dashCooldown = 5f;
     private float _originalMovementSpeedValue;
 
     private bool _canDoubleJump;
     private bool _isGrounded;
-
     private PlayerState _player;
 
     private Rigidbody2D _rb2d;
@@ -61,13 +61,15 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
     }
 
-    public void TryDash()
+    public IEnumerator TryDash()
     {
+        yield return new WaitUntil(() => _isGrounded);
         _movementSpeed += _dashSpeed;
     }
 
-    public void StopDash()
+    public IEnumerator StopDash()
     {
+        yield return new WaitUntil(() => _isGrounded);
         _movementSpeed = _originalMovementSpeedValue;
     }
 
