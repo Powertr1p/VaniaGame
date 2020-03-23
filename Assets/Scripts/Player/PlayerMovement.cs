@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -8,8 +10,10 @@
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Player Config")]
-    [SerializeField] private float _movementSpeed = 5f;
+    [SerializeField] private float _movementSpeed = 6f;
     [SerializeField] private float _jumpVelocity;
+    [SerializeField] private float _dashSpeed = 6f;
+    private float _originalMovementSpeedValue;
 
     private bool _canDoubleJump;
     private bool _isGrounded;
@@ -21,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D _feetCollider;
 
     private bool _isRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
+
     public bool CanMove => _player.IsAlive;
 
     private void Start()
@@ -29,6 +34,16 @@ public class PlayerMovement : MonoBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _feetCollider = GetComponent<BoxCollider2D>();
+
+        _originalMovementSpeedValue = _movementSpeed;
+    }
+
+    private void FixedUpdate()
+    {
+        _isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
+
+        if (_isGrounded)
+            _canDoubleJump = true;
     }
 
     public void TryMove(float direction)
@@ -46,12 +61,14 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
     }
 
-    private void FixedUpdate()
+    public void TryDash()
     {
-        _isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
+        _movementSpeed += _dashSpeed;
+    }
 
-        if (_isGrounded)
-            _canDoubleJump = true;
+    public void StopDash()
+    {
+        _movementSpeed = _originalMovementSpeedValue;
     }
 
     public void TryJump()
