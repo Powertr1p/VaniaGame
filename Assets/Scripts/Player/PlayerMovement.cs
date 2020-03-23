@@ -63,9 +63,9 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
     }
 
-    public IEnumerator TryDash()
+    public void TryDash()
     {
-        yield return new WaitUntil(() => _isGrounded);
+        if (!_isGrounded) return;
         _movementSpeed += _dashSpeed;
     }
 
