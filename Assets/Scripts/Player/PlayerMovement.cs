@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
-using DG.Tweening;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -16,8 +12,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpSpeed = 2.5f;
     [SerializeField] private float _jumpTime = 0.11f;
 
-    private bool _isJumping;
+    private bool _isInAir;
+    private bool _canDoubleJump;
     private float _jumpTimeCounter;
+    private bool _isGrounded;
 
     private PlayerState _player;
 
@@ -51,33 +49,25 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
     }
 
+    private void FixedUpdate()
+    {
+        _isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
+
+        if (_isGrounded)
+            _canDoubleJump = true;
+    }
+
     public void TryJump()
     {
-        bool isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
-
-        Vector2 jumpVelocity = new Vector2(0f, _jumpSpeed);
-
-        if (isGrounded)
+        if (_isGrounded)
         {
-            _isJumping = true;
-            _jumpTimeCounter = _jumpTime;
-            _rb2d.velocity += jumpVelocity;
+            _canDoubleJump = true;
+            _rb2d.velocity = Vector2.up * _jumpSpeed;
         }
-
-        if (_isJumping)
+        else if (_canDoubleJump && !_isGrounded)
         {
-            if (_jumpTimeCounter > 0)
-            {
-                _rb2d.velocity += jumpVelocity;
-                _jumpTimeCounter -= Time.fixedDeltaTime;
-            }
-            else
-            {
-                _isJumping = false;
-            }
+            _rb2d.velocity = Vector2.up * _jumpSpeed;
+            _canDoubleJump = false;
         }
-
-        if (CrossPlatformInputManager.GetButtonUp("Jump"))
-            _isJumping = false;
     }
 }
