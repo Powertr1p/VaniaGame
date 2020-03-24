@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -12,11 +13,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Config")]
     [SerializeField] private float _movementSpeed = 6f;
     [SerializeField] private float _jumpVelocity;
-    [SerializeField] private float _dashSpeed = 6f;
     private float _originalMovementSpeedValue;
 
     private bool _canDoubleJump;
     private bool _isGrounded;
+    private bool _canDash = true;
+
     private PlayerState _player;
 
     private Rigidbody2D _rb2d;
@@ -63,16 +65,40 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
     }
 
-    public void TryDash()
+    public IEnumerator TryDash(float direction)
     {
-        if (!_isGrounded) return;
-        _movementSpeed += _dashSpeed;
+       if (_canDash)
+        {
+            _canDash = false;
+            
+            if (direction == 0)
+            {
+                
+            }
+            else
+            {
+                _movementSpeed += 20f;
+                _rb2d.gravityScale = 0;
+            }
+        }
+
+        yield return new WaitForSeconds(0.15f);
+        StartCoroutine(TryStopDash());
     }
 
-    public IEnumerator StopDash()
+    private IEnumerator TryStopDash()
     {
-        yield return new WaitUntil(() => _isGrounded);
+        _rb2d.gravityScale = 1;
         _movementSpeed = _originalMovementSpeedValue;
+        yield return new WaitForSeconds(2f);
+        _canDash = true;
+    }
+
+    public void TryDash2(float direction)
+    {
+        _rb2d.velocity = Vector2.zero;
+        Vector2 dashedVector = new Vector2(direction, 0);
+        _rb2d.velocity += dashedVector.normalized * 100f;
     }
 
     public void TryJump()
