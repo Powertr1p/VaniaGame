@@ -77,7 +77,8 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                _movementSpeed += 20f;
+                _movementSpeed += 20f; 
+                _rb2d.velocity = Vector2.zero;
                 _rb2d.gravityScale = 0;
             }
         }
