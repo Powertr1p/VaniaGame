@@ -92,11 +92,6 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(TryStopDash());
     }
 
-    private void PerformDash(float direction, float movementSpeed)
-    {
-        
-    }
-
     private IEnumerator TryStopDash()
     {
         _rb2d.gravityScale = 1;
