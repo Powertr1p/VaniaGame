@@ -78,17 +78,19 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator TryDash(float direction)
     {
-        if (!_canDash || _isDashing) yield return null;
+        if (_canDash)
+        { 
+            _canDash = false;
+            _isDashing = true;
 
-        _canDash = false;
-        _isDashing = true;
+            _rb2d.gravityScale = 0;
+            _rb2d.velocity = Vector2.zero;
+            _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed + _dashSpeed);
+            yield return new WaitForSeconds(_dashingTime);
 
-        _rb2d.gravityScale = 0;
-        _rb2d.velocity = Vector2.zero;
-        _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed + _dashSpeed);
-        yield return new WaitForSeconds(_dashingTime);
+            StartCoroutine(TryStopDash());
+        }
 
-        StartCoroutine(TryStopDash());
     }
 
     private IEnumerator TryStopDash()
