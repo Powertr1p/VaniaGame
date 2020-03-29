@@ -85,8 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
         _rb2d.gravityScale = 0;
         _rb2d.velocity = Vector2.zero;
-        //разобраться с локалскейл и взять последнее сохр не нулевое значение инпута
-        _rb2d.velocity = GetPlayerVelocityBasedOnDirection(transform.localScale.x, _movementSpeed + _dashSpeed);
+        _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed + _dashSpeed);
         yield return new WaitForSeconds(_dashingTime);
 
         StartCoroutine(TryStopDash());

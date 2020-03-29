@@ -10,14 +10,13 @@ public class PlayerInput : MonoBehaviour
     {
         if (!_movement.CanMove) return;
 
-        float direction = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-        _movement.TryMove(direction);
+        InputDirectionHandler.StoreLastDirection(CrossPlatformInputManager.GetAxisRaw("Horizontal"));
+        _movement.TryMove(InputDirectionHandler.CurrentDirection);
 
         if (CrossPlatformInputManager.GetButtonDown("Jump"))
             _movement.TryJump();
 
         if (CrossPlatformInputManager.GetButtonDown("Shift"))
-            StartCoroutine(_movement.TryDash(direction));
-
+            StartCoroutine(_movement.TryDash(InputDirectionHandler.LastDirection));
     }
 }
