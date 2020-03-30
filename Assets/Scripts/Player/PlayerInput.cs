@@ -14,7 +14,7 @@ public class PlayerInput : MonoBehaviour
         _movement.TryMove(InputDirectionHandler.CurrentDirection);
 
         if (CrossPlatformInputManager.GetButtonDown("Jump"))
-            _movement.TryJump();
+            _movement.TryJump(InputDirectionHandler.CurrentDirection);
 
         if (CrossPlatformInputManager.GetButtonDown("Shift"))
             StartCoroutine(_movement.TryDash(InputDirectionHandler.SavedDirection));

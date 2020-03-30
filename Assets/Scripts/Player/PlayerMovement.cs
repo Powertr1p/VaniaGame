@@ -13,14 +13,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Config")]
     [SerializeField] private float _movementSpeed = 6f;
     [SerializeField] private float _jumpVelocity;
-    private float _dashSpeed = 20f;
-    private float _dashCooldown = 2f;
-    private float _dashingTime = 0.15f;
+    [SerializeField] private float _dashSpeed = 20f;
+    [SerializeField] private float _dashCooldown = 2f;
+    [SerializeField] private float _dashingTime = 0.15f;
 
     private float _originalMovementSpeedValue;
 
     private bool _canDoubleJump;
-    private bool _isGrounded;
+    //private bool _isGrounded;
     private bool _canDash = true;
     private bool _isDashing;
 
@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb2d;
     private Animator _animator;
     private BoxCollider2D _feetCollider;
+    private Collisions _collisions;
+    private float _lastJumpedDirection;
 
     private bool _isRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
 
@@ -40,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _feetCollider = GetComponent<BoxCollider2D>();
+        _collisions = GetComponent<Collisions>();
     }
 
     private void Start()
@@ -49,15 +52,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _isGrounded = _feetCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Ground));
-
-        if (_isGrounded)
+        if (_collisions.IsGrounded)
             _canDoubleJump = true;
+
+        if (_collisions.IsOnWall)
+            PerformWallSlide();
     }
 
     public void TryMove(float direction)
     {
-        if (_isDashing) return;
+        if (_isDashing || _collisions.IsOnWall) return;
 
         _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
 
@@ -65,6 +69,35 @@ public class PlayerMovement : MonoBehaviour
 
         _animator.SetBool(Constants.Running, _isRunning);
     }
+
+    public void TryJump(float direction)
+    {
+        if (_collisions.IsGrounded)
+        {
+            _canDoubleJump = true;
+            _rb2d.velocity = Vector2.up * _jumpVelocity;
+        }
+        else if (_canDoubleJump && !_collisions.IsGrounded && !_collisions.IsOnWall)
+        {
+            _rb2d.velocity = Vector2.up * _jumpVelocity;
+            _canDoubleJump = false;
+        }
+        else
+        {
+            TryWallJump(direction);
+        }
+    }
+
+    private void TryWallJump(float direction)  //первичный прототип, надо отрефакторить нормально
+    {
+        if (_collisions.IsOnWall && !_collisions.IsGrounded && direction == transform.localScale.x * -1) //убрать зависимость от трансформа, сделать более гибкой
+        {
+            Vector2 force = new Vector2(10f * direction, 700f); //вывести литералы в инспектор
+            _rb2d.velocity = Vector2.zero;
+            _rb2d.AddForce(force);
+        }
+    }
+
     private void SwapSpriteFacing(float direction)
     {
         if (_isRunning)
@@ -88,12 +121,11 @@ public class PlayerMovement : MonoBehaviour
             _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed + _dashSpeed);
             yield return new WaitForSeconds(_dashingTime);
 
-            StartCoroutine(TryStopDash());
+            StartCoroutine(StopDashAndActivateCooldown());
         }
-
     }
 
-    private IEnumerator TryStopDash()
+    private IEnumerator StopDashAndActivateCooldown()
     {
         _rb2d.gravityScale = 1;
         _movementSpeed = _originalMovementSpeedValue;
@@ -102,17 +134,8 @@ public class PlayerMovement : MonoBehaviour
         _canDash = true;
     }
 
-    public void TryJump()
+    private void PerformWallSlide()
     {
-        if (_isGrounded)
-        {
-            _canDoubleJump = true;
-            _rb2d.velocity = Vector2.up * _jumpVelocity;
-        }
-        else if (_canDoubleJump && !_isGrounded)
-        {
-            _rb2d.velocity = Vector2.up * _jumpVelocity;
-            _canDoubleJump = false;
-        }
+        _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
     }
 }
