@@ -10,7 +10,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (!_movement.CanMove) return;
 
-        InputDirectionHandler.StoreLastDirection(CrossPlatformInputManager.GetAxisRaw("Horizontal"));
+        InputDirectionHandler.StoreLastNonZeroDirection(CrossPlatformInputManager.GetAxisRaw("Horizontal"));
         _movement.TryMove(InputDirectionHandler.CurrentDirection);
 
         if (CrossPlatformInputManager.GetButtonDown("Jump"))

@@ -6,7 +6,7 @@
     public static float SavedDirection { get => _savedDirection; }
     public static float CurrentDirection { get => _currentDirection; }
 
-    public static void StoreLastDirection(float direction)
+    public static void StoreLastNonZeroDirection(float direction)
     {
         _currentDirection = direction;
 
