@@ -70,19 +70,17 @@ public class PlayerMovement : MonoBehaviour
     public void TryJump(float direction)
     {
         if (_collisions.IsGrounded)
-        {
-            _canDoubleJump = true;
-            _rb2d.velocity = Vector2.up * _jumpVelocity;
-        }
+            Jump(true);
         else if (_canDoubleJump && !_collisions.IsGrounded && !_collisions.IsOnWall)
-        {
-            _rb2d.velocity = Vector2.up * _jumpVelocity;
-            _canDoubleJump = false;
-        }
+            Jump(false);
         else
-        {
             TryWallJump(direction);
-        }
+    }
+
+    private void Jump(bool canExtraJump)
+    {
+        _canDoubleJump = canExtraJump;
+        _rb2d.velocity = Vector2.up * _jumpVelocity;
     }
 
     private void TryWallJump(float direction)  //первичный прототип, надо отрефакторить нормально
