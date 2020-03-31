@@ -4,7 +4,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(PlayerState))]
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
@@ -12,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Config")]
     [SerializeField] private float _movementSpeed = 6f;
     [SerializeField] private float _jumpVelocity;
+    [Space]
     [SerializeField] private float _dashSpeed = 20f;
     [SerializeField] private float _dashCooldown = 2f;
     [SerializeField] private float _dashingTime = 0.15f;
