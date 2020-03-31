@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -17,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _dashCooldown = 2f;
     [SerializeField] private float _dashingTime = 0.15f;
 
+    public event Action OnDirectionChanged;
+
     private float _originalMovementSpeedValue;
 
     private bool _canDoubleJump;
@@ -30,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private Collisions _collisions;
     private float _lastJumpedDirection;
 
-    private bool _isRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
+    public bool IsRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
 
     public bool CanMove => _player.IsAlive;
 
@@ -62,9 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
         _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
 
-        SwapSpriteFacing(direction);
-
-        _animator.SetBool(Constants.Running, _isRunning);
+        _animator.SetBool(Constants.Running, IsRunning); //вывести в отдельный компонент
     }
 
     public void TryJump(float direction)
@@ -77,9 +76,9 @@ public class PlayerMovement : MonoBehaviour
             TryWallJump(direction);
     }
 
-    private void Jump(bool canExtraJump)
+    private void Jump(bool canDoExtraJump)
     {
-        _canDoubleJump = canExtraJump;
+        _canDoubleJump = canDoExtraJump;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
     }
 
@@ -91,12 +90,6 @@ public class PlayerMovement : MonoBehaviour
             _rb2d.velocity = Vector2.zero;
             _rb2d.AddForce(force);
         }
-    }
-
-    private void SwapSpriteFacing(float direction)
-    {
-        if (_isRunning)
-            transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
     }
 
     private Vector2 GetPlayerVelocityBasedOnDirection(float direction, float movementSpeed)
