@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     private float _originalMovementSpeedValue;
 
     private bool _canDoubleJump;
-    //private bool _isGrounded;
     private bool _canDash = true;
     private bool _isDashing;
 
@@ -28,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D _rb2d;
     private Animator _animator;
-    private BoxCollider2D _feetCollider;
     private Collisions _collisions;
     private float _lastJumpedDirection;
 
@@ -41,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
         _player = GetComponent<PlayerState>();
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        _feetCollider = GetComponent<BoxCollider2D>();
         _collisions = GetComponent<Collisions>();
     }
 
