@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private Collisions _collisions;
     private float _lastJumpedDirection;
 
-    public bool IsRunning => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
+    public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
 
     public bool CanMove => _player.IsAlive;
 
@@ -63,7 +63,9 @@ public class PlayerMovement : MonoBehaviour
 
         _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
 
-        _animator.SetBool(Constants.Running, IsRunning); //вывести в отдельный компонент
+        _animator.SetBool(Constants.Running, IsRunning()); //вывести в отдельный компонент
+
+        Debug.Log(_rb2d.velocity.x);
     }
 
     public void TryJump(float direction)

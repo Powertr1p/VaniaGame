@@ -4,7 +4,7 @@
 public class PlayerSpriteFacingHandler : MonoBehaviour
 {
     private PlayerMovement _movement;
-    private bool CanSwapFacing() => _movement.IsRunning;
+    private bool CanSwapFacing() => _movement.IsRunning();
 
     private void Start()
     {
@@ -19,6 +19,7 @@ public class PlayerSpriteFacingHandler : MonoBehaviour
 
     private void SwapSpriteFacing(float direction)
     {
+        if (direction != 0)
             transform.localScale = new Vector2(Mathf.Sign(direction), transform.localScale.y);
     }
 }

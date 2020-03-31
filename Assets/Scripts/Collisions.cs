@@ -41,19 +41,11 @@ public class Collisions : MonoBehaviour
     private void CheckForWallSlide() //первичный прототип, надо отрефакторить нормально
     {
         if (_isOnRightWall && _facingDirection == 1 && _rb2d.velocity.y < 0 && !_isGrounded)
-        {
-            if (_rb2d.velocity.y > 0) return;
             _isOnWall = true;
-        }
         else if (_isOnLeftWall && _facingDirection == -1 && _rb2d.velocity.y < 0 && !_isGrounded)
-        {
-            if (_rb2d.velocity.y > 0) return;
             _isOnWall = true;
-        }
         else
-        {
             _isOnWall = false;
-        }
     }
 
     private bool IsCollided(Vector2 position, float collisionRadius, LayerMask layer)
