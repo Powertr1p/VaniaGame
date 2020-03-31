@@ -16,8 +16,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _dashCooldown = 2f;
     [SerializeField] private float _dashingTime = 0.15f;
 
-    public event Action OnDirectionChanged;
-
     private float _originalMovementSpeedValue;
 
     private bool _canDoubleJump;

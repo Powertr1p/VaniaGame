@@ -29,7 +29,6 @@ public class Collisions : MonoBehaviour
     private void FixedUpdate()
     {
         _isGrounded = IsCollided((Vector2)transform.position + _bottomOffset, _collisionRadius, _groundLayer);
-
         _isOnRightWall = IsCollided((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer);
         _isOnLeftWall = IsCollided((Vector2)transform.position + _leftOffset, _collisionRadius, _groundLayer);
 
@@ -40,9 +39,9 @@ public class Collisions : MonoBehaviour
 
     private void CheckForWallSlide() //первичный прототип, надо отрефакторить нормально
     {
-        if (_isOnRightWall && _facingDirection == 1 && _rb2d.velocity.y < 0 && !_isGrounded)
+        if (_isOnRightWall && _facingDirection == 1 && _rb2d.velocity.y < 0 && !_isGrounded && _rb2d.velocity.x > 0)
             _isOnWall = true;
-        else if (_isOnLeftWall && _facingDirection == -1 && _rb2d.velocity.y < 0 && !_isGrounded)
+        else if (_isOnLeftWall && _facingDirection == -1 && _rb2d.velocity.y < 0 && !_isGrounded && _rb2d.velocity.x < 0)
             _isOnWall = true;
         else
             _isOnWall = false;
