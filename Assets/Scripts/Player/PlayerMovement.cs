@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb2d;
     private Animator _animator;
     private Collisions _collisions;
-    private float _lastJumpedDirection;
+    private PlayerInput _input;
 
     public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
 
@@ -35,9 +35,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<PlayerInput>().OnJumpButtonPressed += TryJump;
-        GetComponent<PlayerInput>().OnMovementButtonPressed += TryMove;
-        GetComponent<PlayerInput>().OnDashButtonPressed += TryDash;
+        _input.OnJumpButtonPressed += TryJump;
+        _input.OnMovementButtonPressed += TryMove;
+        _input.OnDashButtonPressed += TryDash;
     }
 
     private void Awake()
@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _collisions = GetComponent<Collisions>();
+        _input = GetComponent<PlayerInput>();
     }
 
     private void Start()
