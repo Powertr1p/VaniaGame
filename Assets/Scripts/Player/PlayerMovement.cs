@@ -29,10 +29,10 @@ public class PlayerMovement : MonoBehaviour
     private Collisions _collisions;
     private PlayerInput _input;
 
+    private bool _canMove => _player.IsAlive;
+
     public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
-
-    public bool CanMove => _player.IsAlive;
-
+  
     private void OnEnable()
     {
         _input.OnJumpButtonPressed += TryJump;
@@ -60,22 +60,24 @@ public class PlayerMovement : MonoBehaviour
             _canDoubleJump = true;
 
         if (_collisions.IsOnWall)
+        { 
             WallSlide();
+        }
     }
 
-    private void TryMove(float direction) //TODO: вынести общёт физики в фиксед и присобачить !if canMove return;
+    private void TryMove(float direction) //TODO: вынести общёт физики в фиксед и сделать finite state machine уже наконец
     {
-        if (_isDashing || _collisions.IsOnWall) return;
+        if (_isDashing || _collisions.IsOnWall || !_canMove) return;
 
         _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
 
         _animator.SetBool(Constants.Running, IsRunning()); //TODO: вывести в отдельный компонент
-
-        Debug.Log(_rb2d.velocity.x);
     }
 
     private void TryJump(float direction)
     {
+        if (!_canMove) return;
+
         if (_collisions.IsGrounded)
             Jump(true);
         else if (_canDoubleJump && !_collisions.IsGrounded && !_collisions.IsOnWall)
@@ -93,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void TryWallJump(float direction)  //первичный прототип, TODO: надо отрефакторить нормально
     {
-        if (_collisions.IsOnWall && !_collisions.IsGrounded && direction == transform.localScale.x * -1) //TODO: убрать зависимость от трансформа, сделать более гибкой
+        if (!_collisions.IsGrounded && direction == transform.localScale.x * -1) //TODO: убрать зависимость от трансформа, сделать более гибкой
         {
             Vector2 force = new Vector2(10f * (direction * -1), 700f); //TODO:вывести литералы в инспектор
             _rb2d.velocity = Vector2.zero;
@@ -138,6 +140,11 @@ public class PlayerMovement : MonoBehaviour
     private void WallSlide()
     {
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
+
+        if (InputDirectionHandler.CurrentDirection == 0)
+        {
+            Invoke("StopSliding", 1f);
+        }
     }
 
     private void OnDisable()
