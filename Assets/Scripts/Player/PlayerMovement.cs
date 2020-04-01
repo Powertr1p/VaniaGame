@@ -140,11 +140,6 @@ public class PlayerMovement : MonoBehaviour
     private void WallSlide()
     {
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
-
-        if (InputDirectionHandler.CurrentDirection == 0)
-        {
-            Invoke("StopSliding", 1f);
-        }
     }
 
     private void OnDisable()
