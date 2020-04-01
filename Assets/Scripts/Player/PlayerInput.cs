@@ -8,7 +8,6 @@ public class PlayerInput : MonoBehaviour
     public event Action<float> OnMovementButtonPressed;
     public event Action<float> OnDashButtonPressed;
 
-
     private void Update()
     {
         InputDirectionHandler.StoreLastNonZeroDirection(CrossPlatformInputManager.GetAxisRaw("Horizontal"));
