@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Collisions : MonoBehaviour
@@ -14,6 +15,7 @@ public class Collisions : MonoBehaviour
     private bool _isOnLeftWall;
     private bool _isOnRightWall;
     private bool _isOnWall;
+    public bool IsWallJumping;
 
     private Rigidbody2D _rb2d;
     private float _facingDirection;
@@ -35,6 +37,7 @@ public class Collisions : MonoBehaviour
         _facingDirection = transform.localScale.x;
 
         CheckForWallSlide();
+        IsWallJumpPerfoming();
     }
 
     private void CheckForWallSlide() //первичный прототип, надо отрефакторить нормально
@@ -59,5 +62,15 @@ public class Collisions : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + _bottomOffset, _collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + _rightOffset, _collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + _leftOffset, _collisionRadius);
+    }
+
+    public IEnumerator IsWallJumpPerfoming()
+    {
+        if (_isOnWall)
+        {
+            IsWallJumping = true;
+        }
+        yield return new WaitForSeconds(1f);
+        IsWallJumping = false;
     }
 }

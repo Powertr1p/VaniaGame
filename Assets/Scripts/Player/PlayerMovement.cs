@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections;
 using UnityEngine;
 
@@ -33,6 +33,13 @@ public class PlayerMovement : MonoBehaviour
 
     public bool CanMove => _player.IsAlive;
 
+    private void OnEnable()
+    {
+        GetComponent<PlayerInput>().OnJumpButtonPressed += TryJump;
+        GetComponent<PlayerInput>().OnMovementButtonPressed += TryMove;
+        GetComponent<PlayerInput>().OnDashButtonPressed += TryDash;
+    }
+
     private void Awake()
     {
         _player = GetComponent<PlayerState>();
@@ -52,21 +59,21 @@ public class PlayerMovement : MonoBehaviour
             _canDoubleJump = true;
 
         if (_collisions.IsOnWall)
-            PerformWallSlide();
+            WallSlide();
     }
 
-    public void TryMove(float direction)
+    private void TryMove(float direction) //TODO: вынести общёт физики в фиксед и присобачить !if canMove return;
     {
         if (_isDashing || _collisions.IsOnWall) return;
 
         _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
 
-        _animator.SetBool(Constants.Running, IsRunning()); //вывести в отдельный компонент
+        _animator.SetBool(Constants.Running, IsRunning()); //TODO: вывести в отдельный компонент
 
         Debug.Log(_rb2d.velocity.x);
     }
 
-    public void TryJump(float direction)
+    private void TryJump(float direction)
     {
         if (_collisions.IsGrounded)
             Jump(true);
@@ -78,15 +85,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump(bool canDoExtraJump)
     {
+        if (_collisions.IsWallJumping) return;
         _canDoubleJump = canDoExtraJump;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
     }
 
-    private void TryWallJump(float direction)  //первичный прототип, надо отрефакторить нормально
+    private void TryWallJump(float direction)  //первичный прототип, TODO: надо отрефакторить нормально
     {
-        if (_collisions.IsOnWall && !_collisions.IsGrounded && direction == transform.localScale.x * -1) //убрать зависимость от трансформа, сделать более гибкой
+        if (_collisions.IsOnWall && !_collisions.IsGrounded && direction == transform.localScale.x * -1) //TODO: убрать зависимость от трансформа, сделать более гибкой
         {
-            Vector2 force = new Vector2(10f * direction, 700f); //вывести литералы в инспектор
+            Vector2 force = new Vector2(10f * (direction * -1), 700f); //TODO:вывести литералы в инспектор
             _rb2d.velocity = Vector2.zero;
             _rb2d.AddForce(force);
         }
@@ -97,20 +105,24 @@ public class PlayerMovement : MonoBehaviour
         return new Vector2(direction * movementSpeed, _rb2d.velocity.y);
     }
 
-    public IEnumerator TryDash(float direction)
+    private void TryDash(float direction)
     {
         if (_canDash)
-        { 
+        {
             _canDash = false;
             _isDashing = true;
-
-            _rb2d.gravityScale = 0;
-            _rb2d.velocity = Vector2.zero;
-            _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed + _dashSpeed);
-            yield return new WaitForSeconds(_dashingTime);
-
-            StartCoroutine(StopDashAndActivateCooldown());
+            StartCoroutine(Dash(direction));
         }
+    }
+
+    private IEnumerator Dash(float direction)
+    {
+        _rb2d.gravityScale = 0;
+        _rb2d.velocity = Vector2.zero;
+        _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed + _dashSpeed);
+        yield return new WaitForSeconds(_dashingTime);
+
+        StartCoroutine(StopDashAndActivateCooldown());
     }
 
     private IEnumerator StopDashAndActivateCooldown()
@@ -122,8 +134,15 @@ public class PlayerMovement : MonoBehaviour
         _canDash = true;
     }
 
-    private void PerformWallSlide()
+    private void WallSlide()
     {
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<PlayerInput>().OnJumpButtonPressed -= TryJump;
+        GetComponent<PlayerInput>().OnMovementButtonPressed -= TryMove;
+        GetComponent<PlayerInput>().OnDashButtonPressed -= TryDash;
     }
 }
