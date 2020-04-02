@@ -158,7 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71078ecb914c93b4482f1c70509f2374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movement: {fileID: 343263219795751589}
 --- !u!114 &8152279515433644779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +217,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _bottomOffset: {x: 0, y: -0.65}
-  _rightOffset: {x: 0.35, y: 0}
+  _rightOffset: {x: 0.25, y: 0}
   _leftOffset: {x: -0.26, y: 0}
   _collisionRadius: 0.14
+  CanResuedeSlide: 0

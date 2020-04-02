@@ -87,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump(bool canDoExtraJump)
     {
-        if (_collisions.IsWallJumping) return;
         _canDoubleJump = canDoExtraJump;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
     }
