@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -60,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
             _canDoubleJump = true;
 
         if (_collisions.IsOnWall)
-        { 
+        {
             WallSlide();
         }
     }
@@ -97,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_collisions.IsGrounded && direction == transform.localScale.x * -1) //TODO: убрать зависимость от трансформа, сделать более гибкой
         {
-            Vector2 force = new Vector2(10f * (direction * -1), 700f); //TODO:вывести литералы в инспектор
+            Vector2 force = new Vector2(10f * (direction * -1), 700f); //TODO: вывести литералы в инспектор
             _rb2d.velocity = Vector2.zero;
             _rb2d.AddForce(force);
         }
@@ -140,17 +139,12 @@ public class PlayerMovement : MonoBehaviour
     private void WallSlide()
     {
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
-
-        if (InputDirectionHandler.CurrentDirection == 0)
-        {
-            Invoke("StopSliding", 1f);
-        }
     }
 
     private void OnDisable()
     {
-        GetComponent<PlayerInput>().OnJumpButtonPressed -= TryJump;
-        GetComponent<PlayerInput>().OnMovementButtonPressed -= TryMove;
-        GetComponent<PlayerInput>().OnDashButtonPressed -= TryDash;
+        _input.OnJumpButtonPressed -= TryJump;
+        _input.OnMovementButtonPressed -= TryMove;
+        _input.OnDashButtonPressed -= TryDash;
     }
 }
