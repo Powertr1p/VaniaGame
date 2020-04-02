@@ -1,4 +1,4 @@
-﻿public static class InputDirectionHandler
+﻿public static class InputDirectionStorage
 {
     private static float _savedDirection;
     private static float _currentDirection;

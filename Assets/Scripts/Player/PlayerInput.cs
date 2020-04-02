@@ -10,14 +10,14 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        InputDirectionHandler.StoreLastNonZeroDirection(CrossPlatformInputManager.GetAxisRaw("Horizontal"));
+        InputDirectionStorage.StoreLastNonZeroDirection(CrossPlatformInputManager.GetAxisRaw("Horizontal"));
         
-        OnMovementButtonPressed?.Invoke(InputDirectionHandler.CurrentDirection);
+        OnMovementButtonPressed?.Invoke(InputDirectionStorage.CurrentDirection);
 
         if (CrossPlatformInputManager.GetButtonDown("Jump"))
-            OnJumpButtonPressed?.Invoke(InputDirectionHandler.CurrentDirection);
+            OnJumpButtonPressed?.Invoke(InputDirectionStorage.CurrentDirection);
 
         if (CrossPlatformInputManager.GetButtonDown("Shift"))
-            OnDashButtonPressed?.Invoke(InputDirectionHandler.LastNonZeroDirection);
+            OnDashButtonPressed?.Invoke(InputDirectionStorage.LastNonZeroDirection);
     }
 }

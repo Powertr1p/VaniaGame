@@ -45,42 +45,48 @@ public class Collisions : MonoBehaviour
             TryResetWallSlideCollisionTimer();
     }
 
-    private void CheckForWallSlide() //первичный прототип на коленке, надо отрефакторить нормально
+    private void CheckForWallSlide() 
+    {
+        if (IsPlayerCollidedWithWallFromRightSide())
+            _isOnWall = true;
+        else if (IsPlayerCollidedWithWallFromLeftSide())
+            _isOnWall = true;
+        else
+            _isOnWall = false;
+    }
+
+    private bool IsPlayerCollidedWithWallFromRightSide() //отрефакторить
     {
         if (_isOnRightWall && _facingDirection == 1 && _rb2d.velocity.y < 0 && !_isGrounded)
         {
             if (_rb2d.velocity.x > 0)
             {
-                _isOnWall = true;
+                return true;
             }
             else if (_rb2d.velocity.x == 0 && _wallSlideResidualCollisionTimer > 0)
             {
-                ToggleResidualCollisionAndStartTimer();
-            }
-            else
-            {
-                _isOnWall = false;
+                ReduceResidualWallSlideCollisionTimer();
+                return true;
             }
         }
-        else if (_isOnLeftWall && _facingDirection == -1 && _rb2d.velocity.y < 0 && !_isGrounded)
+        return false;
+    }
+
+    private bool IsPlayerCollidedWithWallFromLeftSide() //отрефакторить
+    {
+        if (_isOnLeftWall && _facingDirection == -1 && _rb2d.velocity.y < 0 && !_isGrounded)
         {
             if (_rb2d.velocity.x < 0)
             {
-                _isOnWall = true;
+                return true;
             }
             else if (_rb2d.velocity.x == 0 && _wallSlideResidualCollisionTimer > 0)
             {
-                ToggleResidualCollisionAndStartTimer();
-            }
-            else
-            {
-                _isOnWall = false;
+                ReduceResidualWallSlideCollisionTimer();
+                return true;
             }
         }
-        else
-        {
-            _isOnWall = false;
-        }
+        return false;
     }
 
     private bool IsCollided(Vector2 position, float collisionRadius, LayerMask layer)
@@ -88,13 +94,7 @@ public class Collisions : MonoBehaviour
         return Physics2D.OverlapCircle(position, collisionRadius, layer);
     }
 
-    private void ToggleResidualCollisionAndStartTimer()
-    {
-        ReduceWallSliderCollisionTimer();
-        _isOnWall = true;
-    }
-
-    private void ReduceWallSliderCollisionTimer()
+    private void ReduceResidualWallSlideCollisionTimer()
     {
         if (_wallSlideResidualCollisionTimer >= 0)
             _wallSlideResidualCollisionTimer -= Time.deltaTime;
@@ -102,7 +102,7 @@ public class Collisions : MonoBehaviour
         Debug.Log(_wallSlideResidualCollisionTimer);
     }
 
-    private void TryResetWallSlideCollisionTimer() //прототип
+    private void TryResetWallSlideCollisionTimer()
     {
         if (!_isOnLeftWall && !_isOnRightWall || _isGrounded)
             _wallSlideResidualCollisionTimer = _wallSlideResidualCollisionTimerValue;

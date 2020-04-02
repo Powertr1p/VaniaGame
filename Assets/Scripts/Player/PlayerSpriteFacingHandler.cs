@@ -14,7 +14,7 @@ public class PlayerSpriteFacingHandler : MonoBehaviour
     private void Update()
     {
         if (CanSwapFacing())
-            SwapSpriteFacing(InputDirectionHandler.CurrentDirection);
+            SwapSpriteFacing(InputDirectionStorage.CurrentDirection);
     }
 
     private void SwapSpriteFacing(float direction)
