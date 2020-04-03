@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     private bool _isDashing;
     private bool _canWallJump;
 
-
     private PlayerState _player;
 
     private Rigidbody2D _rb2d;

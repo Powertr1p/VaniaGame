@@ -102,7 +102,7 @@ public class Collisions : MonoBehaviour
 
     private void TryResetWallSlideCollisionTimer()
     {
-        if (!_isOnLeftWall && !_isOnRightWall || _isGrounded)
+        if ((!_isOnLeftWall && !_isOnRightWall) || _isGrounded)
             _wallSlideResidualCollisionTimer = _wallSlideResidualCollisionTimerValue;
     }
 
