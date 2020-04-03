@@ -98,8 +98,6 @@ public class Collisions : MonoBehaviour
     {
         if (_wallSlideResidualCollisionTimer >= 0)
             _wallSlideResidualCollisionTimer -= Time.deltaTime;
-
-        Debug.Log(_wallSlideResidualCollisionTimer);
     }
 
     private void TryResetWallSlideCollisionTimer()

@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _canDoubleJump;
     private bool _canDash = true;
     private bool _isDashing;
+    private bool _canWallJump;
+
 
     private PlayerState _player;
 
@@ -59,29 +61,34 @@ public class PlayerMovement : MonoBehaviour
             _canDoubleJump = true;
 
         if (_collisions.IsOnWall)
-        {
             WallSlide();
-        }
+
+        if (_isDashing)
+            StartCoroutine(Dash(InputDirectionStorage.LastNonZeroDirection));
+
+        _canWallJump = _rb2d.velocity.y == -1;
     }
 
     private void TryMove(float direction) //TODO: вынести общёт физики в фиксед и сделать finite state machine уже наконец
     {
-        if (_isDashing || _collisions.IsOnWall || !_canMove) return;
-
-        _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
-
-        _animator.SetBool(Constants.Running, IsRunning()); //TODO: вывести в отдельный компонент
+        if (!_canMove) return;
+        
+        if (!_isDashing || !_collisions.IsOnWall)
+        {
+            _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
+            _animator.SetBool(Constants.Running, IsRunning()); //TODO: вывести в отдельный компонент
+        }
     }
 
     private void TryJump(float direction)
     {
         if (!_canMove) return;
 
-        if (_collisions.IsGrounded)
+        if (_collisions.IsGrounded && !_canWallJump)
             Jump(true);
-        else if (_canDoubleJump && !_collisions.IsGrounded && !_collisions.IsOnWall)
+        else if (_canDoubleJump && !_collisions.IsGrounded && !_collisions.IsOnWall && !_canWallJump)
             Jump(false);
-        else
+        else if (_canWallJump)
             TryWallJump(direction);
     }
 
@@ -93,9 +100,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void TryWallJump(float direction)  //первичный прототип, TODO: надо отрефакторить нормально
     {
-        if (!_collisions.IsGrounded && direction == transform.localScale.x * -1) //TODO: убрать зависимость от трансформа, сделать более гибкой
+        if (!_collisions.IsGrounded && _canWallJump) //TODO: убрать зависимость от трансформа, сделать более гибкой
         {
-            Vector2 force = new Vector2(10f * (direction * -1), 700f); //TODO: вывести литералы в инспектор
+            Vector2 force = new Vector2(10f * direction, 700f); //TODO: вывести литералы в инспектор
             _rb2d.velocity = Vector2.zero;
             _rb2d.AddForce(force);
         }
@@ -112,7 +119,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _canDash = false;
             _isDashing = true;
-            StartCoroutine(Dash(direction));
         }
     }
 
