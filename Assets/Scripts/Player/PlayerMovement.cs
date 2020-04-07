@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
             Jump(true);
         else if (_canDoubleJump && !_collisions.IsGrounded && !_collisions.IsOnWall)
             Jump(false);
-        else if (_canWallJump && (_collisions.IsOnWallAndReadyToWallJump || !_collisions.IsOnWall))
+        else if (_canWallJump && (_collisions.IsOnWallAndReadyToWallJump || _collisions.IsOnWall))
             TryWallJump(direction);
     }
 
