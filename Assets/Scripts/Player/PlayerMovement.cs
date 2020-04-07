@@ -59,20 +59,21 @@ public class PlayerMovement : MonoBehaviour
         if (_collisions.IsGrounded)
             _canDoubleJump = true;
 
-        if (_collisions.IsOnWall)
+        if (_collisions.IsOnWallAndReadyToWallJump)
             WallSlide();
 
         if (_isDashing)
             StartCoroutine(Dash(InputDirectionStorage.LastNonZeroDirection));
 
-        _canWallJump = _rb2d.velocity.y == -1;
+        if (!_canWallJump)
+            TryRestoreWallJump();
     }
 
     private void TryMove(float direction) //TODO: вынести общёт физики в фиксед и сделать finite state machine уже наконец
     {
         if (!_canMove) return;
         
-        if (!_isDashing || !_collisions.IsOnWall)
+        if (!_isDashing || !_collisions.IsOnWallAndReadyToWallJump)
         {
             _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
             _animator.SetBool(Constants.Running, IsRunning()); //TODO: вывести в отдельный компонент
@@ -83,27 +84,29 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_canMove) return;
 
-        if (_collisions.IsGrounded && !_canWallJump)
+        if (_collisions.IsGrounded)
             Jump(true);
-        else if (_canDoubleJump && !_collisions.IsGrounded && !_collisions.IsOnWall && !_canWallJump)
+        else if (_canDoubleJump && !_collisions.IsGrounded && !_collisions.IsOnWall)
             Jump(false);
-        else if (_canWallJump)
+        else if (_canWallJump && (_collisions.IsOnWallAndReadyToWallJump || !_collisions.IsOnWall))
             TryWallJump(direction);
     }
 
     private void Jump(bool canDoExtraJump)
     {
+        _canWallJump = false;
         _canDoubleJump = canDoExtraJump;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
     }
 
     private void TryWallJump(float direction)  //первичный прототип, TODO: надо отрефакторить нормально
     {
-        if (!_collisions.IsGrounded && _canWallJump) //TODO: убрать зависимость от трансформа, сделать более гибкой
+        if (_canWallJump)
         {
             Vector2 force = new Vector2(10f * direction, 700f); //TODO: вывести литералы в инспектор
             _rb2d.velocity = Vector2.zero;
             _rb2d.AddForce(force);
+            _canWallJump = false;
         }
     }
 
@@ -143,6 +146,14 @@ public class PlayerMovement : MonoBehaviour
     private void WallSlide()
     {
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
+    }
+
+    private void TryRestoreWallJump()
+    {
+        if (!_collisions.IsOnWall || _collisions.IsGrounded)
+        { 
+            _canWallJump = true;
+        }
     }
 
     private void OnDisable()

@@ -17,13 +17,15 @@ public class Collisions : MonoBehaviour
     private bool _isGrounded;
     private bool _isOnLeftWall;
     private bool _isOnRightWall;
-    private bool _isOnWall;
+    private bool _isOnWallAndReadyToWallJump;
+    private bool _canWallJump;
 
     private Rigidbody2D _rb2d;
     private float _facingDirection;
 
     public bool IsGrounded { get => _isGrounded; }
-    public bool IsOnWall { get => _isOnWall; }
+    public bool IsOnWallAndReadyToWallJump { get => _isOnWallAndReadyToWallJump; }
+    public bool IsOnWall { get => _isOnRightWall || _isOnLeftWall; }
 
     private void Start()
     {
@@ -48,11 +50,11 @@ public class Collisions : MonoBehaviour
     private void CheckForWallSlide() 
     {
         if (IsPlayerCollidedWithWallFromRightSide())
-            _isOnWall = true;
+            _isOnWallAndReadyToWallJump = true;
         else if (IsPlayerCollidedWithWallFromLeftSide())
-            _isOnWall = true;
+            _isOnWallAndReadyToWallJump = true;
         else
-            _isOnWall = false;
+            _isOnWallAndReadyToWallJump = false;
     }
 
     private bool IsPlayerCollidedWithWallFromRightSide() //отрефакторить
