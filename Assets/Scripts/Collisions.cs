@@ -10,6 +10,7 @@ public class Collisions : MonoBehaviour
     [SerializeField] private Vector2 _rightOffset;
     [SerializeField] private Vector2 _leftOffset;
     [SerializeField] private float _collisionRadius;
+    [SerializeField] private float _bottomCollisionRadius;
     
     private float _wallSlideResidualCollisionTimer = 0.3f;
     private float _wallSlideResidualCollisionTimerValue;
@@ -35,7 +36,7 @@ public class Collisions : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _isGrounded = IsCollided((Vector2)transform.position + _bottomOffset, _collisionRadius, _groundLayer);
+        _isGrounded = IsCollided((Vector2)transform.position + _bottomOffset, _bottomCollisionRadius, _groundLayer);
         _isOnRightWall = IsCollided((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer);
         _isOnLeftWall = IsCollided((Vector2)transform.position + _leftOffset, _collisionRadius, _groundLayer);
 
@@ -112,7 +113,7 @@ public class Collisions : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere((Vector2)transform.position + _bottomOffset, _collisionRadius);
+        Gizmos.DrawWireSphere((Vector2)transform.position + _bottomOffset, _bottomCollisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + _rightOffset, _collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + _leftOffset, _collisionRadius);
     }

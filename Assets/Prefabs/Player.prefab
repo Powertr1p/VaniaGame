@@ -189,6 +189,9 @@ MonoBehaviour:
   _dashSpeed: 20
   _dashCooldown: 2
   _dashingTime: 0.15
+  _wallJumpHorizontalVelocity: 10
+  _wallJumpVerticalVelocity: 700
+  CurrentPlayerVelocity: {x: 0, y: 0}
 --- !u!114 &5024410544612515731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,8 +219,7 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  _bottomOffset: {x: 0, y: -0.65}
+  _bottomOffset: {x: -0.03, y: -0.56}
   _rightOffset: {x: 0.25, y: 0}
   _leftOffset: {x: -0.26, y: 0}
-  _collisionRadius: 0.14
-  CanResuedeSlide: 0
+  _collisionRadius: 0.12
