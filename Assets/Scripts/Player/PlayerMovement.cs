@@ -8,12 +8,24 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Player Config")]
+    [Tooltip("Скорость, с которой двигается игрок, эта скорость также влияет на скорость дэша")]
     [SerializeField] private float _movementSpeed = 6f;
+    [Tooltip("Сила прыжка. Придает игроку горизонтальный пуш (считается так: координата Х берется из инпута, а этот параметр умножает Y")]
     [SerializeField] private float _jumpVelocity;
-    [Space]
+    [Header("Dash config")]
+    [Tooltip("Скорость дэша, которая прибавляется к movementSpeed игрока для рывка.")]
     [SerializeField] private float _dashSpeed = 20f;
+    [Tooltip("Кулдаун дэша")]
     [SerializeField] private float _dashCooldown = 2f;
+    [Tooltip("Время перфоманса дэша, советуется указывать в сотых")]
     [SerializeField] private float _dashingTime = 0.15f;
+    [Header("Walljump Config")]
+    [Tooltip("Горизонтальная сила при отталкивании от стены. Придает силу физическому телу по координате Х.")]
+    [SerializeField] private float _wallJumpHorizontalVelocity = 10f;
+    [Tooltip("Вертикальная сила при отталкивании от стены. Придает силу физическому телу по координате Y.")]
+    [SerializeField] private float _wallJumpVerticalVelocity = 700f;
+    [Header("Debug panel for GameDesigners")]
+    public Vector2 CurrentPlayerVelocity; //удалить после того как ГД настроят все
 
     private float _originalMovementSpeedValue;
 
@@ -56,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CurrentPlayerVelocity = _rb2d.velocity; //удалить после того как ГД настроят все
+
         if (_collisions.IsGrounded)
             _canDoubleJump = true;
 
@@ -103,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_canWallJump)
         {
-            Vector2 force = new Vector2(10f * direction, 700f); //TODO: вывести литералы в инспектор
+            Vector2 force = new Vector2(_wallJumpHorizontalVelocity * direction, _wallJumpVerticalVelocity);
             _rb2d.velocity = Vector2.zero;
             _rb2d.AddForce(force);
             _canWallJump = false;
@@ -151,9 +165,7 @@ public class PlayerMovement : MonoBehaviour
     private void TryRestoreWallJump()
     {
         if (!_collisions.IsOnWall || _collisions.IsGrounded)
-        { 
             _canWallJump = true;
-        }
     }
 
     private void OnDisable()
