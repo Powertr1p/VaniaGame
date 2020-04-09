@@ -5,6 +5,7 @@
 [RequireComponent(typeof(CapsuleCollider2D))]
 public class PlayerState : MonoBehaviour
 {
+    [Tooltip("Когда персонаж умирает, его тело слегка подлетает. Этот вектор отвечает за пуш, который дается телу при смерти")]
     [SerializeField] private Vector2 _deathKick;
 
     public bool IsAlive = true;
@@ -40,6 +41,7 @@ public class PlayerState : MonoBehaviour
     {
         IsAlive = false;
         _animator.SetTrigger(Constants.Died);
+        _rb2d.velocity = Vector2.zero;
         _rb2d.velocity = _deathKick;
 
         FindObjectOfType<GameSession>().PlayerDeath();
