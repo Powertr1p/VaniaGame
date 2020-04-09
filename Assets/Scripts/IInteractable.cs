@@ -1,0 +1,4 @@
+﻿interface IInteractable
+{ 
+    void Interact();
+}
