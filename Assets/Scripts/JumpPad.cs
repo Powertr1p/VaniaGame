@@ -1,26 +1,26 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class JumpPad : MonoBehaviour, IInteractable
+public abstract class JumpPad : MonoBehaviour, IInteractable
 {
-    [Header("JumpPad Config")]
-    [Tooltip("Сила, с которой джампад выталкивает игрока вверх (от 500 и выше)")]
-    [SerializeField] private float _jumpForce;
-
+    [SerializeField] protected float JumpForce;
+   
     private Rigidbody2D _playerRigidBody;
 
-    public void Interact()
+    public virtual void Interact()
     {
         if (_playerRigidBody == null) return;
 
         _playerRigidBody.velocity = Vector2.zero;
-        _playerRigidBody.AddForce(new Vector2(0, _jumpForce));
+        _playerRigidBody.AddForce(new Vector2(0, JumpForce));
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         _playerRigidBody = collision.gameObject.GetComponent<Rigidbody2D>();
-        
+
         Interact();
     }
 
