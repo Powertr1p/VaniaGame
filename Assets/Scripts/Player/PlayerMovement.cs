@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -7,6 +8,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
+    public event Action Grounded;
+
     [Header("Player Config")]
     [Tooltip("Скорость, с которой двигается игрок, эта скорость также влияет на скорость дэша")]
     [SerializeField] private float _movementSpeed = 6f;
@@ -71,6 +74,13 @@ public class PlayerMovement : MonoBehaviour
         CurrentPlayerVelocity = _rb2d.velocity; //удалить после того как ГД настроят все
 
         if (_collisions.IsGrounded)
+        {
+            Grounded?.Invoke();
+            _canDoubleJump = true;
+        }
+            
+
+        if (_collisions.IsJumpPad)
             _canDoubleJump = true;
 
         if (_collisions.IsOnWallAndReadyToWallJump)

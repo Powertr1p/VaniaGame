@@ -5,6 +5,7 @@ using UnityEngine;
 public class Collisions : MonoBehaviour
 {
     [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _jumpPadLayer;
 
     [SerializeField] private Vector2 _bottomOffset;
     [SerializeField] private Vector2 _rightOffset;
@@ -20,6 +21,7 @@ public class Collisions : MonoBehaviour
     private bool _isOnRightWall;
     private bool _isOnWallAndReadyToWallJump;
     private bool _canWallJump;
+    private bool _isJumpPad;
 
     private Rigidbody2D _rb2d;
     private float _facingDirection;
@@ -27,6 +29,7 @@ public class Collisions : MonoBehaviour
     public bool IsGrounded { get => _isGrounded; }
     public bool IsOnWallAndReadyToWallJump { get => _isOnWallAndReadyToWallJump; }
     public bool IsOnWall { get => _isOnRightWall || _isOnLeftWall; }
+    public bool IsJumpPad { get => _isJumpPad; }
 
     private void Start()
     {
@@ -39,6 +42,7 @@ public class Collisions : MonoBehaviour
         _isGrounded = IsCollided((Vector2)transform.position + _bottomOffset, _bottomCollisionRadius, _groundLayer);
         _isOnRightWall = IsCollided((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer);
         _isOnLeftWall = IsCollided((Vector2)transform.position + _leftOffset, _collisionRadius, _groundLayer);
+        _isJumpPad = IsCollided((Vector2)transform.position + _bottomOffset, _bottomCollisionRadius, _jumpPadLayer);
 
         _facingDirection = transform.localScale.x;
 
