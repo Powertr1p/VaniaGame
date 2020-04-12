@@ -78,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
             Grounded?.Invoke();
             _canDoubleJump = true;
         }
-            
 
         if (_collisions.IsJumpPad)
             _canDoubleJump = true;
