@@ -27,7 +27,7 @@ public class AdvancedJumpPad : JumpPad
 
     private Vector2 CompareVelocityAndReturnHighest(Vector2 currentVelocity)
     {
-        return currentVelocity.y >= _lastHighestPlayerVelocity.y ? currentVelocity : _lastHighestPlayerVelocity;
+        return currentVelocity.y > _lastHighestPlayerVelocity.y ? currentVelocity : _lastHighestPlayerVelocity;
     }
 
     private void ResetLastHighestPlayerVelocity()
