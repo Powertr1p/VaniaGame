@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         _rb2d.velocity = Vector2.up * _jumpVelocity;
     }
 
-    private void TryWallJump(float direction)  //первичный прототип, TODO: надо отрефакторить нормально
+    private void TryWallJump(float direction) 
     {
         if (_canWallJump)
         {

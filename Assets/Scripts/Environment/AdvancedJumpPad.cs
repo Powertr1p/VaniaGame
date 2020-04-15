@@ -19,8 +19,6 @@ public class AdvancedJumpPad : JumpPad
 
     public override void Interact()
     {
-        if (PlayerRigidBody == null) return;
-
         PlayerRigidBody.velocity = Vector2.zero;
         PlayerRigidBody.AddForce(_lastHighestPlayerVelocity, ForceMode2D.Impulse);
     }

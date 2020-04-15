@@ -10,6 +10,7 @@ public abstract class JumpPad : MonoBehaviour, IInteractable
     private void OnTriggerStay2D(Collider2D collision)
     {
         PlayerRigidBody = collision.gameObject.GetComponent<Rigidbody2D>();
+        if (PlayerRigidBody == null) return;
 
         Interact();
     }
