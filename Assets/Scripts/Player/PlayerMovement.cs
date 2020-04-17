@@ -47,7 +47,13 @@ public class PlayerMovement : MonoBehaviour
     private bool _canMove => _player.IsAlive;
 
     public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
-  
+
+    public IEnumerator RechargeDash()
+    {
+        yield return new WaitUntil(() => _isDashing == false);
+        _canDash = true;
+    }
+
     private void OnEnable()
     {
         _input.OnJumpButtonPressed += TryJump;
@@ -145,14 +151,6 @@ public class PlayerMovement : MonoBehaviour
             _canDash = false;
             _isDashing = true;
         }
-    }
-
-    public IEnumerator RechargeDash()
-    {
-        Debug.Log("RechargeDash");
-        yield return new WaitUntil(() => _isDashing == false);
-        Debug.Log("Waited");
-        _canDash = true;
     }
 
     private IEnumerator Dash(float direction)
