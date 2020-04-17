@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _input.OnJumpButtonPressed += TryJump;
         _input.OnMovementButtonPressed += TryMove;
-        _input.OnDashButtonPressed += TryDash;
+        _input.OnDashButtonPressed += ToggleDash;
     }
 
     private void Awake()
@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             WallSlide();
 
         if (_isDashing)
-            StartCoroutine(Dash(InputDirectionStorage.LastNonZeroDirection));
+           StartCoroutine(Dash(InputDirectionStorage.LastNonZeroDirection));
 
         if (!_canWallJump)
             TryRestoreWallJump();
@@ -138,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
         return new Vector2(direction * movementSpeed, _rb2d.velocity.y);
     }
 
-    private void TryDash(float direction)
+    private void ToggleDash(float direction)
     {
         if (_canDash)
         {
@@ -185,6 +185,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _input.OnJumpButtonPressed -= TryJump;
         _input.OnMovementButtonPressed -= TryMove;
-        _input.OnDashButtonPressed -= TryDash;
+        _input.OnDashButtonPressed -= ToggleDash;
     }
 }
