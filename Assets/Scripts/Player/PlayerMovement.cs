@@ -152,16 +152,21 @@ public class PlayerMovement : MonoBehaviour
         _rb2d.gravityScale = 0;
         _rb2d.velocity = Vector2.zero;
         _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed + _dashSpeed);
+        _dashAmount--;
         yield return new WaitForSeconds(_dashingTime);
-
-        StartCoroutine(StopDashAndActivateCooldown());
+        StopDash();
+        StartCoroutine(ActivateDashCooldown());
     }
 
-    private IEnumerator StopDashAndActivateCooldown()
+    private void StopDash()
     {
         _rb2d.gravityScale = 1;
         _movementSpeed = _originalMovementSpeedValue;
         _isDashing = false;
+    }
+
+    private IEnumerator ActivateDashCooldown()
+    {
         yield return new WaitForSeconds(_dashCooldown);
         _canDash = true;
     }
