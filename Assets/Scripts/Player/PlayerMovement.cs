@@ -147,6 +147,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public IEnumerator RechargeDash()
+    {
+        Debug.Log("RechargeDash");
+        yield return new WaitUntil(() => _isDashing == false);
+        Debug.Log("Waited");
+        _canDash = true;
+    }
+
     private IEnumerator Dash(float direction)
     {
         _rb2d.gravityScale = 0;

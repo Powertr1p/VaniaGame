@@ -8,10 +8,10 @@ public class DashRecharge : MonoBehaviour
     {
         var player = collision.gameObject.GetComponent<PlayerMovement>();
         if (player != null)
-        {
+            StartCoroutine(player.RechargeDash());
 
-        }
-
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
+        Destroy(gameObject.GetComponent<SpriteRenderer>());
+        Destroy(gameObject.GetComponent<CircleCollider2D>());
     }
 }
