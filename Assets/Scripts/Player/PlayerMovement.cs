@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _movementSpeed = 6f;
     [Tooltip("Сила прыжка. Придает игроку горизонтальный пуш (считается так: координата Х берется из инпута, а этот параметр умножает Y")]
     [SerializeField] private float _jumpVelocity;
+    [Tooltip("После прыжка на игрока дейтсвует усиленная гравитация для эффекта тяжести прыжка")]
+    [SerializeField] private float _jumpFallingGravity = 1.5f;
     [Header("Dash config")]
     [Tooltip("Скорость дэша, которая прибавляется к movementSpeed игрока для рывка.")]
     [SerializeField] private float _dashSpeed = 20f;
@@ -83,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Grounded?.Invoke();
             _canDoubleJump = true;
+            _rb2d.gravityScale = 1f;
         }
 
         if (_collisions.IsJumpPad)
@@ -126,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
         _canWallJump = false;
         _canDoubleJump = canDoExtraJump;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
+        _rb2d.gravityScale = _jumpFallingGravity;
     }
 
     private void TryWallJump(float direction) 
