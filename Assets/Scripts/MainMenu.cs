@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private PlayerState _player;
+    [SerializeField] private MianBossDissapears _bossScript;
+    [SerializeField] private Canvas _gameCanvas;
 
     private void Start()
     {
@@ -17,9 +19,9 @@ public class MainMenu : MonoBehaviour
     public void StartFirstLevel()
     {
         _player.IsAlive = true;
-        FindObjectOfType<MianBossDissapears>().MakeLaugh();
+        _bossScript.MakeLaugh();
         Cursor.visible = false;
-        FindObjectOfType<Canvas>().gameObject.SetActive(false);
+        _gameCanvas.gameObject.SetActive(false);
     }
 
     public void StartNewGame()
