@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1827830211926291801}
   - component: {fileID: 1827830211926291800}
   - component: {fileID: 1827830211926291807}
-  - component: {fileID: 1827830211926291804}
-  m_Layer: 14
-  m_Name: JumpPad
+  - component: {fileID: 928567131}
+  m_Layer: 18
+  m_Name: SimpleJumpPad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,7 +136,7 @@ EdgeCollider2D:
   - {x: 0.7311821, y: 0.09344673}
   - {x: 0.14431763, y: 0.08035374}
   - {x: 0.1083107, y: -0.62821674}
---- !u!114 &1827830211926291804
+--- !u!114 &928567131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1827830211926291803}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f7a9b83f4ba7546b25dd71f97051bc, type: 3}
+  m_Script: {fileID: 11500000, guid: fccd70145df421543a64278ced7d594c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpForce: 1500
+  JumpForce: 1500
