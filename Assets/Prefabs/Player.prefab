@@ -185,11 +185,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 6
-  _jumpVelocity: 15
-  _jumpFallingGravity: 1.08
-  _dashSpeed: 20
-  _dashCooldown: 2
-  _dashingTime: 0.15
+  _jumpVelocity: 18
+  _jumpFallingGravity: 2
+  _dashSpeed: 80
+  _dashCooldown: 0.001
+  _dashingTime: 0.05
   _wallJumpHorizontalVelocity: 10
   _wallJumpVerticalVelocity: 700
   CurrentPlayerVelocity: {x: -2.37, y: -7.89}

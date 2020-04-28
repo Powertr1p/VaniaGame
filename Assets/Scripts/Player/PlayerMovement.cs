@@ -99,6 +99,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (!_canWallJump)
             TryRestoreWallJump();
+
+        if (!_collisions.IsGrounded)
+            ChangeGravityOnFall();
+    }
+
+    private void ChangeGravityOnFall()
+    {
+        if (_rb2d.velocity.y < 0)
+            _rb2d.gravityScale = _jumpFallingGravity;
     }
 
     private void TryMove(float direction) //TODO: вынести общёт физики в фиксед и сделать finite state machine уже наконец
@@ -126,10 +135,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump(bool canDoExtraJump)
     {
+        _rb2d.gravityScale = 1;
         _canWallJump = false;
         _canDoubleJump = canDoExtraJump;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
-        _rb2d.gravityScale = _jumpFallingGravity;
     }
 
     private void TryWallJump(float direction) 
