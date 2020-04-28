@@ -128,16 +128,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 343263219795751589, guid: cad56343d7ffe1f478cebc6c1c98d85a,
-        type: 3}
-      propertyPath: CurrentPlayerVelocity.x
-      value: -2.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 343263219795751589, guid: cad56343d7ffe1f478cebc6c1c98d85a,
-        type: 3}
-      propertyPath: CurrentPlayerVelocity.y
-      value: -7.89
-      objectReference: {fileID: 0}
     - target: {fileID: 8152279515433644781, guid: cad56343d7ffe1f478cebc6c1c98d85a,
         type: 3}
       propertyPath: m_Name
@@ -197,16 +187,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9198206636775672550, guid: cad56343d7ffe1f478cebc6c1c98d85a,
-        type: 3}
-      propertyPath: _bottomCollisionRadius
-      value: 0.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 9198206636775672550, guid: cad56343d7ffe1f478cebc6c1c98d85a,
-        type: 3}
-      propertyPath: _jumpPadLayer.m_Bits
-      value: 262144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cad56343d7ffe1f478cebc6c1c98d85a, type: 3}
@@ -22024,6 +22004,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4629201388309255588, guid: 9bb419b2acb2d514cb30f1ade756dcf8,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.8201425
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629201388309255588, guid: 9bb419b2acb2d514cb30f1ade756dcf8,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.8006663
+      objectReference: {fileID: 0}
     - target: {fileID: 4629201388309255589, guid: 9bb419b2acb2d514cb30f1ade756dcf8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22906,7 +22896,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091383192394159}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.160892, y: -6.58, z: -9.97}
+  m_LocalPosition: {x: -33.16455, y: -6.58, z: -9.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7815091381936471402}

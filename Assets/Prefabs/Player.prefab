@@ -186,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 6
   _jumpVelocity: 15
+  _jumpFallingGravity: 1.08
   _dashSpeed: 20
   _dashCooldown: 2
   _dashingTime: 0.15
