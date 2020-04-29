@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Wind : MonoBehaviour
 {
-    [SerializeField] private float _windForce;
+    [SerializeField] private Vector2 _windForce;
 
     private Rigidbody2D _playerRigidbody;
 
@@ -16,8 +16,8 @@ public class Wind : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (_playerRigidbody == null) return;
-
-        _playerRigidbody.AddForce(new Vector2(_windForce, 0));
+        
+        _playerRigidbody.AddForce(_windForce);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
