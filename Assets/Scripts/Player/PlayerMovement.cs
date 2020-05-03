@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpVelocity;
     [Tooltip("После прыжка на игрока дейтсвует усиленная гравитация для эффекта тяжести прыжка")]
     [SerializeField] private float _jumpFallingGravity = 1.5f;
+    [SerializeField]  private int _amountOfJumps = 2;
     [Header("Dash config")]
     [Tooltip("Скорость дэша, которая прибавляется к movementSpeed игрока для рывка.")]
     [SerializeField] private float _dashSpeed = 20f;
@@ -24,15 +25,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _dashCooldown = 2f;
     [Tooltip("Время перфоманса дэша, советуется указывать в сотых")]
     [SerializeField] private float _dashingTime = 0.15f;
-    [Header("Walljump Config")]
-    [Tooltip("Горизонтальная сила при отталкивании от стены. Придает силу физическому телу по координате Х.")]
-    [SerializeField] private float _wallJumpHorizontalVelocity = 10f;
-    [Tooltip("Вертикальная сила при отталкивании от стены. Придает силу физическому телу по координате Y.")]
-    [SerializeField] private float _wallJumpVerticalVelocity = 700f;
     [Header("Debug panel for GameDesigners")]
     public Vector2 CurrentPlayerVelocity; //удалить после того как ГД настроят все
 
     private float _originalMovementSpeedValue;
+    private int _originalAmountOfJumps;
 
     private bool _canDoubleJump;
     private bool _canDash = true;
@@ -74,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        _originalAmountOfJumps = _amountOfJumps;
         _originalMovementSpeedValue = _movementSpeed;
     }
 
@@ -86,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
             Grounded?.Invoke();
             _canDoubleJump = true;
             _rb2d.gravityScale = 1f;
+            _amountOfJumps = _originalAmountOfJumps;
         }
 
         if (_collisions.IsJumpPad)
@@ -121,22 +120,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void TryJump(float direction)
+    private void TryJump()
     {
         if (!_canMove) return;
 
-        if (_collisions.IsGrounded)
-            Jump(true);
-        else if (_canDoubleJump && !_collisions.IsGrounded)
-            Jump(false);
+        // if (_collisions.IsGrounded)
+        //     Jump(true);
+        // else if (_canDoubleJump && !_collisions.IsGrounded)
+        //     Jump(false);
+        
+        Jump();
     }
 
-    private void Jump(bool canDoExtraJump)
+    private void Jump()
     {
+        if (_amountOfJumps <= 0) return;
+        
         _rb2d.gravityScale = 1.2f;
-        _canWallJump = false;
-        _canDoubleJump = canDoExtraJump;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
+        _amountOfJumps--;
     }
 
     private Vector2 GetPlayerVelocityBasedOnDirection(float direction, float movementSpeed)

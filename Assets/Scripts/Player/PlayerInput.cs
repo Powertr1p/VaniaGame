@@ -4,7 +4,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerInput : MonoBehaviour
 {
-    public event Action<float> OnJumpButtonPressed;
+    public event Action OnJumpButtonPressed;
     public event Action<float> OnMovementButtonPressed;
     public event Action<float> OnDashButtonPressed;
 
@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour
         OnMovementButtonPressed?.Invoke(InputDirectionStorage.CurrentDirection);
 
         if (CrossPlatformInputManager.GetButtonDown("Jump"))
-            OnJumpButtonPressed?.Invoke(InputDirectionStorage.CurrentDirection);
+            OnJumpButtonPressed?.Invoke();
 
         if (CrossPlatformInputManager.GetButtonDown("Shift"))
             OnDashButtonPressed?.Invoke(InputDirectionStorage.LastNonZeroDirection);
