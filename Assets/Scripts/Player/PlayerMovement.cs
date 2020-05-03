@@ -136,9 +136,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_amountOfJumps < 1) return;
         
+        _amountOfJumps--;
         _rb2d.gravityScale = 1.2f;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
-        _amountOfJumps--;
     }
 
     private Vector2 GetPlayerVelocityBasedOnDirection(float direction, float movementSpeed)
