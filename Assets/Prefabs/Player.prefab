@@ -190,8 +190,8 @@ MonoBehaviour:
   _dashSpeed: 80
   _dashCooldown: 0.001
   _dashingTime: 0.05
-  _wallJumpHorizontalVelocity: 10
-  _wallJumpVerticalVelocity: 700
+  _wallJumpHorizontalVelocity: 100
+  _wallJumpVerticalVelocity: 1000
   CurrentPlayerVelocity: {x: -2.37, y: -7.89}
 --- !u!114 &5024410544612515731
 MonoBehaviour:
