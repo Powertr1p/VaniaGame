@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 CurrentPlayerVelocity; //удалить после того как ГД настроят все
 
     [SerializeField] private Vector2 _dashVelocity;
-    
+
     private float _originalMovementSpeedValue;
     private int _originalAmountOfJumps;
     
@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     private Collisions _collisions;
     private PlayerInput _input;
+    [SerializeField] private GameObject _trail;
 
     private bool _canMove => _player.IsAlive;
 
@@ -160,7 +161,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash(float direction)
     {
-        _rb2d.AddForce(_dashVelocity, ForceMode2D.Impulse);
+        var trailObject = Instantiate(_trail, transform.position, Quaternion.identity);
+        trailObject.transform.SetParent(transform);
+        Destroy(trailObject, 0.5f);
+        
+        _rb2d.AddForce(_dashVelocity * new Vector2(direction, 1), ForceMode2D.Impulse);
     }
 
     private IEnumerator OldDash(float direction)

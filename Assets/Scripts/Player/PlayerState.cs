@@ -2,7 +2,7 @@
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(PolygonCollider2D))]
 public class PlayerState : MonoBehaviour
 {
     [Tooltip("Когда персонаж умирает, его тело слегка подлетает. Этот вектор отвечает за пуш, который дается телу при смерти")]
@@ -12,13 +12,13 @@ public class PlayerState : MonoBehaviour
 
     private Rigidbody2D _rb2d;
     private Animator _animator;
-    private CapsuleCollider2D _bodyCollider;
+    private PolygonCollider2D _bodyCollider;
 
     private void Start()
     {
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        _bodyCollider = GetComponent<CapsuleCollider2D>();
+        _bodyCollider = GetComponent<PolygonCollider2D>();
     }
 
     private void Update()
@@ -29,8 +29,6 @@ public class PlayerState : MonoBehaviour
 
     private bool IsKilled()
     {
-        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Enemy)))
-            return true;
         if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Hazards)))
             return true;
         else
