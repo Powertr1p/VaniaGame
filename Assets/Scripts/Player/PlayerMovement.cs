@@ -8,8 +8,6 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
-    public event Action Grounded;
-
     [Header("Player Config")]
     [Tooltip("Скорость, с которой двигается игрок, эта скорость также влияет на скорость дэша")]
     [SerializeField] private float _movementSpeed = 6f;
@@ -17,51 +15,42 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpVelocity;
     [Tooltip("После прыжка на игрока дейтсвует усиленная гравитация для эффекта тяжести прыжка")]
     [SerializeField] private float _jumpFallingGravity = 1.5f;
-    [SerializeField]  private int _amountOfJumps = 2;
-    [Header("Dash config")]
-    [Tooltip("Скорость дэша, которая прибавляется к movementSpeed игрока для рывка.")]
-    [SerializeField] private float _dashSpeed = 20f;
-    [Tooltip("Кулдаун дэша")]
-    [SerializeField] private float _dashCooldown = 2f;
-    [Tooltip("Время перфоманса дэша, советуется указывать в сотых")]
-    [SerializeField] private float _dashingTime = 0.15f;
-    [Header("Debug panel for GameDesigners")]
-    public Vector2 CurrentPlayerVelocity; //удалить после того как ГД настроят все
+    [SerializeField] private int _amountOfJumps = 2;
 
-    [SerializeField] private Vector2 _dashVelocity;
+    [Header("Dash config")] 
+    [SerializeField] private float _dashTime;
+    [SerializeField] private float _dashSpeed;
+    [SerializeField] private float _dashCooldown;
+    private float _dashTimeLeft;
+    private float _lastDash = -100f;
+    private float _direction;
+    
+    [Header("Debug panel for GameDesigners")]
+    public Vector2 CurrentPlayerVelocity;
 
     private float _originalMovementSpeedValue;
     private int _originalAmountOfJumps;
     
-
     private bool _canDoubleJump;
-    private bool _canDash = true;
-    private bool _isDashing;
     private bool _canWallJump;
-
+    private bool _isDashing;
+    
     private PlayerState _player;
 
     private Rigidbody2D _rb2d;
     private Animator _animator;
     private Collisions _collisions;
     private PlayerInput _input;
-    [SerializeField] private GameObject _trail;
 
     private bool _canMove => _player.IsAlive;
 
     public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
 
-    public IEnumerator RechargeDash()
-    {
-        yield return new WaitUntil(() => _isDashing == false);
-        _canDash = true;
-    }
-
     private void OnEnable()
     {
         _input.OnJumpButtonPressed += TryJump;
         _input.OnMovementButtonPressed += TryMove;
-        _input.OnDashButtonPressed += Dash;
+        _input.OnDashButtonPressed += TryDash;
     }
 
     private void Awake()
@@ -76,35 +65,58 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _originalAmountOfJumps = _amountOfJumps;
-        _originalMovementSpeedValue = _movementSpeed;
     }
     
     private void FixedUpdate()
     {
-        CurrentPlayerVelocity = _rb2d.velocity; //удалить после того как ГД настроят все
+        CurrentPlayerVelocity = _rb2d.velocity;
 
         if (_collisions.IsGrounded)
         {
-            Grounded?.Invoke();
-            _canDoubleJump = true;
             _rb2d.gravityScale = 1f;
             RestoreJump();
         }
 
-        if (_collisions.IsJumpPad)
-            _canDoubleJump = true;
-
         if (_collisions.IsOnWallAndReadyToWallJump)
             WallSlide();
-
-        if (_isDashing)
-           StartCoroutine(OldDash(InputDirectionStorage.LastNonZeroDirection));
-
-        if (_collisions.IsOnWall)
+        
+        if (_collisions.IsOnWall || _collisions.IsJumpPad)
             RestoreJump();
 
         if (!_collisions.IsGrounded)
             ChangeGravityOnFall();
+        
+        CheckDash();
+    }
+
+    private void TryDash(float direction)
+    {
+        _direction = direction;
+        
+        if (Time.time >= (_lastDash + _dashCooldown))
+            AttemptToDash();
+    }
+    
+    private void CheckDash()
+    {
+        if (!_isDashing) return;
+        
+        if (_dashTimeLeft > 0)
+        {
+            _rb2d.velocity = new Vector2(_dashSpeed * _direction, _rb2d.velocity.y);
+            _dashTimeLeft -= Time.deltaTime;
+        }
+        else if (_dashTimeLeft <= 0)
+        {
+            _isDashing = false;
+        }
+    }
+    
+    private void AttemptToDash()
+    {
+        _isDashing = true;
+        _dashTimeLeft = _dashTime; 
+        _lastDash = Time.time;
     }
 
     private void ChangeGravityOnFall()
@@ -117,22 +129,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_canMove) return;
         
-        if (!_isDashing || !_collisions.IsOnWallAndReadyToWallJump)
+        if (!_collisions.IsOnWallAndReadyToWallJump)
         {
             _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
-            _animator.SetBool(Constants.Running, IsRunning()); //TODO: вывести в отдельный компонент
+            _animator.SetBool(Constants.Running, IsRunning());
         }
     }
 
     private void TryJump()
     {
         if (!_canMove) return;
-
-        // if (_collisions.IsGrounded)
-        //     Jump(true);
-        // else if (_canDoubleJump && !_collisions.IsGrounded)
-        //     Jump(false);
-        
         Jump();
     }
 
@@ -149,47 +155,7 @@ public class PlayerMovement : MonoBehaviour
     {
         return new Vector2(direction * movementSpeed, _rb2d.velocity.y);
     }
-
-    // private void ToggleDash(float direction)
-    // {
-    //     if (_canDash)
-    //     {
-    //         _canDash = false;
-    //         _isDashing = true;
-    //     }
-    // }
-
-    private void Dash(float direction)
-    {
-        var trailObject = Instantiate(_trail, transform.position, Quaternion.identity);
-        trailObject.transform.SetParent(transform);
-        Destroy(trailObject, 0.5f);
-        
-        _rb2d.AddForce(_dashVelocity * new Vector2(direction, 1), ForceMode2D.Impulse);
-    }
-
-    private IEnumerator OldDash(float direction)
-    {
-        _rb2d.gravityScale = 0;
-        _rb2d.velocity = Vector2.zero;
-        _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed + _dashSpeed);
-        yield return new WaitForSeconds(_dashingTime);
-        StopDash();
-        StartCoroutine(ActivateDashCooldown());
-    }
-
-    private void StopDash()
-    {
-        _rb2d.gravityScale = 1;
-        _movementSpeed = _originalMovementSpeedValue;
-        _isDashing = false;
-    }
-
-    private IEnumerator ActivateDashCooldown()
-    {
-        yield return new WaitForSeconds(_dashCooldown);
-        _canDash = true;
-    }
+    
 
     private void WallSlide()
     {
@@ -206,6 +172,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _input.OnJumpButtonPressed -= TryJump;
         _input.OnMovementButtonPressed -= TryMove;
-        _input.OnDashButtonPressed -= Dash;
+        _input.OnDashButtonPressed -= TryDash;
     }
 }
