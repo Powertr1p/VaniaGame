@@ -28,8 +28,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Debug panel for GameDesigners")]
     public Vector2 CurrentPlayerVelocity; //удалить после того как ГД настроят все
 
+    [SerializeField] private Vector2 _dashVelocity;
+    
     private float _originalMovementSpeedValue;
     private int _originalAmountOfJumps;
+    
 
     private bool _canDoubleJump;
     private bool _canDash = true;
@@ -157,8 +160,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash(float direction)
     {
-        var a = new Vector2(150 * direction, 0);
-        _rb2d.AddForce(a, ForceMode2D.Impulse);
+        _rb2d.AddForce(_dashVelocity, ForceMode2D.Impulse);
     }
 
     private IEnumerator OldDash(float direction)
