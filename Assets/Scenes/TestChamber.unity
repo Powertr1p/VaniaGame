@@ -22074,6 +22074,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WindBox
       objectReference: {fileID: 0}
+    - target: {fileID: 4629201388309255594, guid: 9bb419b2acb2d514cb30f1ade756dcf8,
+        type: 3}
+      propertyPath: _windForce.y
+      value: -250
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bb419b2acb2d514cb30f1ade756dcf8, type: 3}
 --- !u!1001 &5903584861000914748
@@ -22222,7 +22227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091381271999991}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.053073, y: -0.5953322, z: 2.828125}
+  m_LocalPosition: {x: -27.191288, y: -4.8899555, z: -7.1418753}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7815091382585132247}
@@ -22255,7 +22260,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -22896,7 +22901,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091383192394159}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.16455, y: -6.58, z: -9.97}
+  m_LocalPosition: {x: -33.165886, y: -6.58, z: -9.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7815091381936471402}
