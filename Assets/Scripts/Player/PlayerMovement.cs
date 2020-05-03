@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         _originalAmountOfJumps = _amountOfJumps;
         _originalMovementSpeedValue = _movementSpeed;
     }
-
+    
     private void FixedUpdate()
     {
         CurrentPlayerVelocity = _rb2d.velocity; //удалить после того как ГД настроят все
@@ -84,8 +84,7 @@ public class PlayerMovement : MonoBehaviour
             Grounded?.Invoke();
             _canDoubleJump = true;
             _rb2d.gravityScale = 1f;
-            if (_amountOfJumps < 1)
-                _amountOfJumps = _originalAmountOfJumps;
+            RestoreJump();
         }
 
         if (_collisions.IsJumpPad)
@@ -97,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         if (_isDashing)
            StartCoroutine(Dash(InputDirectionStorage.LastNonZeroDirection));
 
-        if (!_canWallJump)
+        if (_collisions.IsOnWall)
             RestoreJump();
 
         if (!_collisions.IsGrounded)
@@ -110,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             _rb2d.gravityScale = _jumpFallingGravity;
     }
 
-    private void TryMove(float direction) //TODO: вынести общёт физики в фиксед и сделать finite state machine уже наконец
+    private void TryMove(float direction) //TODO: вынести обсчет физики в фиксед и сделать finite state machine уже наконец
     {
         if (!_canMove) return;
         
@@ -186,8 +185,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void RestoreJump()
     {
-        if (_collisions.IsOnWall)
-            _amountOfJumps = _originalAmountOfJumps;
+         if (_amountOfJumps < 1)
+             _amountOfJumps = _originalAmountOfJumps;
     }
 
     private void OnDisable()
