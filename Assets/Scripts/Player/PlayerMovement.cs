@@ -84,7 +84,8 @@ public class PlayerMovement : MonoBehaviour
             Grounded?.Invoke();
             _canDoubleJump = true;
             _rb2d.gravityScale = 1f;
-            _amountOfJumps = _originalAmountOfJumps;
+            if (_amountOfJumps < 1)
+                _amountOfJumps = _originalAmountOfJumps;
         }
 
         if (_collisions.IsJumpPad)
@@ -134,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (_amountOfJumps <= 0) return;
+        if (_amountOfJumps < 1) return;
         
         _rb2d.gravityScale = 1.2f;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
@@ -181,13 +182,12 @@ public class PlayerMovement : MonoBehaviour
     private void WallSlide()
     {
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
-        
     }
 
     private void RestoreJump()
     {
         if (_collisions.IsOnWall)
-            _canDoubleJump = true;
+            _amountOfJumps = _originalAmountOfJumps;
     }
 
     private void OnDisable()
