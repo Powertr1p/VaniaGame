@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
            StartCoroutine(Dash(InputDirectionStorage.LastNonZeroDirection));
 
         if (!_canWallJump)
-            TryRestoreWallJump();
+            RestoreJump();
 
         if (!_collisions.IsGrounded)
             ChangeGravityOnFall();
@@ -127,10 +127,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (_collisions.IsGrounded)
             Jump(true);
-        else if (_canDoubleJump && !_collisions.IsGrounded && !_collisions.IsOnWall)
+        else if (_canDoubleJump && !_collisions.IsGrounded)
             Jump(false);
-        else if (_canWallJump && (_collisions.IsOnWallAndReadyToWallJump || _collisions.IsOnWall))
-            TryWallJump(direction);
     }
 
     private void Jump(bool canDoExtraJump)
@@ -139,17 +137,6 @@ public class PlayerMovement : MonoBehaviour
         _canWallJump = false;
         _canDoubleJump = canDoExtraJump;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
-    }
-
-    private void TryWallJump(float direction) 
-    {
-        if (_canWallJump)
-        {
-            Vector2 force = new Vector2(_wallJumpHorizontalVelocity * direction, _wallJumpVerticalVelocity);
-            _rb2d.velocity = Vector2.zero;
-            _rb2d.AddForce(force);
-            _canWallJump = false;
-        }
     }
 
     private Vector2 GetPlayerVelocityBasedOnDirection(float direction, float movementSpeed)
@@ -192,12 +179,13 @@ public class PlayerMovement : MonoBehaviour
     private void WallSlide()
     {
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
+        
     }
 
-    private void TryRestoreWallJump()
+    private void RestoreJump()
     {
-        if (!_collisions.IsOnWall || _collisions.IsGrounded)
-            _canWallJump = true;
+        if (_collisions.IsOnWall)
+            _canDoubleJump = true;
     }
 
     private void OnDisable()
