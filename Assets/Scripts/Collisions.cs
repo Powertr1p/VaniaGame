@@ -13,7 +13,7 @@ public class Collisions : MonoBehaviour
     [SerializeField] private float _collisionRadius;
     [SerializeField] private float _bottomCollisionRadius;
     
-    private float _wallSlideResidualCollisionTimer = 0.3f;
+    [SerializeField] private float _wallSlideResidualCollisionTimer = 0.3f;
     private float _wallSlideResidualCollisionTimerValue;
    
     private bool _isGrounded;

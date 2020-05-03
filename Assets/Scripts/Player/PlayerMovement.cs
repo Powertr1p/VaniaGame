@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _input.OnJumpButtonPressed += TryJump;
         _input.OnMovementButtonPressed += TryMove;
-        _input.OnDashButtonPressed += ToggleDash;
+        _input.OnDashButtonPressed += Dash;
     }
 
     private void Awake()
@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
             WallSlide();
 
         if (_isDashing)
-           StartCoroutine(Dash(InputDirectionStorage.LastNonZeroDirection));
+           StartCoroutine(OldDash(InputDirectionStorage.LastNonZeroDirection));
 
         if (_collisions.IsOnWall)
             RestoreJump();
@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             _rb2d.gravityScale = _jumpFallingGravity;
     }
 
-    private void TryMove(float direction) //TODO: вынести обсчет физики в фиксед и сделать finite state machine уже наконец
+    private void TryMove(float direction)
     {
         if (!_canMove) return;
         
@@ -146,16 +146,22 @@ public class PlayerMovement : MonoBehaviour
         return new Vector2(direction * movementSpeed, _rb2d.velocity.y);
     }
 
-    private void ToggleDash(float direction)
+    // private void ToggleDash(float direction)
+    // {
+    //     if (_canDash)
+    //     {
+    //         _canDash = false;
+    //         _isDashing = true;
+    //     }
+    // }
+
+    private void Dash(float direction)
     {
-        if (_canDash)
-        {
-            _canDash = false;
-            _isDashing = true;
-        }
+        var a = new Vector2(150 * direction, 0);
+        _rb2d.AddForce(a, ForceMode2D.Impulse);
     }
 
-    private IEnumerator Dash(float direction)
+    private IEnumerator OldDash(float direction)
     {
         _rb2d.gravityScale = 0;
         _rb2d.velocity = Vector2.zero;
@@ -193,6 +199,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _input.OnJumpButtonPressed -= TryJump;
         _input.OnMovementButtonPressed -= TryMove;
-        _input.OnDashButtonPressed -= ToggleDash;
+        _input.OnDashButtonPressed -= Dash;
     }
 }
