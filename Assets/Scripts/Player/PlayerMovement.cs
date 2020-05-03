@@ -135,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump(bool canDoExtraJump)
     {
-        _rb2d.gravityScale = 1;
+        _rb2d.gravityScale = 1.2f;
         _canWallJump = false;
         _canDoubleJump = canDoExtraJump;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
