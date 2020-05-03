@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 343263219795751589}
   - component: {fileID: 5024410544612515731}
   - component: {fileID: 9198206636775672550}
+  - component: {fileID: 581280174}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -137,7 +138,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8152279515433644781}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -187,11 +188,10 @@ MonoBehaviour:
   _movementSpeed: 6
   _jumpVelocity: 18
   _jumpFallingGravity: 2
-  _dashSpeed: 80
+  _amountOfJumps: 2
+  _dashSpeed: 50
   _dashCooldown: 0.001
-  _dashingTime: 0.05
-  _wallJumpHorizontalVelocity: 100
-  _wallJumpVerticalVelocity: 1000
+  _dashingTime: 0.087
   CurrentPlayerVelocity: {x: -2.37, y: -7.89}
 --- !u!114 &5024410544612515731
 MonoBehaviour:
@@ -228,3 +228,35 @@ MonoBehaviour:
   _leftOffset: {x: -0.26, y: 0}
   _collisionRadius: 0.12
   _bottomCollisionRadius: 0.21
+--- !u!60 &581280174
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8152279515433644781}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 0.24, y: 0.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.2623787, y: 0.29694986}
+      - {x: -0.2742386, y: 0.042574644}
+      - {x: -0.26328278, y: -0.013363361}
+      - {x: -0.25588608, y: -0.51109624}
+      - {x: 0.17527008, y: -0.51109624}
+      - {x: 0.23814774, y: 0.04747629}
+      - {x: 0.21671295, y: 0.29694963}
