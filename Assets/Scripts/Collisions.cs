@@ -19,15 +19,12 @@ public class Collisions : MonoBehaviour
     private bool _isGrounded;
     private bool _isOnLeftWall;
     private bool _isOnRightWall;
-    private bool _isOnWallAndReadyToWallJump;
-    private bool _canWallJump;
     private bool _isJumpPad;
 
     private Rigidbody2D _rb2d;
     private float _facingDirection;
 
     public bool IsGrounded { get => _isGrounded; }
-    public bool IsOnWallAndReadyToWallJump { get => _isOnWallAndReadyToWallJump; }
     public bool IsOnWall { get => _isOnRightWall || _isOnLeftWall; }
     public bool IsJumpPad { get => _isJumpPad; }
 
@@ -46,20 +43,15 @@ public class Collisions : MonoBehaviour
 
         _facingDirection = transform.localScale.x;
 
-        CheckForWallSlide();
-        
+        CheckWallslide();
+
         if (_wallSlideResidualCollisionTimer < 0)
             TryResetWallSlideCollisionTimer();
     }
 
-    private void CheckForWallSlide() 
+    public bool CheckWallslide()
     {
-        if (IsPlayerCollidedWithWallFromRightSide())
-            _isOnWallAndReadyToWallJump = true;
-        else if (IsPlayerCollidedWithWallFromLeftSide())
-            _isOnWallAndReadyToWallJump = true;
-        else
-            _isOnWallAndReadyToWallJump = false;
+        return IsPlayerCollidedWithWallFromLeftSide() || IsPlayerCollidedWithWallFromRightSide();
     }
 
     private bool IsPlayerCollidedWithWallFromRightSide() //отрефакторить

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -27,11 +25,9 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("Debug panel for GameDesigners")]
     public Vector2 CurrentPlayerVelocity;
-
-    private float _originalMovementSpeedValue;
+    
     private int _originalAmountOfJumps;
     
-    private bool _canDoubleJump;
     private bool _canWallJump;
     private bool _isDashing;
     
@@ -77,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
             RestoreJump();
         }
 
-        if (_collisions.IsOnWallAndReadyToWallJump)
+        if (_collisions.CheckWallslide())
             WallSlide();
         
         if (_collisions.IsOnWall || _collisions.IsJumpPad)
@@ -103,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (_dashTimeLeft > 0)
         {
+            _rb2d.velocity = Vector3.zero;
             _rb2d.velocity = new Vector2(_dashSpeed * _direction, _rb2d.velocity.y);
             _dashTimeLeft -= Time.deltaTime;
         }
@@ -129,11 +126,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_canMove) return;
         
-        if (!_collisions.IsOnWallAndReadyToWallJump)
-        {
-            _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
-            _animator.SetBool(Constants.Running, IsRunning());
-        }
+        _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
+        _animator.SetBool(Constants.Running, IsRunning());
     }
 
     private void TryJump()
