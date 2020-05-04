@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
             RestoreJump();
         }
 
-        if (_collisions.CheckWallslide())
+        if (_collisions.IsWallslide)
             WallSlide();
         
         if (_collisions.IsOnWall || _collisions.IsJumpPad)

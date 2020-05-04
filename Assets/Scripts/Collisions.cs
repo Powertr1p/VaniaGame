@@ -13,7 +13,7 @@ public class Collisions : MonoBehaviour
     [SerializeField] private float _collisionRadius;
     [SerializeField] private float _bottomCollisionRadius;
     
-    [SerializeField] private float _wallSlideResidualCollisionTimer = 0.3f;
+    [SerializeField] private float _wallSlideResidualCollisionTimer = 0.8f;
     private float _wallSlideResidualCollisionTimerValue;
    
     private bool _isGrounded;
@@ -24,9 +24,10 @@ public class Collisions : MonoBehaviour
     private Rigidbody2D _rb2d;
     private float _facingDirection;
 
-    public bool IsGrounded { get => _isGrounded; }
-    public bool IsOnWall { get => _isOnRightWall || _isOnLeftWall; }
-    public bool IsJumpPad { get => _isJumpPad; }
+    public bool IsWallslide => IsWallsliding();
+    public bool IsGrounded => _isGrounded;
+    public bool IsOnWall => _isOnRightWall || _isOnLeftWall;
+    public bool IsJumpPad => _isJumpPad;
 
     private void Start()
     {
@@ -43,13 +44,11 @@ public class Collisions : MonoBehaviour
 
         _facingDirection = transform.localScale.x;
 
-        CheckWallslide();
-
         if (_wallSlideResidualCollisionTimer < 0)
             TryResetWallSlideCollisionTimer();
     }
 
-    public bool CheckWallslide()
+    private bool IsWallsliding()
     {
         return IsPlayerCollidedWithWallFromLeftSide() || IsPlayerCollidedWithWallFromRightSide();
     }
@@ -58,11 +57,7 @@ public class Collisions : MonoBehaviour
     {
         if (_isOnRightWall && _facingDirection == 1 && _rb2d.velocity.y < 0 && !_isGrounded)
         {
-            if (_rb2d.velocity.x > 0)
-            {
-                return true;
-            }
-            else if (_rb2d.velocity.x == 0 && _wallSlideResidualCollisionTimer > 0)
+            if (_rb2d.velocity.x >= 0 && _wallSlideResidualCollisionTimer > 0)
             {
                 ReduceResidualWallSlideCollisionTimer();
                 return true;
@@ -75,11 +70,7 @@ public class Collisions : MonoBehaviour
     {
         if (_isOnLeftWall && _facingDirection == -1 && _rb2d.velocity.y < 0 && !_isGrounded)
         {
-            if (_rb2d.velocity.x < 0)
-            {
-                return true;
-            }
-            else if (_rb2d.velocity.x == 0 && _wallSlideResidualCollisionTimer > 0)
+            if (_rb2d.velocity.x <= 0 && _wallSlideResidualCollisionTimer > 0)
             {
                 ReduceResidualWallSlideCollisionTimer();
                 return true;
