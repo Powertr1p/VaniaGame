@@ -155,8 +155,7 @@ public class PlayerMovement : MonoBehaviour
     {
         return new Vector2(direction * movementSpeed, _rb2d.velocity.y);
     }
-    
-
+ 
     private void WallSlide()
     {
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
