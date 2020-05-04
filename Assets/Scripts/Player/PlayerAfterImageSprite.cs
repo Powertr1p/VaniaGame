@@ -27,6 +27,7 @@ public class PlayerAfterImageSprite : MonoBehaviour
         _sprite.sprite = _playerSprite.sprite;
         transform.position = _player.position;
         transform.rotation = _player.rotation;
+        transform.localScale = _player.localScale;
         _timeActivated = Time.time;
     }
 

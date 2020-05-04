@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeTime: 0.1
-  _alphaSet: 1
+  _alphaSet: 0.6
   _alphaMultiplayer: 0.85
 --- !u!212 &-1089231729035905526
 SpriteRenderer:
