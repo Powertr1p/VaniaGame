@@ -191,8 +191,6 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitUntil(() => !(_collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad));
         }
         
-        // TODO: отваливается трейл
-
         _restoringJump = false;
     }
 

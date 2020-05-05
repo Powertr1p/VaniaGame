@@ -38,7 +38,6 @@ public class Collisions : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UnityEngine.Debug.Log(IsGrounded);
         _isGrounded = IsCollided((Vector2)transform.position + _bottomOffset, _bottomCollisionSize, _groundLayer);
         _isOnRightWall = IsCollided((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer);
         _isOnLeftWall = IsCollided((Vector2)transform.position + _leftOffset, _collisionRadius, _groundLayer);
