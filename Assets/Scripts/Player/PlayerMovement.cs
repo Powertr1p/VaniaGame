@@ -178,9 +178,8 @@ public class PlayerMovement : MonoBehaviour
         
         if (AmountOfJumps < _originalAmountOfJumps)
         {
-            if (_collisions.IsGrounded)
+            if (!_collisions.IsGrounded)
             {
-                yield return new WaitUntil(() => !_collisions.IsGrounded);
                 yield return new WaitUntil(() => _collisions.IsGrounded);
                 AmountOfJumps = _originalAmountOfJumps;
             }
