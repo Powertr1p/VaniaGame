@@ -71,8 +71,6 @@ public class PlayerMovement : MonoBehaviour
     
     private void FixedUpdate()
     {
-        UnityEngine.Debug.Log(_rb2d.gravityScale);
-        
         CurrentPlayerVelocity = _rb2d.velocity;
 
         if (_collisions.IsGrounded)
@@ -103,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
         if (_dashTimeLeft > 0)
         {
             _rb2d.velocity = Vector3.zero;
+            _rb2d.gravityScale = 0f;
             _rb2d.velocity = new Vector2(_dashSpeed * _direction, _rb2d.velocity.y);
             _dashTimeLeft -= Time.deltaTime;
 
@@ -114,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (_dashTimeLeft <= 0)
         {
+            _rb2d.gravityScale = 1f;
             _isDashing = false;
         }
     }
