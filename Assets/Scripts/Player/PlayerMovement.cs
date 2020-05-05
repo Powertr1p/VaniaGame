@@ -169,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void RestoreJump()
     {
-         if (AmountOfJumps < 1)
+         if (AmountOfJumps < _originalAmountOfJumps)
              AmountOfJumps = _originalAmountOfJumps;
     }
 
