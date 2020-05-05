@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     
     private bool _canWallJump;
     private bool _isDashing;
+    private bool _restoringJump;
     
     private PlayerState _player;
 
@@ -71,21 +74,16 @@ public class PlayerMovement : MonoBehaviour
         CurrentPlayerVelocity = _rb2d.velocity;
 
         if (_collisions.IsGrounded)
-        {
             _rb2d.gravityScale = 1f;
-            RestoreJump();
-        }
 
         if (_collisions.IsWallslide)
             WallSlide();
-        
-        if (_collisions.IsOnWall || _collisions.IsJumpPad)
-            RestoreJump();
 
         if (!_collisions.IsGrounded)
             ChangeGravityOnFall();
         
         CheckDash();
+        TryRestoreJump();
     }
 
     private void TryDash(float direction)
@@ -150,9 +148,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        AmountOfJumps--;
         if (AmountOfJumps < 1) return;
         
+        AmountOfJumps--;
         _rb2d.gravityScale = 1.2f;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
     }
@@ -167,10 +165,32 @@ public class PlayerMovement : MonoBehaviour
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
     }
 
-    private void RestoreJump()
+    private void TryRestoreJump()
     {
-         if (AmountOfJumps < _originalAmountOfJumps)
-             AmountOfJumps = _originalAmountOfJumps;
+        if (_restoringJump) return;
+
+        StartCoroutine(RestoreJump());
+    }
+    
+    private IEnumerator RestoreJump()
+    {
+        _restoringJump = true;
+        
+        if (AmountOfJumps < _originalAmountOfJumps)
+        {
+            if (_collisions.IsGrounded)
+            {
+                yield return new WaitUntil(() => !_collisions.IsGrounded);
+                yield return new WaitUntil(() => _collisions.IsGrounded);
+                AmountOfJumps = _originalAmountOfJumps;
+            }
+            else if (!_collisions.IsGrounded && (_collisions.IsWallslide || _collisions.IsJumpPad))  
+            {
+                AmountOfJumps = _originalAmountOfJumps;
+            }
+        }
+
+        _restoringJump = false;
     }
 
     private void OnDisable()
