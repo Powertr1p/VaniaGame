@@ -27404,90 +27404,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Debug
       objectReference: {fileID: 0}
-    - target: {fileID: 202898815872134514, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846237284364751, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846237284364751, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846237284364751, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846237284364751, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846237859621589, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846237859621589, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846237859621589, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846237859621589, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846238097542864, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846238097542864, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846238097542864, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8354846238097542864, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8588897165703359802, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: _dashTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8588897165703359802, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: _dashSpeed
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 8588897165703359802, guid: 0b0da927757c94d4baf96ff9b616df93,
-        type: 3}
-      propertyPath: _dashCooldown
-      value: 0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 8588897165703359802, guid: 0b0da927757c94d4baf96ff9b616df93,
         type: 3}
       propertyPath: AmountOfJumps
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b0da927757c94d4baf96ff9b616df93, type: 3}
@@ -28331,7 +28251,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091381271999991}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.82529, y: 45.384666, z: -7.881875}
+  m_LocalPosition: {x: 15.053073, y: -0.5953322, z: 2.828125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7815091382585132247}
@@ -28364,7 +28284,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -28525,7 +28445,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091381378859809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.878363, y: 45.98, z: -10.71}
+  m_LocalPosition: {x: -17.514662, y: 45.98, z: -10.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7815091381308821572}
