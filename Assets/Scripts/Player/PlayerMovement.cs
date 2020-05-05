@@ -150,9 +150,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        AmountOfJumps--;
         if (AmountOfJumps < 1) return;
         
-        AmountOfJumps--;
         _rb2d.gravityScale = 1.2f;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
     }
