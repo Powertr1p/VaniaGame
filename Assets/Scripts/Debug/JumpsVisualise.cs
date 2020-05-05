@@ -3,13 +3,12 @@ using TMPro;
 
 public class JumpsVisualise : MonoBehaviour
 {
-    private TextMeshProUGUI _text;
+    [SerializeField] private TextMeshProUGUI _text;
     private PlayerMovement _player;
 
     private void Awake()
     {
         _player = GetComponentInParent<PlayerMovement>();
-        _text = GetComponentInChildren<TextMeshProUGUI>();
     }
     
 

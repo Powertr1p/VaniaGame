@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _rb2d.velocity = Vector3.zero;
             _rb2d.velocity = new Vector2(_dashSpeed * _direction, _rb2d.velocity.y);
-            _dashTimeLeft -= Time.fixedDeltaTime;
+            _dashTimeLeft -= Time.deltaTime;
 
             if (Mathf.Abs(transform.position.x - _lastImageXPos) > _distanceBetweenImages)
             {
