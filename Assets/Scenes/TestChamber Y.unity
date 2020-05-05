@@ -141,6 +141,32 @@ PrefabInstance:
       propertyPath: _amountOfJumps
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 343263219795751589, guid: cad56343d7ffe1f478cebc6c1c98d85a,
+        type: 3}
+      propertyPath: _trail
+      value: 
+      objectReference: {fileID: 3558662560501151609, guid: d854d776a43b75c458db4b321ce9d266,
+        type: 3}
+    - target: {fileID: 343263219795751589, guid: cad56343d7ffe1f478cebc6c1c98d85a,
+        type: 3}
+      propertyPath: _dashVelocity.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 343263219795751589, guid: cad56343d7ffe1f478cebc6c1c98d85a,
+        type: 3}
+      propertyPath: _dashTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 343263219795751589, guid: cad56343d7ffe1f478cebc6c1c98d85a,
+        type: 3}
+      propertyPath: _dashSpeed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 343263219795751589, guid: cad56343d7ffe1f478cebc6c1c98d85a,
+        type: 3}
+      propertyPath: _dashCooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8152279515433644781, guid: cad56343d7ffe1f478cebc6c1c98d85a,
         type: 3}
       propertyPath: m_Name
@@ -27872,7 +27898,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091381271999991}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.053073, y: -0.5953322, z: 2.828125}
+  m_LocalPosition: {x: -15.458413, y: 47.524666, z: -7.1418753}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7815091382585132247}
@@ -27905,7 +27931,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -28511,7 +28537,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091383192394159}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.548706, y: 48.12, z: -9.97}
+  m_LocalPosition: {x: -15.511486, y: 48.12, z: -9.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7815091381936471402}
