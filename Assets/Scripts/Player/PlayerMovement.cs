@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -13,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpVelocity;
     [Tooltip("После прыжка на игрока дейтсвует усиленная гравитация для эффекта тяжести прыжка")]
     [SerializeField] private float _jumpFallingGravity = 1.5f;
-    [SerializeField] private int _amountOfJumps = 2;
+    [FormerlySerializedAs("_amountOfJumps")] [SerializeField] public int AmountOfJumps = 2;
 
     [Header("Dash config")] 
     [SerializeField] private float _dashTime;
@@ -62,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        _originalAmountOfJumps = _amountOfJumps;
+        _originalAmountOfJumps = AmountOfJumps;
     }
     
     private void FixedUpdate()
@@ -103,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _rb2d.velocity = Vector3.zero;
             _rb2d.velocity = new Vector2(_dashSpeed * _direction, _rb2d.velocity.y);
-            _dashTimeLeft -= Time.deltaTime;
+            _dashTimeLeft -= Time.fixedDeltaTime;
 
             if (Mathf.Abs(transform.position.x - _lastImageXPos) > _distanceBetweenImages)
             {
@@ -149,9 +150,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (_amountOfJumps < 1) return;
+        if (AmountOfJumps < 1) return;
         
-        _amountOfJumps--;
+        AmountOfJumps--;
         _rb2d.gravityScale = 1.2f;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
     }
@@ -168,8 +169,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void RestoreJump()
     {
-         if (_amountOfJumps < 1)
-             _amountOfJumps = _originalAmountOfJumps;
+         if (AmountOfJumps < 1)
+             AmountOfJumps = _originalAmountOfJumps;
     }
 
     private void OnDisable()
