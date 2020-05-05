@@ -180,15 +180,8 @@ public class PlayerMovement : MonoBehaviour
         
         if (AmountOfJumps < _originalAmountOfJumps && !_collisions.IsGrounded)
         {
-            if (_collisions.IsWallslide || _collisions.IsJumpPad)
-            {
-                AmountOfJumps = _originalAmountOfJumps;
-            }
-            else
-            {
-                yield return new WaitUntil(() => _collisions.IsGrounded);
-                AmountOfJumps = _originalAmountOfJumps;
-            }
+            yield return new WaitUntil(() => _collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad );
+            AmountOfJumps = _originalAmountOfJumps;
         }
 
         _restoringJump = false;
