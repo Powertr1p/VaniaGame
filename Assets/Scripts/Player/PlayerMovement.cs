@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Сила прыжка. Придает игроку горизонтальный пуш (считается так: координата Х берется из инпута, а этот параметр умножает Y")]
     [SerializeField] private float _jumpVelocity;
     [Tooltip("После прыжка на игрока дейтсвует усиленная гравитация для эффекта тяжести прыжка")]
-    [SerializeField] private float _jumpFallingGravity = 1.5f;
+    [SerializeField] private float _jumpFallingGravity = 2f;
     [FormerlySerializedAs("_amountOfJumps")] [SerializeField] public int AmountOfJumps = 2;
 
     [Header("Dash config")] 
@@ -71,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
     
     private void FixedUpdate()
     {
+        UnityEngine.Debug.Log(_rb2d.gravityScale);
+        
         CurrentPlayerVelocity = _rb2d.velocity;
 
         if (_collisions.IsGrounded)
@@ -149,9 +151,9 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         if (AmountOfJumps < 1) return;
-        
+
         AmountOfJumps--;
-        _rb2d.gravityScale = 1.2f;
+        _rb2d.gravityScale = 1f;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
     }
 
@@ -176,15 +178,15 @@ public class PlayerMovement : MonoBehaviour
     {
         _restoringJump = true;
         
-        if (AmountOfJumps < _originalAmountOfJumps)
+        if (AmountOfJumps < _originalAmountOfJumps && !_collisions.IsGrounded)
         {
-            if (!_collisions.IsGrounded)
+            if (_collisions.IsWallslide || _collisions.IsJumpPad)
             {
-                yield return new WaitUntil(() => _collisions.IsGrounded);
                 AmountOfJumps = _originalAmountOfJumps;
             }
-            else if (!_collisions.IsGrounded && (_collisions.IsWallslide || _collisions.IsJumpPad))  
+            else
             {
+                yield return new WaitUntil(() => _collisions.IsGrounded);
                 AmountOfJumps = _originalAmountOfJumps;
             }
         }
