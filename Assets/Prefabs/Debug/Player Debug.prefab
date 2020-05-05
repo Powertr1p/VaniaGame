@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 3911423169413595148}
   - component: {fileID: 888608051225810297}
   - component: {fileID: 8354846237393944113}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Player Debug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,10 +189,10 @@ MonoBehaviour:
   _movementSpeed: 6
   _jumpVelocity: 18
   _jumpFallingGravity: 2
-  AmountOfJumps: 2
-  _dashTime: 0.2
-  _dashSpeed: 50
-  _dashCooldown: 2.5
+  AmountOfJumps: 10
+  _dashTime: 0.1
+  _dashSpeed: 60
+  _dashCooldown: 0.01
   CurrentPlayerVelocity: {x: -2.37, y: -7.89}
 --- !u!114 &3911423169413595148
 MonoBehaviour:
@@ -224,11 +224,11 @@ MonoBehaviour:
   _jumpPadLayer:
     serializedVersion: 2
     m_Bits: 262144
-  _bottomOffset: {x: 0, y: -0.56}
+  _bottomOffset: {x: -0.06, y: -0.522}
   _rightOffset: {x: 0.25, y: -0.18}
   _leftOffset: {x: -0.26, y: -0.18}
   _collisionRadius: 0.12
-  _bottomCollisionRadius: 0.21
+  _bottomCollisionSize: {x: 0.39, y: 0.03}
   _wallSlideResidualCollisionTimer: 0.3
 --- !u!60 &8354846237393944113
 PolygonCollider2D:

@@ -184,6 +184,10 @@ public class PlayerMovement : MonoBehaviour
             AmountOfJumps = _originalAmountOfJumps;
         }
 
+        // TODO: починить удар башкой
+        // TODO: от стены всего 1 речардж
+        // TODO: отваливается трейл
+
         _restoringJump = false;
     }
 

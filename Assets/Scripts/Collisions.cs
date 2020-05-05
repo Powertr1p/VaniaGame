@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Collisions : MonoBehaviour
@@ -11,7 +12,7 @@ public class Collisions : MonoBehaviour
     [SerializeField] private Vector2 _rightOffset;
     [SerializeField] private Vector2 _leftOffset;
     [SerializeField] private float _collisionRadius;
-    [SerializeField] private float _bottomCollisionRadius;
+    [SerializeField] private Vector2 _bottomCollisionSize;
     
     [SerializeField] private float _wallSlideResidualCollisionTimer = 0.8f;
     private float _wallSlideResidualCollisionTimerValue;
@@ -37,10 +38,11 @@ public class Collisions : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _isGrounded = IsCollided((Vector2)transform.position + _bottomOffset, _bottomCollisionRadius, _groundLayer);
+        UnityEngine.Debug.Log(IsGrounded);
+        _isGrounded = IsCollided((Vector2)transform.position + _bottomOffset, _bottomCollisionSize, _groundLayer);
         _isOnRightWall = IsCollided((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer);
         _isOnLeftWall = IsCollided((Vector2)transform.position + _leftOffset, _collisionRadius, _groundLayer);
-        _isJumpPad = IsCollided((Vector2)transform.position + _bottomOffset, _bottomCollisionRadius, _jumpPadLayer);
+        _isJumpPad = IsCollided((Vector2)transform.position + _bottomOffset, _bottomCollisionSize, _jumpPadLayer);
 
         _facingDirection = transform.localScale.x;
 
@@ -83,6 +85,11 @@ public class Collisions : MonoBehaviour
     {
         return Physics2D.OverlapCircle(position, collisionRadius, layer);
     }
+    
+    private bool IsCollided(Vector2 position, Vector2 collisionSize, LayerMask layer)
+    {
+        return Physics2D.OverlapBox(position, collisionSize, 0, layer);
+    }
 
     private void ReduceResidualWallSlideCollisionTimer()
     {
@@ -100,7 +107,7 @@ public class Collisions : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere((Vector2)transform.position + _bottomOffset, _bottomCollisionRadius);
+        Gizmos.DrawWireCube((Vector2)transform.position + _bottomOffset, _bottomCollisionSize);
         Gizmos.DrawWireSphere((Vector2)transform.position + _rightOffset, _collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + _leftOffset, _collisionRadius);
     }
