@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -181,11 +182,15 @@ public class PlayerMovement : MonoBehaviour
         if (AmountOfJumps < _originalAmountOfJumps && !_collisions.IsGrounded)
         {
             yield return new WaitUntil(() => _collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad );
-            AmountOfJumps = _originalAmountOfJumps;
-        }
 
-        // TODO: починить удар башкой
-        // TODO: от стены всего 1 речардж
+            if (_collisions.IsOnWall)
+                AmountOfJumps += 1;
+            else if (_collisions.IsGrounded)
+                AmountOfJumps = _originalAmountOfJumps;
+            
+            yield return new WaitUntil(() => !(_collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad));
+        }
+        
         // TODO: отваливается трейл
 
         _restoringJump = false;
