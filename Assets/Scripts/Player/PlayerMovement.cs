@@ -170,8 +170,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void TryRestoreJump()
     {
+        if (_collisions.IsGrounded && _collisions.IsOnWall)
+            AmountOfJumps = _originalAmountOfJumps;
+        
         if (_restoringJump) return;
-
+        
         StartCoroutine(RestoreJump());
     }
     
@@ -182,15 +185,14 @@ public class PlayerMovement : MonoBehaviour
         if (AmountOfJumps < _originalAmountOfJumps && !_collisions.IsGrounded)
         {
             yield return new WaitUntil(() => _collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad );
-
+           
             if (_collisions.IsOnWall)
                 AmountOfJumps += 1;
-            else if (_collisions.IsGrounded)
+            else if (_collisions.IsGrounded) 
                 AmountOfJumps = _originalAmountOfJumps;
-            
+           
             yield return new WaitUntil(() => !(_collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad));
         }
-        
         _restoringJump = false;
     }
 
