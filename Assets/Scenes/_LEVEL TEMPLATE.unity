@@ -13755,6 +13755,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b5c7b36eb95af04c9bacacd16a4f713, type: 3}
+--- !u!4 &1646978119 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 202898815872134513, guid: 0b0da927757c94d4baf96ff9b616df93,
+    type: 3}
+  m_PrefabInstance: {fileID: 150123230}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1711353325
 GameObject:
   m_ObjectHideFlags: 0
@@ -15791,7 +15797,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091381378859809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.93985, y: -8.72, z: -10.71}
+  m_LocalPosition: {x: -32.14598, y: -5.99, z: -10.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7815091381308821572}
@@ -15977,7 +15983,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 1646978119}
   m_AnimatedTarget: {fileID: 0}
   m_LayerIndex: 0
   m_ShowDebugText: 0
@@ -16003,15 +16009,7 @@ MonoBehaviour:
     m_Style: 1
     m_Time: 0.5
   m_CustomBlends: {fileID: 11400000, guid: c7b1f85d0773a1b4da431ecbaff60c87, type: 2}
-  m_ParentHash:
-  - m_Hash: 874836497
-    m_ParentHash: 756556552
-  - m_Hash: -387607673
-    m_ParentHash: 756556552
-  - m_Hash: 1512870740
-    m_ParentHash: 756556552
-  - m_Hash: -524152464
-    m_ParentHash: 756556552
+  m_ParentHash: []
 --- !u!1 &7815091381928669210
 GameObject:
   m_ObjectHideFlags: 0
