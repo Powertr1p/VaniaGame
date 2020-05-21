@@ -167,14 +167,11 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
     }
-
+    
     private void TryRestoreJump()
     {
-        if (_collisions.IsGrounded && _collisions.IsOnWall)
-            AmountOfJumps = _originalAmountOfJumps;
-        
         if (_restoringJump) return;
-        
+
         StartCoroutine(RestoreJump());
     }
     
@@ -186,15 +183,20 @@ public class PlayerMovement : MonoBehaviour
         {
             yield return new WaitUntil(() => _collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad );
            
-            if (_collisions.IsOnWall)
+            if (_collisions.IsOnRightWall)
             {
-                AmountOfJumps += 1;
-                UnityEngine.Debug.Log("amount +1");
+                AmountOfJumps = 1;
+                yield return new WaitUntil(() => _collisions.IsOnLeftWall || _collisions.IsGrounded);
+                
             }
-            else if (_collisions.IsGrounded) 
+            else if (_collisions.IsOnLeftWall)
+            {
+                AmountOfJumps = 1;
+                yield return new WaitUntil(() => _collisions.IsOnRightWall || _collisions.IsGrounded);
+            }
+            
+            if (_collisions.IsGrounded)
                 AmountOfJumps = _originalAmountOfJumps;
-           
-            yield return new WaitUntil(() => !(_collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad));
         }
         _restoringJump = false;
     }
