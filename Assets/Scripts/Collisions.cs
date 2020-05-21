@@ -29,6 +29,10 @@ public class Collisions : MonoBehaviour
     
     public bool IsWallslide => IsWallsliding();
     public bool IsGrounded => _isGrounded;
+
+    public bool IsOnRightWall => _isOnRightWall;
+    public bool IsOnLeftWall => _isOnLeftWall;
+
     public bool IsOnWall => _isOnRightWall || _isOnLeftWall;
     public bool IsJumpPad => _isJumpPad;
 
@@ -57,7 +61,7 @@ public class Collisions : MonoBehaviour
         return IsPlayerCollidedWithWallFromLeftSide() || IsPlayerCollidedWithWallFromRightSide();
     }
 
-    private bool IsPlayerCollidedWithWallFromRightSide() //отрефакторить
+    public bool IsPlayerCollidedWithWallFromRightSide() //отрефакторить
     {
         if (_isOnRightWall && _facingDirection == 1 && _rb2d.velocity.y < 0 && !_isGrounded)
         {
@@ -70,7 +74,7 @@ public class Collisions : MonoBehaviour
         return false;
     }
 
-    private bool IsPlayerCollidedWithWallFromLeftSide() //отрефакторить
+    public bool IsPlayerCollidedWithWallFromLeftSide() //отрефакторить
     {
         if (_isOnLeftWall && _facingDirection == -1 && _rb2d.velocity.y < 0 && !_isGrounded)
         {
