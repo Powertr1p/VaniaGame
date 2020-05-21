@@ -172,11 +172,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_restoringJump) return;
         
-        if (_collisions.IsGrounded && _collisions.IsOnWall && AmountOfJumps < _originalAmountOfJumps)
-            AmountOfJumps = _originalAmountOfJumps;
-        
-        
-        
+         // if (_collisions.IsGrounded && AmountOfJumps < _originalAmountOfJumps)
+         //     AmountOfJumps = _originalAmountOfJumps;
+         
         StartCoroutine(RestoreJump());
     }
     
@@ -200,8 +198,12 @@ public class PlayerMovement : MonoBehaviour
                 yield return new WaitUntil(() => _collisions.IsOnRightWall || _collisions.IsGrounded);
                 
             }
+            
             if (_collisions.IsGrounded) 
-                AmountOfJumps = _originalAmountOfJumps;
+             {
+                 AmountOfJumps = _originalAmountOfJumps;
+                 UnityEngine.Debug.Log("Jup Restored Cos of Ground");
+             }
         }
         _restoringJump = false;
     }

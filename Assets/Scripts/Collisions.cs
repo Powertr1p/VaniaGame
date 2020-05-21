@@ -48,8 +48,7 @@ public class Collisions : MonoBehaviour
         _isOnRightWall = IsCollided((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer);
         _isOnLeftWall = IsCollided((Vector2)transform.position + _leftOffset, _collisionRadius, _groundLayer);
         _isJumpPad = IsCollided((Vector2)transform.position + _bottomOffset * GetCurrentDirection, _bottomCollisionSize, _jumpPadLayer);
-
-        UnityEngine.Debug.Log(_isOnLeftWall);
+        
         _facingDirection = transform.localScale.x;
 
         if (_wallSlideResidualCollisionTimer < 0)
