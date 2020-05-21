@@ -24,7 +24,9 @@ public class Collisions : MonoBehaviour
 
     private Rigidbody2D _rb2d;
     private float _facingDirection;
-
+    
+    private Vector2 GetCurrentDirection => transform.localScale;
+    
     public bool IsWallslide => IsWallsliding();
     public bool IsGrounded => _isGrounded;
     public bool IsOnWall => _isOnRightWall || _isOnLeftWall;
@@ -38,11 +40,12 @@ public class Collisions : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _isGrounded = IsCollided((Vector2)transform.position + _bottomOffset, _bottomCollisionSize, _groundLayer);
+        _isGrounded = IsCollided((Vector2)transform.position + _bottomOffset * GetCurrentDirection , _bottomCollisionSize, _groundLayer);
         _isOnRightWall = IsCollided((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer);
         _isOnLeftWall = IsCollided((Vector2)transform.position + _leftOffset, _collisionRadius, _groundLayer);
-        _isJumpPad = IsCollided((Vector2)transform.position + _bottomOffset, _bottomCollisionSize, _jumpPadLayer);
+        _isJumpPad = IsCollided((Vector2)transform.position + _bottomOffset * GetCurrentDirection, _bottomCollisionSize, _jumpPadLayer);
 
+        UnityEngine.Debug.Log(_isOnLeftWall);
         _facingDirection = transform.localScale.x;
 
         if (_wallSlideResidualCollisionTimer < 0)
@@ -105,8 +108,8 @@ public class Collisions : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-
-        Gizmos.DrawWireCube((Vector2)transform.position + _bottomOffset, _bottomCollisionSize);
+        
+        Gizmos.DrawWireCube((Vector2)transform.position + _bottomOffset * GetCurrentDirection, _bottomCollisionSize);
         Gizmos.DrawWireSphere((Vector2)transform.position + _rightOffset, _collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + _leftOffset, _collisionRadius);
     }

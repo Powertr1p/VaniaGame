@@ -187,7 +187,10 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitUntil(() => _collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad );
            
             if (_collisions.IsOnWall)
+            {
                 AmountOfJumps += 1;
+                UnityEngine.Debug.Log("amount +1");
+            }
             else if (_collisions.IsGrounded) 
                 AmountOfJumps = _originalAmountOfJumps;
            
