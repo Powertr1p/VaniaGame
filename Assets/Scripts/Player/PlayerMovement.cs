@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
     private Collisions _collisions;
     private PlayerInput _input;
 
+    [SerializeField] private GameObject _VFX;
+
     private bool CanMove => _player.IsAlive;
 
     public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
@@ -85,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
         
         CheckDash();
         TryRestoreJump();
+        SpawnVFX();
     }
 
     private void TryDash(float direction)
@@ -147,6 +150,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!CanMove) return;
         Jump();
+    }
+
+    private void SpawnVFX() //удалить после тестирования
+    {
+        if (_collisions.IsOnWall && !_collisions.IsGrounded)
+        {
+            var vfx = Instantiate(_VFX, transform.position, Quaternion.identity);
+            vfx.transform.localScale = transform.localScale;
+            
+            Destroy(vfx, 1f);
+        }
     }
 
     private void Jump()
