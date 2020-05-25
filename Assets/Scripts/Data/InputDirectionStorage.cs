@@ -3,8 +3,8 @@
     private static float _savedDirection;
     private static float _currentDirection;
 
-    public static float LastNonZeroDirection { get => _savedDirection; }
-    public static float CurrentDirection { get => _currentDirection; }
+    public static float LastNonZeroDirection => _savedDirection;
+    public static float CurrentDirection => _currentDirection;
 
     public static void StoreLastNonZeroDirection(float direction)
     {
