@@ -4,7 +4,7 @@
 public class PlayerSpriteFacingHandler : MonoBehaviour
 {
     private PlayerMovement _movement;
-    private bool CanSwapFacing() => _movement.IsRunning();
+    private bool CanSwapFacing => _movement.IsRunning();
 
     private void Start()
     {
@@ -13,7 +13,7 @@ public class PlayerSpriteFacingHandler : MonoBehaviour
 
     private void Update()
     {
-        if (CanSwapFacing())
+        if (CanSwapFacing)
             SwapSpriteFacing(InputDirectionStorage.CurrentDirection);
     }
 

@@ -45,16 +45,9 @@ public class PlayerMovement : MonoBehaviour
     private Collisions _collisions;
     private PlayerInput _input;
 
-    private bool _canMove => _player.IsAlive;
+    private bool CanMove => _player.IsAlive;
 
     public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
-
-    private void OnEnable()
-    {
-        _input.OnJumpButtonPressed += TryJump;
-        _input.OnMovementButtonPressed += TryMove;
-        _input.OnDashButtonPressed += TryDash;
-    }
 
     private void Awake()
     {
@@ -63,6 +56,13 @@ public class PlayerMovement : MonoBehaviour
         _animator = GetComponent<Animator>();
         _collisions = GetComponent<Collisions>();
         _input = GetComponent<PlayerInput>();
+    }
+    
+    private void OnEnable()
+    {
+        _input.OnJumpButtonPressed += TryJump;
+        _input.OnMovementButtonPressed += TryMove;
+        _input.OnDashButtonPressed += TryDash;
     }
 
     private void Start()
@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void TryMove(float direction)
     {
-        if (!_canMove) return;
+        if (!CanMove) return;
         
         _rb2d.velocity = GetPlayerVelocityBasedOnDirection(direction, _movementSpeed);
         _animator.SetBool(Constants.Running, IsRunning());
@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void TryJump()
     {
-        if (!_canMove) return;
+        if (!CanMove) return;
         Jump();
     }
 
