@@ -10,6 +10,8 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
+    public event Action OnWallslide;
+    
     [Header("Player Config")]
     [Tooltip("Скорость, с которой двигается игрок, эта скорость также влияет на скорость дэша")]
     [SerializeField] private float _movementSpeed = 6f;
@@ -166,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
     private void WallSlide()
     {
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
-        FindObjectOfType<PlayerVFX>().TrySpawnVFX();
+        OnWallslide?.Invoke();
     }
     
     private void TryRestoreJump()
