@@ -45,8 +45,6 @@ public class PlayerMovement : MonoBehaviour
     private Collisions _collisions;
     private PlayerInput _input;
 
-    [SerializeField] private GameObject _VFX;
-
     private bool CanMove => _player.IsAlive;
 
     public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;

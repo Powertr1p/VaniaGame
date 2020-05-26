@@ -6,23 +6,24 @@ public class PlayerVFX : MonoBehaviour
 {
     [SerializeField] private GameObject _wallSlideVFX;
 
+    private Vector3 _wallFVFXOffset = new Vector3(0.5f, 0f, 0f);
     private int _wallSildeVFXcount = 0;
 
     public void TrySpawnVFX()
     {
         if (_wallSildeVFXcount > 0) return;
-        StartCoroutine(SpawnVFX());
+        StartCoroutine(SpawnWallVFX());
     }
     
-    
-    private IEnumerator SpawnVFX()
+    private IEnumerator SpawnWallVFX()
     {
         _wallSildeVFXcount++;
-        var vfx = Instantiate(_wallSlideVFX, transform.position + new Vector3(0.5f * transform.localScale.x,0,0), Quaternion.identity);
+        var vfx = Instantiate(_wallSlideVFX, transform.position + _wallFVFXOffset * transform.localScale.x, Quaternion.identity);
         vfx.transform.localScale = transform.localScale;
         
-        yield return  new WaitForSeconds(0.5f);
-        Destroy(vfx);
+        if (vfx.TryGetComponent(out Walljump_VFX walljump_VFX))
+            yield return new WaitForSeconds(walljump_VFX.TimeToDestroy);
+        
         _wallSildeVFXcount--;
     }
 }
