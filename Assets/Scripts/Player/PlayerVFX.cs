@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerVFX : MonoBehaviour
+public class PlayerVFX : MonoBehaviour //придумать более явное название
 {
     [SerializeField] private GameObject _wallSlideVFX;
 
@@ -21,17 +21,17 @@ public class PlayerVFX : MonoBehaviour
 
     private void OnEnable()
     {
-        _movement.OnWallslide += TrySpawnVFX;
+        _movement.OnWallslide += TrySpawnWallslideVFX;
     }
 
-    private void TrySpawnVFX()
+    private void TrySpawnWallslideVFX()
     {
         if (_wallSildeVFXcount > _maxWallslideVFXOnSсreen) return;
         
-        StartCoroutine(SpawnWallVFX());
+        StartCoroutine(SpawnWallslideVFX());
     }
     
-    private IEnumerator SpawnWallVFX()
+    private IEnumerator SpawnWallslideVFX()
     {
         _wallSildeVFXcount++;
         
@@ -42,5 +42,10 @@ public class PlayerVFX : MonoBehaviour
             yield return new WaitForSeconds(wallslideVFX.TimeToDestroy);
 
         _wallSildeVFXcount--;
+    }
+
+    private void OnDisable()
+    {
+        _movement.OnWallslide -= TrySpawnWallslideVFX;
     }
 }
