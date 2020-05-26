@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 984082993041049895}
   - component: {fileID: -842450245055550308}
   m_Layer: 8
-  m_Name: Walljump_VFX
+  m_Name: Wallslide_VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4729,8 +4729,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 549635957
+  m_SortingLayer: 9
   m_SortingOrder: 100
   m_RenderMode: 0
   m_SortMode: 0

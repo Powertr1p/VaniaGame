@@ -12,6 +12,7 @@ public class PlayerVFX : MonoBehaviour
     public void TrySpawnVFX()
     {
         if (_wallSildeVFXcount > 0) return;
+        
         StartCoroutine(SpawnWallVFX());
     }
     
@@ -21,9 +22,9 @@ public class PlayerVFX : MonoBehaviour
         var vfx = Instantiate(_wallSlideVFX, transform.position + _wallFVFXOffset * transform.localScale.x, Quaternion.identity);
         vfx.transform.localScale = transform.localScale;
         
-        if (vfx.TryGetComponent(out Walljump_VFX walljump_VFX))
+        if (vfx.TryGetComponent(out Wallslide_VFX walljump_VFX))
             yield return new WaitForSeconds(walljump_VFX.TimeToDestroy);
-        
+
         _wallSildeVFXcount--;
     }
 }
