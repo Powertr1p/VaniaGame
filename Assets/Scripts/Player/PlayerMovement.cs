@@ -87,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
         
         CheckDash();
         TryRestoreJump();
-        SpawnVFX();
     }
 
     private void TryDash(float direction)
@@ -150,17 +149,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!CanMove) return;
         Jump();
-    }
-
-    private void SpawnVFX() //удалить после тестирования
-    {
-        if (_collisions.IsOnWall && !_collisions.IsGrounded)
-        {
-            var vfx = Instantiate(_VFX, transform.position, Quaternion.identity);
-            vfx.transform.localScale = transform.localScale;
-            
-            Destroy(vfx, 1f);
-        }
     }
 
     private void Jump()
