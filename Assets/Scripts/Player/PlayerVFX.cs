@@ -5,10 +5,24 @@ using UnityEngine;
 public class PlayerVFX : MonoBehaviour
 {
     [SerializeField] private GameObject _wallSlideVFX;
-    
-    public void SpawnVFX() 
+
+    private int _wallSildeVFXcount = 0;
+
+    public void TrySpawnVFX()
     {
-        var vfx = Instantiate(_wallSlideVFX, transform.position, Quaternion.identity);
-            vfx.transform.localScale = transform.localScale;
+        if (_wallSildeVFXcount > 0) return;
+        StartCoroutine(SpawnVFX());
+    }
+    
+    
+    private IEnumerator SpawnVFX()
+    {
+        _wallSildeVFXcount++;
+        var vfx = Instantiate(_wallSlideVFX, transform.position + new Vector3(0.5f * transform.localScale.x,0,0), Quaternion.identity);
+        vfx.transform.localScale = transform.localScale;
+        
+        yield return  new WaitForSeconds(0.5f);
+        Destroy(vfx);
+        _wallSildeVFXcount--;
     }
 }
