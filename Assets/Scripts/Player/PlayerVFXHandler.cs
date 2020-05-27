@@ -89,7 +89,7 @@ public class PlayerVFXHandler : MonoBehaviour
     private void OnDisable()
     {
         _movement.OnWallslide -= TrySpawnWallslideVFX;
-        _movement.OnDashing += TrySpawnAfterImageWhileDashing;
-        _movement.OnAttemptToDash += SpawnAfterImageWhileDashing;
+        _movement.OnDashing -= TrySpawnAfterImageWhileDashing;
+        _movement.OnAttemptToDash -= SpawnAfterImageWhileDashing;
     }
 }
