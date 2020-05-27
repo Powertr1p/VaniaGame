@@ -3,12 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerVFX : MonoBehaviour //придумать более явное название
+public class PlayerVFXHandler : MonoBehaviour
 {
+    [Header("Wallslide VFX Config")]
     [SerializeField] private GameObject _wallSlideVFX;
-
     [SerializeField] private int _maxWallslideVFXOnSсreen = 0;
 
+    [Header("Falling VFX")] 
+    [SerializeField] private float _distanceBetweenImagesFalling = 0.8f;
+    [SerializeField] private float _fallingSpeedToActivateVFX = -20;
+    private float _lastImageYPos;
+    
     private PlayerMovement _movement;
     
     private Vector3 _wallFVFXOffset = new Vector3(0.4f, 0f, 0f);
@@ -22,6 +27,12 @@ public class PlayerVFX : MonoBehaviour //придумать более явно�
     private void OnEnable()
     {
         _movement.OnWallslide += TrySpawnWallslideVFX;
+    }
+
+    private void Update()
+    {
+        if (_movement.CurrentPlayerVelocity.y <= _fallingSpeedToActivateVFX)
+            SpawnAfterImageWhileFalling();
     }
 
     private void TrySpawnWallslideVFX()
@@ -42,6 +53,15 @@ public class PlayerVFX : MonoBehaviour //придумать более явно�
             yield return new WaitForSeconds(wallslideVFX.TimeToDestroy);
 
         _wallSildeVFXcount--;
+    }
+
+    private void SpawnAfterImageWhileFalling()
+    {
+        if (Mathf.Abs(transform.position.y - _lastImageYPos) > _distanceBetweenImagesFalling)
+        {
+            PlayerAfterImagePool.Instance.GetFromPool();
+            _lastImageYPos = transform.position.y;
+        }
     }
 
     private void OnDisable()

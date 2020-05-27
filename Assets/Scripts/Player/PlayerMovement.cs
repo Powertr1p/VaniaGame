@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private float _direction;
     private float _lastImageXPos;
     private float _distanceBetweenImages = 0.1f;
-    
+
     [Header("Debug panel for GameDesigners")]
     public Vector2 CurrentPlayerVelocity;
     
@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!_collisions.IsGrounded)
             ChangeGravityOnFall();
-        
+
         CheckDash();
         TryRestoreJump();
     }
