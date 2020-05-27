@@ -10,8 +10,8 @@ public class PlayerVFXHandler : MonoBehaviour
     [SerializeField] private int _maxWallslideVFXOnSсreen = 0;
 
     [Header("Falling VFX")] 
-    [SerializeField] private float _distanceBetweenImagesFalling = 0.8f;
-    [SerializeField] private float _fallingSpeedToActivateVFX = -20;
+    [SerializeField] private float _distanceBetweenImagesFalling = 0.2f;
+    [SerializeField] private float _fallingSpeedToActivateVFX = -40;
     private float _lastImageYPos;
     
     private PlayerMovement _movement;
