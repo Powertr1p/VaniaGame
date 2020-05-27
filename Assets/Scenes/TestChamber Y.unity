@@ -16864,6 +16864,9 @@ MonoBehaviour:
   _wallSlideVFX: {fileID: 1178015559938403671, guid: 1a46b2be0706a4e12a76694e0619d1b0,
     type: 3}
   "_maxWallslideVFXOnS\u0441reen": 0
+  _distanceBetweenImagesFalling: 0.8
+  _fallingSpeedToActivateVFX: -20
+  _distanceBetweenImagesDashing: 0.1
 --- !u!1001 &979405677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26801,12 +26804,12 @@ PrefabInstance:
     - target: {fileID: 202898815872134513, guid: 0b0da927757c94d4baf96ff9b616df93,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.1
+      value: 26.8
       objectReference: {fileID: 0}
     - target: {fileID: 202898815872134513, guid: 0b0da927757c94d4baf96ff9b616df93,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 41.8
+      value: 67
       objectReference: {fileID: 0}
     - target: {fileID: 202898815872134513, guid: 0b0da927757c94d4baf96ff9b616df93,
         type: 3}
@@ -27784,7 +27787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091381271999991}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 41.240055, y: 40.564667, z: -7.881875}
+  m_LocalPosition: {x: 45.428898, y: 65.76467, z: -7.881875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7815091382585132247}
@@ -27978,7 +27981,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091381378859809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 41.18698, y: 41.16, z: -10.71}
+  m_LocalPosition: {x: 45.375824, y: 66.36, z: -10.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7815091381308821572}

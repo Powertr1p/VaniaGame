@@ -11,6 +11,8 @@ using UnityEngine.Serialization;
 public class PlayerMovement : MonoBehaviour
 {
     public event Action OnWallslide;
+    public event Action OnDashing;
+    public event Action OnAttemptToDash;
     
     [Header("Player Config")]
     [Tooltip("Скорость, с которой двигается игрок, эта скорость также влияет на скорость дэша")]
@@ -28,8 +30,6 @@ public class PlayerMovement : MonoBehaviour
     private float _dashTimeLeft;
     private float _lastDash = -100f;
     private float _direction;
-    private float _lastImageXPos;
-    private float _distanceBetweenImages = 0.1f;
 
     [Header("Debug panel for GameDesigners")]
     public Vector2 CurrentPlayerVelocity;
@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
         if (!_collisions.IsGrounded)
             ChangeGravityOnFall();
 
-        CheckDash();
+        PerformDash();
         TryRestoreJump();
     }
 
@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
             AttemptToDash();
     }
     
-    private void CheckDash()
+    private void PerformDash()
     {
         if (!_isDashing) return;
         
@@ -108,11 +108,7 @@ public class PlayerMovement : MonoBehaviour
             _rb2d.velocity = new Vector2(_dashSpeed * _direction, _rb2d.velocity.y);
             _dashTimeLeft -= Time.deltaTime;
 
-            if (Mathf.Abs(transform.position.x - _lastImageXPos) > _distanceBetweenImages)
-            {
-                PlayerAfterImagePool.Instance.GetFromPool();
-                _lastImageXPos = transform.position.x;
-            }
+            OnDashing?.Invoke();
         }
         else if (_dashTimeLeft <= 0)
         {
@@ -127,8 +123,7 @@ public class PlayerMovement : MonoBehaviour
         _dashTimeLeft = _dashTime; 
         _lastDash = Time.time;
 
-        PlayerAfterImagePool.Instance.GetFromPool();
-        _lastImageXPos = transform.position.x;
+        OnAttemptToDash?.Invoke();
     }
 
     private void ChangeGravityOnFall()

@@ -14,11 +14,15 @@ public class PlayerVFXHandler : MonoBehaviour
     [SerializeField] private float _distanceBetweenImagesFalling = 0.2f;
     [SerializeField] private float _fallingSpeedToActivateVFX = -40;
     private float _lastImageYPos;
+
+    [Header("Dash VFX")] 
+    [SerializeField] private float _distanceBetweenImagesDashing = 0.1f;
+    private float _lastImageXPos;
     
     private PlayerMovement _movement;
     
     private Vector3 _wallFVFXOffset = new Vector3(0.4f, 0f, 0f);
-    private int _wallSildeVFXcount = 0;
+    private int _currentWallSildeVFXcount = 0;
 
     private void Awake()
     {
@@ -28,6 +32,8 @@ public class PlayerVFXHandler : MonoBehaviour
     private void OnEnable()
     {
         _movement.OnWallslide += TrySpawnWallslideVFX;
+        _movement.OnDashing += TrySpawnAfterImageWhileDashing;
+        _movement.OnAttemptToDash += SpawnAfterImageWhileDashing;
     }
 
     private void Update()
@@ -38,14 +44,14 @@ public class PlayerVFXHandler : MonoBehaviour
 
     private void TrySpawnWallslideVFX()
     {
-        if (_wallSildeVFXcount > _maxWallslideVFXOnSсreen) return;
+        if (_currentWallSildeVFXcount > _maxWallslideVFXOnSсreen) return;
         
         StartCoroutine(SpawnWallslideVFX());
     }
     
     private IEnumerator SpawnWallslideVFX()
     {
-        _wallSildeVFXcount++;
+        _currentWallSildeVFXcount++;
         
         var vfx = Instantiate(_wallSlideVFX, transform.position + _wallFVFXOffset * transform.localScale.x, Quaternion.identity);
         vfx.transform.localScale = transform.localScale;
@@ -53,7 +59,7 @@ public class PlayerVFXHandler : MonoBehaviour
         if (vfx.TryGetComponent(out Wallslide_VFX wallslideVFX))
             yield return new WaitForSeconds(wallslideVFX.TimeToDestroy);
 
-        _wallSildeVFXcount--;
+        _currentWallSildeVFXcount--;
     }
 
     private void SpawnAfterImageWhileFalling()
@@ -65,8 +71,25 @@ public class PlayerVFXHandler : MonoBehaviour
         }
     }
 
+    private void TrySpawnAfterImageWhileDashing()
+    {
+        if (Mathf.Abs(transform.position.x - _lastImageXPos) > _distanceBetweenImagesDashing)
+        {
+            SpawnAfterImageWhileDashing();
+        }
+    }
+
+    private void SpawnAfterImageWhileDashing()
+    {
+        PlayerAfterImagePool.Instance.GetFromPool();
+        _lastImageXPos = transform.position.x;
+    }
+
+
     private void OnDisable()
     {
         _movement.OnWallslide -= TrySpawnWallslideVFX;
+        _movement.OnDashing += TrySpawnAfterImageWhileDashing;
+        _movement.OnAttemptToDash += SpawnAfterImageWhileDashing;
     }
 }
