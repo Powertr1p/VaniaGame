@@ -46,7 +46,7 @@ public class DestroyAfterTimeTiles : MonoBehaviour
     private IEnumerator WaitAndDestroyTile(Vector3 tilePosition)
     {
         _isSuspended = true;
-        var tilePositionInCell = _tilemap.WorldToCell(GetBottomTile(tilePosition);
+        var tilePositionInCell = _tilemap.WorldToCell(GetBottomTile(tilePosition));
         yield return new WaitForSeconds(_destroyTime);
         _tilemap.SetTile(tilePositionInCell, null);
         _isSuspended = false;
