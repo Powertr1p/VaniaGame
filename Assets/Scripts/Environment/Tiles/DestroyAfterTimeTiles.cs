@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.AccessControl;
-using TMPro;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class DestroyAfterTimeTiles : MonoBehaviour
 {
-    [Tooltip("Time that must passed before destroy tile")] [SerializeField]
-    private float _destroyTime = 0.1f;
+    [Tooltip("Time that must passed before destroy tile. Player brokes all block around him (front, back and bottom) at same time")]
+    [SerializeField] private float _destroyTime = 0.1f;
     
     private Tilemap _tilemap;
-    
+    private Vector3 _playerPosition;
     private bool _isSuspended = false;
 
     private void Awake()
@@ -20,35 +16,30 @@ public class DestroyAfterTimeTiles : MonoBehaviour
         _tilemap = GetComponent<Tilemap>();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        TryDestroyBottomTile(other);
-    }
-
     private void OnCollisionStay2D(Collision2D other)
     {
-        TryDestroyBottomTile(other);
+        _playerPosition = other.transform.position;
+        TryDestroyBottomTile();
     }
 
-    private void TryDestroyBottomTile(Collision2D player)
+    private void TryDestroyBottomTile()
     {
         if (_isSuspended) return;
         
-        var tilePosition = GetBottomTile(player.transform.position);
+        var tilePosition = GetBottomTile();
         StartCoroutine(WaitAndDestroyTile(tilePosition));
     }
 
-    private Vector3Int GetBottomTile(Vector3 playerPosition)
+    private Vector3Int GetBottomTile()
     {
-        return _tilemap.WorldToCell(playerPosition - new Vector3(0f, 1f));
+        return _tilemap.WorldToCell(_playerPosition - new Vector3(0f, 1f));
     }
 
-    private IEnumerator WaitAndDestroyTile(Vector3 tilePosition)
+    private IEnumerator WaitAndDestroyTile(Vector3Int tilePosition)
     {
         _isSuspended = true;
-        var tilePositionInCell = _tilemap.WorldToCell(GetBottomTile(tilePosition));
         yield return new WaitForSeconds(_destroyTime);
-        _tilemap.SetTile(tilePositionInCell, null);
+        _tilemap.SetTile(tilePosition, null);
         _isSuspended = false;
     }
 }
