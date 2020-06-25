@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public abstract class MovableObject : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public abstract class MovableObject : MonoBehaviour
    protected Transform Target;
    
    private void Start()
+   {
+      Init();
+   }
+
+   protected virtual void Init()
    {
       Target = Waypoint_A;
    }
@@ -28,13 +34,13 @@ public abstract class MovableObject : MonoBehaviour
       transform.position =  Vector2.MoveTowards(transform.position, Target.transform.position, Speed * Time.deltaTime);
    }
 
-   protected void TryChangeTarget()
+   protected virtual void TryChangeTarget()
    {
       if (Vector2.Distance(transform.position, Target.position) < 0.5f)
          ChangeTarget();
    }
 
-   protected void ChangeTarget()
+   protected virtual void ChangeTarget()
    {
       Target = Target.position == Waypoint_A.position ? Waypoint_B : Waypoint_A;
    }
