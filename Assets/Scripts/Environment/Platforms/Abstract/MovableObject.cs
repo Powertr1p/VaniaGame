@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class MovableObject : MonoBehaviour
+public abstract class MovableObject : MonoBehaviour
 {
    [SerializeField] protected Transform Waypoint_A;
    [SerializeField] protected Transform Waypoint_B;
