@@ -8,8 +8,8 @@ public abstract class MovableObject : MonoBehaviour
 {
    [SerializeField] protected Transform Waypoint_A;
    [SerializeField] protected Transform Waypoint_B;
-   [SerializeField] protected float Duration = 5f;
-
+   [SerializeField] protected float Speed = 10f;
+   
    protected Transform Target;
    
    private void Start()
@@ -23,9 +23,9 @@ public abstract class MovableObject : MonoBehaviour
       Move();
    }
 
-   protected void Move()
+   protected virtual void Move()
    {
-      transform.DOMove(Target.position, Duration);
+      transform.position =  Vector2.MoveTowards(transform.position, Target.transform.position, Speed * Time.deltaTime);
    }
 
    protected void TryChangeTarget()
