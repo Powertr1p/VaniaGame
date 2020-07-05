@@ -27,21 +27,35 @@ public class DestroyAfterTimeTiles : MonoBehaviour
     {
         if (_isSuspended) return;
         
-        var tilePosition = FindCollideddTile();
+        var tilePosition = FindCollidedTile();
 
         StartCoroutine(WaitAndDestroyTile(tilePosition));
     }
 
-    private Vector3Int FindCollideddTile()
+    private Vector3Int FindCollidedTile()
     {
-        if (_tilemap.HasTile(GetBottomTile()))
-            return GetBottomTile();
-        else if (_tilemap.HasTile(GetRightTile()))
+        if (_tilemap.HasTile(GetRightTile()))
             return GetRightTile();
-        else
+        else if (_tilemap.HasTile(GetLeftTile()))
             return GetLeftTile();
+        else if (_tilemap.HasTile(GetBottomTile()))
+            return GetBottomTile();
+        else if (_tilemap.HasTile(GetLeftBottomTile()))
+            return GetLeftBottomTile();
+        else 
+           return GetRightBottomTile();
     }
 
+    private Vector3Int GetRightBottomTile()
+    {
+        return _tilemap.WorldToCell(_playerPosition + new Vector3(1, 1, 0));
+    }
+    
+    private Vector3Int GetLeftBottomTile()
+    {
+        return _tilemap.WorldToCell(_playerPosition + new Vector3(-1, -1, 0));
+    }
+    
     private Vector3Int GetRightTile()
     {
         return _tilemap.WorldToCell(_playerPosition + Vector3.right);
