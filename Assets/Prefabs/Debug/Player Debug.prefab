@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 3911423169413595148}
   - component: {fileID: 888608051225810297}
   - component: {fileID: 8354846237393944113}
+  - component: {fileID: 959946577}
   m_Layer: 10
   m_Name: Player Debug
   m_TagString: Untagged
@@ -186,10 +187,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1649ae23cb66b484e90b48c3eb7f02c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 6
-  _jumpVelocity: 18
+  _movementSpeed: 8.5
+  _jumpVelocity: 18.5
   _jumpFallingGravity: 2
-  AmountOfJumps: 10
+  AmountOfJumps: 2
   _dashTime: 0.1
   _dashSpeed: 60
   _dashCooldown: 0.01
@@ -224,11 +225,11 @@ MonoBehaviour:
   _jumpPadLayer:
     serializedVersion: 2
     m_Bits: 262144
-  _bottomOffset: {x: -0.06, y: -0.522}
+  _bottomOffset: {x: -0.06, y: -0.5}
   _rightOffset: {x: 0.25, y: -0.18}
-  _leftOffset: {x: -0.26, y: -0.18}
+  _leftOffset: {x: -0.25, y: -0.18}
   _collisionRadius: 0.12
-  _bottomCollisionSize: {x: 0.39, y: 0.03}
+  _bottomCollisionSize: {x: 0.3, y: 0.03}
   _wallSlideResidualCollisionTimer: 0.3
 --- !u!60 &8354846237393944113
 PolygonCollider2D:
@@ -256,12 +257,30 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -0.2623787, y: 0.29694986}
-      - {x: -0.2742386, y: 0.042574644}
-      - {x: -0.26328278, y: -0.013363361}
-      - {x: -0.21564102, y: -0.51109695}
-      - {x: 0.17527008, y: -0.51109624}
+      - {x: -0.30356598, y: 0.28978348}
+      - {x: -0.30099106, y: -0.0133628845}
+      - {x: -0.31160164, y: -0.51109695}
+      - {x: 0.21676064, y: -0.51109695}
       - {x: 0.23814774, y: 0.04747629}
       - {x: 0.21671295, y: 0.29694963}
+--- !u!114 &959946577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202898815872134514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e1f2d8f4a7b4e0997e722ab9d072b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wallSlideVFX: {fileID: 1178015559938403671, guid: 1a46b2be0706a4e12a76694e0619d1b0,
+    type: 3}
+  "_maxWallslideVFXOnS\u0441reen": 1
+  _distanceBetweenImagesFalling: 0.2
+  _fallingSpeedToActivateVFX: -40
+  _distanceBetweenImagesDashing: 0.1
 --- !u!1 &8354846237284364745
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +292,7 @@ GameObject:
   - component: {fileID: 8354846237284364744}
   - component: {fileID: 8354846237284364750}
   - component: {fileID: 8354846237284364751}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: VelocityX
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -428,7 +447,7 @@ GameObject:
   - component: {fileID: 8354846237859621590}
   - component: {fileID: 8354846237859621588}
   - component: {fileID: 8354846237859621589}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: JumpText
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -583,7 +602,7 @@ GameObject:
   - component: {fileID: 8354846238097542865}
   - component: {fileID: 8354846238097542871}
   - component: {fileID: 8354846238097542864}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: VelocityY
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -742,7 +761,7 @@ GameObject:
   - component: {fileID: 8354846238682263930}
   - component: {fileID: 8354846238682263934}
   - component: {fileID: 8354846238682263933}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
