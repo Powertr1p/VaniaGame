@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     
     private int _originalAmountOfJumps;
     
-    private bool _canWallJump;
+    [SerializeField] private bool _canWallJump;
     private bool _isDashing;
     private bool _restoringJump;
     
@@ -162,6 +162,8 @@ public class PlayerMovement : MonoBehaviour
  
     private void WallSlide()
     {
+        if (!_canWallJump) return;
+        
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
         OnWallslide?.Invoke();
     }
@@ -181,13 +183,13 @@ public class PlayerMovement : MonoBehaviour
         {
             yield return new WaitUntil(() => _collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad );
            
-            if (_collisions.IsOnRightWall)
+            if (_collisions.IsOnRightWall && _canWallJump)
             {
                 AmountOfJumps = 1;
                 yield return new WaitUntil(() => _collisions.IsOnLeftWall || _collisions.IsGrounded);
                 
             }
-            else if (_collisions.IsOnLeftWall)
+            else if (_collisions.IsOnLeftWall && _canWallJump)
             {
                 AmountOfJumps = 1;
                 yield return new WaitUntil(() => _collisions.IsOnRightWall || _collisions.IsGrounded);
