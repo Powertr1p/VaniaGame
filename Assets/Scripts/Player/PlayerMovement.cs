@@ -36,7 +36,8 @@ public class PlayerMovement : MonoBehaviour
     
     private int _originalAmountOfJumps;
     
-    [SerializeField] private bool _canWallJump;
+    [SerializeField] private bool _canWallClimb;
+    [SerializeField] private bool _canDash = true;
     private bool _isDashing;
     private bool _restoringJump;
     
@@ -91,6 +92,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void TryDash(float direction)
     {
+        if (!_canDash) return;
+        
         _direction = direction;
         
         if (Time.time >= (_lastDash + _dashCooldown))
@@ -162,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
  
     private void WallSlide()
     {
-        if (!_canWallJump) return;
+        if (!_canWallClimb) return;
         
         _rb2d.velocity = new Vector2(_rb2d.velocity.x, -1);
         OnWallslide?.Invoke();
@@ -183,13 +186,13 @@ public class PlayerMovement : MonoBehaviour
         {
             yield return new WaitUntil(() => _collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad );
            
-            if (_collisions.IsOnRightWall && _canWallJump)
+            if (_collisions.IsOnRightWall && _canWallClimb)
             {
                 AmountOfJumps = 1;
                 yield return new WaitUntil(() => _collisions.IsOnLeftWall || _collisions.IsGrounded);
                 
             }
-            else if (_collisions.IsOnLeftWall && _canWallJump)
+            else if (_collisions.IsOnLeftWall && _canWallClimb)
             {
                 AmountOfJumps = 1;
                 yield return new WaitUntil(() => _collisions.IsOnRightWall || _collisions.IsGrounded);
