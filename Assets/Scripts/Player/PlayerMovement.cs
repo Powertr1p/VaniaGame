@@ -197,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
                 yield return new WaitUntil(() => _collisions.IsOnRightWall || _collisions.IsGrounded);
             }
 
-            if (_collisions.IsGrounded)
+            if (_collisions.IsGrounded || _collisions.IsJumpPad)
                 AmountOfJumps = _originalAmountOfJumps;
         }
         _restoringJump = false;
