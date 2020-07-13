@@ -9,7 +9,7 @@ public class CoinPickup : MonoBehaviour
 
     private bool _isCoinPassed;
 
-    private void Awake()
+    private void Start()
     {
         _gameSession = GameSession.Instance;
     }
