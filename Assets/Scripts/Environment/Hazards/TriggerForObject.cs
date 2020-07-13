@@ -24,12 +24,14 @@ public class TriggerForObject : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerMovement>() == null) return;
 
-        StartCoroutine(!_reverseBehavior ? WaitAndToggle(_trigger.Activate, _delayBeforeOpen) : WaitAndToggle(_trigger.Deactivate, _delayBeforeClose));
+        StartCoroutine(!_reverseBehavior ? 
+            WaitAndToggle(_trigger.Activate, _delayBeforeOpen) : WaitAndToggle(_trigger.Deactivate, _delayBeforeClose));
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        StartCoroutine(!_reverseBehavior ? WaitAndToggle(_trigger.Deactivate, _delayBeforeClose) : WaitAndToggle(_trigger.Activate, _delayBeforeOpen));;
+        StartCoroutine(!_reverseBehavior ? 
+            WaitAndToggle(_trigger.Deactivate, _delayBeforeClose) : WaitAndToggle(_trigger.Activate, _delayBeforeOpen));
     }
 
     private IEnumerator WaitAndToggle(Action callback, float delay)
