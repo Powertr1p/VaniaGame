@@ -42,7 +42,7 @@ public class Collisions : MonoBehaviour
         _wallSlideResidualCollisionTimerValue = _wallSlideResidualCollisionTimer;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         _isGrounded = IsCollided((Vector2)transform.position + _bottomOffset * GetCurrentDirection , _bottomCollisionSize, _groundLayer);
         _isOnRightWall = IsCollided((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer);

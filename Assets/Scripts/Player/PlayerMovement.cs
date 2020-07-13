@@ -181,23 +181,22 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator RestoreJump()
     {
         _restoringJump = true;
-        
+
         if (AmountOfJumps < _originalAmountOfJumps && !_collisions.IsGrounded)
         {
-            yield return new WaitUntil(() => _collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad );
-           
+            yield return new WaitUntil(() => _collisions.IsGrounded || _collisions.IsOnWall || _collisions.IsJumpPad);
+
             if (_collisions.IsOnRightWall && _canWallClimb)
             {
                 AmountOfJumps = 1;
                 yield return new WaitUntil(() => _collisions.IsOnLeftWall || _collisions.IsGrounded);
-                
             }
             else if (_collisions.IsOnLeftWall && _canWallClimb)
             {
                 AmountOfJumps = 1;
                 yield return new WaitUntil(() => _collisions.IsOnRightWall || _collisions.IsGrounded);
             }
-            
+
             if (_collisions.IsGrounded)
                 AmountOfJumps = _originalAmountOfJumps;
         }
