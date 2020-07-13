@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
+[RequireComponent(typeof(Collider2D))]
 public abstract class MovableObject : MonoBehaviour
 {
    [SerializeField] protected Transform Waypoint_A;
@@ -12,6 +13,7 @@ public abstract class MovableObject : MonoBehaviour
    [SerializeField] protected float Speed = 10f;
    
    protected Transform Target;
+   protected Transform Parent;
    
    private void Start()
    {
@@ -21,6 +23,7 @@ public abstract class MovableObject : MonoBehaviour
    protected virtual void Init()
    {
       Target = Waypoint_A;
+      Parent = GetComponentInParent<Transform>();
    }
 
    protected virtual void Update()
@@ -43,5 +46,15 @@ public abstract class MovableObject : MonoBehaviour
    protected virtual void ChangeTarget()
    {
       Target = Target.position == Waypoint_A.position ? Waypoint_B : Waypoint_A;
+   }
+
+   protected void OnCollisionEnter2D(Collision2D other)
+   {
+      other.collider.transform.SetParent(Parent);
+   }
+
+   protected void OnCollisionExit2D(Collision2D other)
+   {
+      other.collider.transform.SetParent(null);
    }
 }
