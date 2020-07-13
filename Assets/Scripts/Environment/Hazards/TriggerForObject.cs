@@ -7,7 +7,8 @@ using UnityEngine;
 public class TriggerForObject : MonoBehaviour
 {
     [SerializeField] private GameObject _objectToTrigger;
-    [SerializeField] private float _delayBeforeTrigger = 0f;
+    [SerializeField] private float _delayBeforeOpen = 0f;
+    [SerializeField] private float _delayBeforeClose = 0f;
     
     private ITriggerable _trigger;
 
@@ -19,18 +20,18 @@ public class TriggerForObject : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<PlayerMovement>() != null)
-            StartCoroutine(WaitAndToggle(_trigger.Activate));
+            StartCoroutine(WaitAndToggle(_trigger.Activate, _delayBeforeOpen));
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<PlayerMovement>() != null)
-            StartCoroutine(WaitAndToggle(_trigger.Deactivate));
+            StartCoroutine(WaitAndToggle(_trigger.Deactivate, _delayBeforeClose));
     }
 
-    private IEnumerator WaitAndToggle(Action callback)
+    private IEnumerator WaitAndToggle(Action callback, float delay)
     {
-        yield return new WaitForSeconds(_delayBeforeTrigger);
+        yield return new WaitForSeconds(delay);
         callback?.Invoke();
     }
 }
