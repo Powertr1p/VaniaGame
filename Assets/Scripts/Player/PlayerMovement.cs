@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     
     private int _originalAmountOfJumps;
     
-    [SerializeField] private bool _canWallClimb;
+    [SerializeField] private bool _canWallClimb = true;
     [SerializeField] private bool _canDash = true;
     private bool _isDashing;
     private bool _restoringJump;
