@@ -8,13 +8,12 @@ using UnityEngine.PlayerLoop;
 [RequireComponent(typeof(Collider2D))]
 public abstract class MovableObject : MonoBehaviour
 {
-   [SerializeField] protected Transform Waypoint_A;
-   [SerializeField] protected Transform Waypoint_B;
+   [SerializeField] private Transform[] _waypoints;
    [SerializeField] protected float Speed = 10f;
    
    protected Transform Target;
-   protected Transform Parent;
-   
+   private int _currentWaypoint = 0;
+
    private void Start()
    {
       Init();
@@ -22,8 +21,7 @@ public abstract class MovableObject : MonoBehaviour
 
    protected virtual void Init()
    {
-      Target = Waypoint_A;
-      Parent = GetComponentInParent<Transform>();
+      Target = _waypoints[_currentWaypoint];
    }
 
    protected virtual void Update()
@@ -45,12 +43,19 @@ public abstract class MovableObject : MonoBehaviour
 
    protected virtual void ChangeTarget()
    {
-      Target = Target.position == Waypoint_A.position ? Waypoint_B : Waypoint_A;
+      var nextWaypoint = _currentWaypoint + 1;
+
+      if (nextWaypoint < _waypoints.Length)
+         _currentWaypoint = nextWaypoint;
+      else
+         _currentWaypoint = 0;
+
+      Target = _waypoints[_currentWaypoint];
    }
 
    protected void OnCollisionEnter2D(Collision2D other)
    {
-      other.collider.transform.SetParent(Parent);
+      other.collider.transform.SetParent(transform);
    }
 
    protected void OnCollisionExit2D(Collision2D other)
