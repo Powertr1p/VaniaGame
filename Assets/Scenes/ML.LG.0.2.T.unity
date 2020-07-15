@@ -247,12 +247,12 @@ PrefabInstance:
     - target: {fileID: 202898815872134513, guid: 0b0da927757c94d4baf96ff9b616df93,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -51.57
+      value: -54.63
       objectReference: {fileID: 0}
     - target: {fileID: 202898815872134513, guid: 0b0da927757c94d4baf96ff9b616df93,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.4
+      value: -6.34
       objectReference: {fileID: 0}
     - target: {fileID: 202898815872134513, guid: 0b0da927757c94d4baf96ff9b616df93,
         type: 3}
@@ -76537,7 +76537,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091381747150163}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.529999, y: -8.039999, z: -9.97}
+  m_LocalPosition: {x: -13.329998, y: 3.07, z: -9.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7815091383314499990}
@@ -76561,7 +76561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7815091382174904042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76749,7 +76749,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -76827,7 +76827,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091382645178635}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.53, y: -9.589999, z: -7.1418753}
+  m_LocalPosition: {x: -36.59, y: -6.53, z: -7.171875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7815091381274374187}
@@ -76967,7 +76967,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091382756489181}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -26.809998, y: -7.91, z: -10}
+  m_LocalPosition: {x: -30.59, y: -4.9800005, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7815091382548587704}
@@ -76991,7 +76991,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7815091383306568932
 Transform:
   m_ObjectHideFlags: 0
