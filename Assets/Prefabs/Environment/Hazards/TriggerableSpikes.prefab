@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540506038625455312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.6692, y: 65.56701, z: -0.24255943}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4419101155721874097}
@@ -59,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4419101155041497584}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.85, y: -3.27, z: 0.24255943}
+  m_LocalPosition: {x: -8.85, y: -3.55, z: 0.24255943}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3973473044271522242}
@@ -104,8 +104,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectToTrigger: {fileID: 4419101155721874126}
-  _delayBeforeOpen: 0
-  _delayBeforeClose: 0
+  _delayBeforeActivation: 0.4
+  _delayBeforeDeactivation: 0.4
   _reverseBehavior: 1
 --- !u!212 &4419101155041497585
 SpriteRenderer:

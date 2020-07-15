@@ -7,8 +7,8 @@ using UnityEngine;
 public class TriggerForObject : MonoBehaviour
 {
     [SerializeField] private GameObject _objectToTrigger;
-    [Range(0.4f, 10.0f)] [SerializeField] private float _delayBeforeActivation = 0f;
-    [Range(0.4f, 10.0f)] [SerializeField] private float _delayBeforeDeactivation = 0f;
+    [Range(0.4f, 10.0f)] [SerializeField] private float _delayBeforeActivation = 0.4f;
+    [Range(0.4f, 10.0f)] [SerializeField] private float _delayBeforeDeactivation = 0.4f;
     [SerializeField] private bool _reverseBehavior;
     private bool _isSuspended;
     
