@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(Collider2D))]
-public abstract class MovableObject : MonoBehaviour
+public abstract class MovableObject : MonoBehaviour, ITriggerable
 {
    [SerializeField] private Transform[] _waypoints;
    [SerializeField] protected float Speed = 10f;
@@ -88,5 +88,15 @@ public abstract class MovableObject : MonoBehaviour
    protected void OnCollisionExit2D(Collision2D other)
    {
       other.collider.transform.SetParent(null);
+   }
+
+   public void Activate()
+   {
+      _loopBackwards = true;
+   }
+
+   public void Deactivate()
+   {
+      _loopBackwards = false;
    }
 }

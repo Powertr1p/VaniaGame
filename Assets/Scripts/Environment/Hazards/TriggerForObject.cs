@@ -19,7 +19,9 @@ public class TriggerForObject : MonoBehaviour
     private void Start()
     {
         _trigger = _objectToTrigger.GetComponent<ITriggerable>();
-        _objectToTrigger.GetComponent<Animator>().SetBool(Reverse, _reverseBehavior);
+
+        if (_objectToTrigger.TryGetComponent(out Animator animator))
+            animator.SetBool(Reverse, _reverseBehavior);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
