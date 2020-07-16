@@ -10,9 +10,11 @@ public abstract class MovableObject : MonoBehaviour
 {
    [SerializeField] private Transform[] _waypoints;
    [SerializeField] protected float Speed = 10f;
+   [SerializeField] private bool _loopBackwards;
    
    protected Transform Target;
    private int _currentWaypoint = 0;
+   private bool _isBackwards = false;
 
    private void Start()
    {
@@ -41,15 +43,40 @@ public abstract class MovableObject : MonoBehaviour
          ChangeTarget();
    }
 
-   protected virtual void ChangeTarget()
+   private void ChangeTarget()
    {
+      ChangeTargetForward();
+      ChangeTargetBackward();
+   }
+
+   protected virtual void ChangeTargetForward()
+   {
+      if (_isBackwards) return;
+      
       var nextWaypoint = _currentWaypoint + 1;
 
-      if (nextWaypoint < _waypoints.Length)
-         _currentWaypoint = nextWaypoint;
+      if (nextWaypoint < _waypoints.Length) 
+            _currentWaypoint = nextWaypoint;
+      else if (_loopBackwards)
+         _isBackwards = true;
       else
          _currentWaypoint = 0;
+      
+      Target = _waypoints[_currentWaypoint];
+   }
 
+   private void ChangeTargetBackward()
+   {
+      if (!_isBackwards) return;
+      
+      var nextWaypoint = _currentWaypoint - 1;
+
+      if (nextWaypoint >= 0)
+         _currentWaypoint = nextWaypoint;
+
+      if (nextWaypoint == 0)
+         _isBackwards = false;
+      
       Target = _waypoints[_currentWaypoint];
    }
 
