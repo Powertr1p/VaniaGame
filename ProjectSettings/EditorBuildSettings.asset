@@ -27,9 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/7.SJ.3.HS.unity
     guid: 945ab847422ca864f98528bac0281e8c
   - enabled: 1
-    path: Assets/Scenes/ML.LG.0.2.T.unity
+    path: Assets/Scenes/ML.6.LG.0.2.T.unity
     guid: daf1b534940dd404aaf57a9b8b29b03d
   - enabled: 1
-    path: Assets/Scenes/ML.SJ.0.2.T.unity
+    path: Assets/Scenes/ML.2.SJ.0.2.T.unity
     guid: 6175518d90b6d0944ae07411fb647540
   m_configObjects: {}
