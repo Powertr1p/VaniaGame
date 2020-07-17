@@ -27,6 +27,5 @@ public class ObjectSpawner : MonoBehaviour, ITriggerable
 
     public void Deactivate()
     {
-        throw new System.NotImplementedException();
     }
 }
