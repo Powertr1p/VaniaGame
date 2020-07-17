@@ -7,12 +7,15 @@ public class ObjectSpawner : MonoBehaviour, ITriggerable
     [SerializeField] private GameObject _objectToSpawn;
     [SerializeField] private float _speed;
     [SerializeField] private Transform _destination;
-
-    private bool _isUsedByTrigger = false;
+    
+    [SerializeField] private bool _isUsedByTrigger = false;
+    [SerializeField] private float _delayBeforeFirstStart = 0f;
+    [SerializeField] private float _delayBeforeActivation = 1f;
     
     private void Start()
     {
-        Activate();
+        if (!_isUsedByTrigger)
+            InvokeRepeating("Activate", _delayBeforeFirstStart, _delayBeforeActivation); 
     }
 
     public void Activate()
