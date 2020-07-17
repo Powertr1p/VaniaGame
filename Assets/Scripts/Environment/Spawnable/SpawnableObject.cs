@@ -13,5 +13,8 @@ public class SpawnableObject : MonoBehaviour
     private void FixedUpdate()
     {
         transform.position =  Vector2.MoveTowards(transform.position, _destination.position, _speed * Time.deltaTime);
+
+        if (transform.position == _destination.position)
+            Destroy(gameObject);
     }
 }

@@ -22,6 +22,7 @@ public class ObjectSpawner : MonoBehaviour, ITriggerable
     {
         var spawnedObject = Instantiate(_objectToSpawn,transform.position, Quaternion.identity);
         spawnedObject.GetComponent<SpawnableObject>().Init(_destination, _speed);
+        spawnedObject.transform.SetParent(transform);
     }
 
     public void Deactivate()
