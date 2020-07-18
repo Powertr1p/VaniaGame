@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class InterpolatedPlatform : MovableObject
 {
-    [SerializeField] private float _duration = 5f;
-        
     protected override void Move()
     {
-        transform.DOMove(Target.position, _duration);
+        transform.DOMove(Target.position, Speed);
     }
 }
