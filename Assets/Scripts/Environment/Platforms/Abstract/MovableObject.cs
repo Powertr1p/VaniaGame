@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(Collider2D))]
 public abstract class MovableObject : MonoBehaviour, ITriggerable
@@ -11,10 +8,13 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
    [SerializeField] private Transform[] _waypoints;
    [SerializeField] protected float Speed = 10f;
    [SerializeField] private bool _loopBackwards;
+   [SerializeField] private float _delayBeforeStart = 0f;
    
    protected Transform Target;
+   
    private int _currentWaypoint = 0;
    private bool _isBackwards = false;
+   private bool _isStarted = false;
 
    private void Start()
    {
@@ -24,10 +24,14 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
    protected virtual void Init()
    {
       Target = _waypoints[_currentWaypoint];
+      
+      StartCoroutine(WaitBeforeStartMoving());
    }
 
    protected virtual void Update()
    {
+      if (!_isStarted) return;
+      
       TryChangeTarget();
       Move();
    }
@@ -49,7 +53,13 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
       ChangeTargetBackward();
    }
 
-   protected virtual void ChangeTargetForward()
+   private IEnumerator WaitBeforeStartMoving()
+   {
+      yield return new WaitForSeconds(_delayBeforeStart);
+      _isStarted = true;
+   }
+   
+   private void ChangeTargetForward()
    {
       if (_isBackwards) return;
       
