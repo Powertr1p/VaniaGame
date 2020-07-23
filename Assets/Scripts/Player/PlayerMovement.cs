@@ -26,9 +26,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Dash config")] 
     [SerializeField] private float _dashTime;
     [SerializeField] private float _dashSpeed;
-    [SerializeField] private float _dashCooldown;
+    
     private float _dashTimeLeft;
-    private float _lastDash = -100f;
     private float _direction;
 
     [Header("Debug panel for GameDesigners")]
@@ -96,8 +95,8 @@ public class PlayerMovement : MonoBehaviour
         
         _direction = direction;
         
-        if (Time.time >= (_lastDash + _dashCooldown))
-            AttemptToDash();
+        AttemptToDash();
+        _canDash = false;
     }
     
     private void PerformDash()
@@ -124,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _isDashing = true;
         _dashTimeLeft = _dashTime; 
-        _lastDash = Time.time;
+        //_lastDash = Time.time;
 
         OnAttemptToDash?.Invoke();
     }
@@ -208,5 +207,15 @@ public class PlayerMovement : MonoBehaviour
         _input.OnJumpButtonPressed -= TryJump;
         _input.OnMovementButtonPressed -= TryMove;
         _input.OnDashButtonPressed -= TryDash;
+    }
+
+    public void RechargeDash()
+    {
+        if (!_canDash)
+        {
+            _canDash = true;
+            UnityEngine.Debug.Log("Dash");
+        }
+        
     }
 }
