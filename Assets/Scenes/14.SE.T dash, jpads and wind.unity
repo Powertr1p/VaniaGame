@@ -318,6 +318,11 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -541637159
       objectReference: {fileID: 0}
+    - target: {fileID: 8588897165703359802, guid: 0b0da927757c94d4baf96ff9b616df93,
+        type: 3}
+      propertyPath: _dashCooldown
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b0da927757c94d4baf96ff9b616df93, type: 3}
 --- !u!1 &187141027
@@ -54946,7 +54951,7 @@ Transform:
   m_Children:
   - {fileID: 3876553705508925157}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7169580684341058912
 Transform:

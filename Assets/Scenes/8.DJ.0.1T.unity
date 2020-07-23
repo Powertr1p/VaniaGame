@@ -387,6 +387,11 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -541637159
       objectReference: {fileID: 0}
+    - target: {fileID: 8588897165703359802, guid: 0b0da927757c94d4baf96ff9b616df93,
+        type: 3}
+      propertyPath: _canDash
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b0da927757c94d4baf96ff9b616df93, type: 3}
 --- !u!1 &187141027
@@ -58331,7 +58336,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091381747150163}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.43, y: -6.8499994, z: -9.97}
+  m_LocalPosition: {x: -42.28, y: -6.99, z: -9.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7815091383314499990}
@@ -58355,7 +58360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &7815091382174904042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58543,7 +58548,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -58621,7 +58626,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7815091382645178635}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.28, y: -8.54, z: -7.171875}
+  m_LocalPosition: {x: -48.28, y: -8.54, z: -7.1418753}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7815091381274374187}
@@ -58785,7 +58790,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7815091383306568932
 Transform:
   m_ObjectHideFlags: 0
