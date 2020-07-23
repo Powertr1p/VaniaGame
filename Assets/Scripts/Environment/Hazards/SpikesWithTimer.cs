@@ -6,23 +6,16 @@ public class SpikesWithTimer : Spikes
 {
    [SerializeField] private float _delayBeforeActivation = 2f;
    [SerializeField] private float _delayBeforeDeactivation = 1f;
+   [SerializeField] private float _firstActivationDelay = 6f;
+
+   private const string Activate = "Activate";
+   private const string Deactivate = "Deactivate";
    
    protected override void Init()
    {
       Animator = GetComponent<Animator>();
 
-      StartCoroutine(LoopActivation());
-   }
-
-   private IEnumerator LoopActivation()
-   {
-      while (true)
-      {
-         yield return new WaitForSeconds(_delayBeforeActivation);
-         Activate();
-        
-         yield return new WaitForSeconds(_delayBeforeDeactivation);
-         Deactivate();
-      }
+      InvokeRepeating(Activate, _firstActivationDelay, _delayBeforeActivation);
+      InvokeRepeating(Deactivate, _delayBeforeActivation + _firstActivationDelay, _delayBeforeDeactivation);
    }
 }

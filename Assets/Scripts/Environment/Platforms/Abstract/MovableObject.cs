@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(Collider2D))]
-public abstract class MovableObject : MonoBehaviour
+public abstract class MovableObject : MonoBehaviour, ITriggerable
 {
-   [SerializeField] protected Transform Waypoint_A;
-   [SerializeField] protected Transform Waypoint_B;
+   [SerializeField] private Transform[] _waypoints;
    [SerializeField] protected float Speed = 10f;
+   [SerializeField] private bool _loopBackwards;
+   [SerializeField] private float _delayBeforeStart = 0f;
    
    protected Transform Target;
-   protected Transform Parent;
    
+   private int _currentWaypoint = 0;
+   private bool _isBackwards = false;
+   private bool _isStarted = false;
+
    private void Start()
    {
       Init();
@@ -22,12 +23,15 @@ public abstract class MovableObject : MonoBehaviour
 
    protected virtual void Init()
    {
-      Target = Waypoint_A;
-      Parent = GetComponentInParent<Transform>();
+      Target = _waypoints[_currentWaypoint];
+      
+      StartCoroutine(WaitBeforeStartMoving());
    }
 
    protected virtual void Update()
    {
+      if (!_isStarted) return;
+      
       TryChangeTarget();
       Move();
    }
@@ -43,18 +47,66 @@ public abstract class MovableObject : MonoBehaviour
          ChangeTarget();
    }
 
-   protected virtual void ChangeTarget()
+   private void ChangeTarget()
    {
-      Target = Target.position == Waypoint_A.position ? Waypoint_B : Waypoint_A;
+      ChangeTargetForward();
+      ChangeTargetBackward();
+   }
+
+   private IEnumerator WaitBeforeStartMoving()
+   {
+      yield return new WaitForSeconds(_delayBeforeStart);
+      _isStarted = true;
+   }
+   
+   private void ChangeTargetForward()
+   {
+      if (_isBackwards) return;
+      
+      var nextWaypoint = _currentWaypoint + 1;
+
+      if (nextWaypoint < _waypoints.Length) 
+            _currentWaypoint = nextWaypoint;
+      else if (_loopBackwards)
+         _isBackwards = true;
+      else
+         _currentWaypoint = 0;
+      
+      Target = _waypoints[_currentWaypoint];
+   }
+
+   private void ChangeTargetBackward()
+   {
+      if (!_isBackwards) return;
+      
+      var nextWaypoint = _currentWaypoint - 1;
+
+      if (nextWaypoint >= 0)
+         _currentWaypoint = nextWaypoint;
+
+      if (nextWaypoint == 0)
+         _isBackwards = false;
+      
+      Target = _waypoints[_currentWaypoint];
    }
 
    protected void OnCollisionEnter2D(Collision2D other)
    {
-      other.collider.transform.SetParent(Parent);
+      other.collider.transform.SetParent(transform);
    }
 
    protected void OnCollisionExit2D(Collision2D other)
    {
       other.collider.transform.SetParent(null);
+   }
+
+   public void Activate()
+   {
+      _loopBackwards = true;
+   }
+
+   public void Deactivate()
+   {
+      _loopBackwards = false;
    }
 }

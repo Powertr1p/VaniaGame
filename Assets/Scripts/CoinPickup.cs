@@ -21,7 +21,7 @@ public class CoinPickup : MonoBehaviour
             _isCoinPassed = true;
             AudioSource.PlayClipAtPoint(_coinPickUpSFX, Camera.main.transform.position, 0.3F);
             _gameSession.IncreaseCoinsCount(_coinsToAdd);
-            Destroy(gameObject);
+            Destroy(gameObject); 
         }
     }
 }
