@@ -1,8 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
 public abstract class MovableObject : MonoBehaviour, ITriggerable
 {
    [SerializeField] private float _delayBeforeStart = 0f;
@@ -90,17 +88,7 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
       
       Target = Waypoints[_currentWaypoint];
    }
-
-   protected void OnCollisionEnter2D(Collision2D other)
-   {
-      other.collider.transform.SetParent(transform);
-   }
-
-   protected void OnCollisionExit2D(Collision2D other)
-   {
-      other.collider.transform.SetParent(null);
-   }
-
+   
    public void Activate()
    {
       LoopBackwards = true;

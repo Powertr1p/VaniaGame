@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 6762470918723410264}
   - component: {fileID: 6219474829008819468}
   - component: {fileID: 7758616186733996754}
+  - component: {fileID: 8045586127458438141}
   m_Layer: 8
   m_Name: Moving Platform
   m_TagString: Untagged
@@ -190,6 +191,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _delayBeforeStart: 0
   _firstWaypoint: {fileID: 7758616187835055668}
+--- !u!114 &8045586127458438141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7758616186733996752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66feb2b34d538414bb6334dcbaf31976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7758616186886326378
 GameObject:
   m_ObjectHideFlags: 0
