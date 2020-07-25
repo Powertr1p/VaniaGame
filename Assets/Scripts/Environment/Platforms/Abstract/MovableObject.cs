@@ -5,10 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public abstract class MovableObject : MonoBehaviour, ITriggerable
 {
-   [SerializeField] private Transform[] _waypoints;
-   [SerializeField] protected float Speed = 10f;
-   [SerializeField] private bool _loopBackwards;
    [SerializeField] private float _delayBeforeStart = 0f;
+   
+   protected Transform[] Waypoints;
+   protected float Speed = 10f;
+   protected bool LoopBackwards;
    
    protected Transform Target;
    
@@ -23,7 +24,7 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
 
    protected virtual void Init()
    {
-      Target = _waypoints[_currentWaypoint];
+      Target = Waypoints[_currentWaypoint];
       
       StartCoroutine(WaitBeforeStartMoving());
    }
@@ -47,13 +48,13 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
          ChangeTarget();
    }
 
-   private void ChangeTarget()
+   protected virtual void ChangeTarget()
    {
       ChangeTargetForward();
       ChangeTargetBackward();
    }
 
-   private IEnumerator WaitBeforeStartMoving()
+   protected IEnumerator WaitBeforeStartMoving()
    {
       yield return new WaitForSeconds(_delayBeforeStart);
       _isStarted = true;
@@ -65,14 +66,14 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
       
       var nextWaypoint = _currentWaypoint + 1;
 
-      if (nextWaypoint < _waypoints.Length) 
+      if (nextWaypoint < Waypoints.Length) 
             _currentWaypoint = nextWaypoint;
-      else if (_loopBackwards)
+      else if (LoopBackwards)
          _isBackwards = true;
       else
          _currentWaypoint = 0;
       
-      Target = _waypoints[_currentWaypoint];
+      Target = Waypoints[_currentWaypoint];
    }
 
    private void ChangeTargetBackward()
@@ -87,7 +88,7 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
       if (nextWaypoint == 0)
          _isBackwards = false;
       
-      Target = _waypoints[_currentWaypoint];
+      Target = Waypoints[_currentWaypoint];
    }
 
    protected void OnCollisionEnter2D(Collision2D other)
@@ -102,11 +103,11 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
 
    public void Activate()
    {
-      _loopBackwards = true;
+      LoopBackwards = true;
    }
 
    public void Deactivate()
    {
-      _loopBackwards = false;
+      LoopBackwards = false;
    }
 }
