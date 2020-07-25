@@ -856,12 +856,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 8461612485637330455}
   - {fileID: 8461612485483175492}
-  Speed: 5
+  _speed: 0
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!50 &4834777551337927036
 Rigidbody2D:
   serializedVersion: 4

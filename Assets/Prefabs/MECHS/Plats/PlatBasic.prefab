@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 8920311563702175452}
   - component: {fileID: 5602032852558165335}
   - component: {fileID: 5059643744855980291}
+  - component: {fileID: 8548588714180601016}
   m_Layer: 8
   m_Name: Moving Platform
   m_TagString: Untagged
@@ -220,12 +221,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 8920311561787527740}
   - {fileID: 8920311562749057647}
-  Speed: 5
+  _speed: 10
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!50 &5602032852558165335
 Rigidbody2D:
   serializedVersion: 4
@@ -273,3 +274,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.4897652, y: 0.7019043}
   m_EdgeRadius: 0
+--- !u!114 &8548588714180601016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8920311563702175455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66feb2b34d538414bb6334dcbaf31976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
