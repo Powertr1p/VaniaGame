@@ -11,7 +11,7 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
    
    protected Transform Target;
    
-   private int _currentWaypoint = 0;
+   private int _currentPoint = 0;
    private bool _isBackwards = false;
    private bool _isStarted = false;
 
@@ -22,7 +22,7 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
 
    protected virtual void Init()
    {
-      Target = Waypoints[_currentWaypoint];
+      Target = Waypoints[_currentPoint];
       
       StartCoroutine(WaitBeforeStartMoving());
    }
@@ -62,31 +62,31 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
    {
       if (_isBackwards) return;
       
-      var nextWaypoint = _currentWaypoint + 1;
+      var nextWaypoint = _currentPoint + 1;
 
       if (nextWaypoint < Waypoints.Length) 
-            _currentWaypoint = nextWaypoint;
+            _currentPoint = nextWaypoint;
       else if (LoopBackwards)
          _isBackwards = true;
       else
-         _currentWaypoint = 0;
+         _currentPoint = 0;
       
-      Target = Waypoints[_currentWaypoint];
+      Target = Waypoints[_currentPoint];
    }
 
    private void ChangeTargetBackward()
    {
       if (!_isBackwards) return;
       
-      var nextWaypoint = _currentWaypoint - 1;
+      var nextWaypoint = _currentPoint - 1;
 
       if (nextWaypoint >= 0)
-         _currentWaypoint = nextWaypoint;
+         _currentPoint = nextWaypoint;
 
       if (nextWaypoint == 0)
          _isBackwards = false;
       
-      Target = Waypoints[_currentWaypoint];
+      Target = Waypoints[_currentPoint];
    }
    
    public void Activate()
