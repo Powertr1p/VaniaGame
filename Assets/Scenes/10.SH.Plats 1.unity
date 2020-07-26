@@ -82965,7 +82965,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -83696,12 +83696,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 8461612484331893447}
   - {fileID: 8461612484720900756}
-  Speed: 5
+  _speed: 10
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!1 &8615878114339977125
 GameObject:
   m_ObjectHideFlags: 0
@@ -83823,12 +83823,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 8615878115259564021}
   - {fileID: 8615878114339977126}
-  Speed: 5
+  _speed: 10
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!1 &8615878115500714774
 GameObject:
   m_ObjectHideFlags: 0
