@@ -13371,12 +13371,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 1023924364}
   - {fileID: 1691488819}
-  Speed: 5
+  _speed: 5
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!212 &819306556
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -40380,12 +40380,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 1445930340}
   - {fileID: 2034920709}
-  Speed: 5
+  _speed: 5
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!212 &1329903185
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -108607,12 +108607,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 8461612485500889311}
   - {fileID: 8461612485615165580}
-  Speed: 5
+  _speed: 5
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!4 &8461612484720900756
 Transform:
   m_ObjectHideFlags: 0
@@ -108866,12 +108866,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 8461612484331893447}
   - {fileID: 8461612484720900756}
-  Speed: 5
+  _speed: 5
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!1 &8615878114339977125
 GameObject:
   m_ObjectHideFlags: 0
@@ -108993,12 +108993,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 8615878115259564021}
   - {fileID: 8615878114339977126}
-  Speed: 5
+  _speed: 5
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!1 &8615878115500714774
 GameObject:
   m_ObjectHideFlags: 0
