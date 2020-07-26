@@ -13,9 +13,22 @@ public class SpikesWithTimer : Spikes
    
    protected override void Init()
    {
-      Animator = GetComponent<Animator>();
+      base.Init();
+      
+      StartCoroutine(WaitAndToggle());
+   }
 
-      InvokeRepeating(Activate, _firstActivationDelay, _delayBeforeActivation);
-      InvokeRepeating(Deactivate, _delayBeforeActivation + _firstActivationDelay, _delayBeforeDeactivation);
+   private IEnumerator WaitAndToggle()
+   {
+      yield return new WaitForSeconds(_firstActivationDelay);
+      
+      while (true)
+      {
+         yield return new WaitForSeconds(_delayBeforeActivation);
+         Activate();
+         
+         yield return new WaitForSeconds(_delayBeforeDeactivation);
+         Deactivate();
+      }
    }
 }
