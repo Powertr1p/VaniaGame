@@ -83700,7 +83700,7 @@ MonoBehaviour:
   _waypoints:
   - {fileID: 8461612484331893447}
   - {fileID: 8461612484720900756}
-  _speed: 10
+  _speed: 5
   _loopBackwards: 0
 --- !u!1 &8615878114339977125
 GameObject:
@@ -83827,7 +83827,7 @@ MonoBehaviour:
   _waypoints:
   - {fileID: 8615878115259564021}
   - {fileID: 8615878114339977126}
-  _speed: 10
+  _speed: 5
   _loopBackwards: 0
 --- !u!1 &8615878115500714774
 GameObject:
