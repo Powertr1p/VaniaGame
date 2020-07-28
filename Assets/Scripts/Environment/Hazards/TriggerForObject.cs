@@ -9,7 +9,9 @@ public class TriggerForObject : MonoBehaviour
     [SerializeField] private GameObject _objectToTrigger;
     [Range(0.4f, 10.0f)] [SerializeField] private float _delayBeforeActivation = 0.4f;
     [Range(0.4f, 10.0f)] [SerializeField] private float _delayBeforeDeactivation = 0.4f;
+    
     [SerializeField] private bool _reverseBehavior;
+    [SerializeField] private bool _deactivatedAtStart = true;
     private bool _isSuspended;
     
     private ITriggerable _trigger;
@@ -20,6 +22,9 @@ public class TriggerForObject : MonoBehaviour
     {
         _trigger = _objectToTrigger.GetComponent<ITriggerable>();
 
+        if (_deactivatedAtStart)
+            _trigger.Deactivate();
+        
         if (_objectToTrigger.TryGetComponent(out Animator animator))
             animator.SetBool(Reverse, _reverseBehavior);
     }
