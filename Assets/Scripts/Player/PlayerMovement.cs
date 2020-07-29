@@ -216,6 +216,5 @@ public class PlayerMovement : MonoBehaviour
             _canDash = true;
             UnityEngine.Debug.Log("Dash");
         }
-        
     }
 }

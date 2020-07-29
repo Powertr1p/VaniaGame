@@ -29,10 +29,7 @@ public class PlayerState : MonoBehaviour
 
     private bool IsKilled()
     {
-        if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Hazards)))
-            return true;
-        else
-            return false;
+        return _bodyCollider.IsTouchingLayers(LayerMask.GetMask(Constants.Hazards));
     }
 
     private void Die()
