@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Interface;
+using UnityEngine;
 
-public class CoinPickup : MonoBehaviour
+public class CoinPickup : MonoBehaviour, ICollectable
 {
     [SerializeField] private AudioClip _coinPickUpSFX;
     [SerializeField] private int _coinsToAdd = 1;
@@ -15,6 +16,11 @@ public class CoinPickup : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+       Collect();
+    }
+
+    public void Collect()
     {
         if (!_isCoinPassed)
         {
