@@ -489,12 +489,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 1057772951}
   - {fileID: 1342871835}
-  Speed: 7
+  _speed: 7
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!212 &176407924
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6973,6 +6973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 1367376945}
   - {fileID: 266506546}
@@ -6982,9 +6983,8 @@ MonoBehaviour:
   - {fileID: 408469364}
   - {fileID: 1331587628}
   - {fileID: 1385172988}
-  Speed: 9
+  _speed: 9
   _loopBackwards: 1
-  _delayBeforeStart: 0
 --- !u!212 &342909158
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7318,12 +7318,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 503617206}
   - {fileID: 873601329}
-  Speed: 4
+  _speed: 4
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!212 &428725444
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8918,6 +8918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 2092228705}
   - {fileID: 1720563846}
@@ -8927,9 +8928,8 @@ MonoBehaviour:
   - {fileID: 140611148}
   - {fileID: 1905615523}
   - {fileID: 1182893406}
-  Speed: 9
+  _speed: 9
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!212 &545016793
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9186,12 +9186,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 169349920}
   - {fileID: 1554499569}
-  Speed: 7
+  _speed: 7
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!212 &811412170
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23189,12 +23189,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 1653258587}
   - {fileID: 390382167}
-  Speed: 7
+  _speed: 7
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!212 &1446805159
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23380,12 +23380,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 305688415}
   - {fileID: 1066069496}
-  Speed: 7
+  _speed: 7
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!212 &1567601835
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -50126,12 +50126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delayBeforeStart: 0
   _waypoints:
   - {fileID: 1058821796788953694}
   - {fileID: 1058821796139870733}
-  Speed: 7
+  _speed: 7
   _loopBackwards: 0
-  _delayBeforeStart: 0
 --- !u!114 &1058821794949707455
 MonoBehaviour:
   m_ObjectHideFlags: 0

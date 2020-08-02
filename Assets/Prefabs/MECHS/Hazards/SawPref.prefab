@@ -189,9 +189,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b2a0834f9a4ebe96afdf54e08500d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Waypoint_A: {fileID: 603822548574033189}
-  Waypoint_B: {fileID: 603822548428266870}
-  Speed: 5
+  _delayBeforeStart: 0
+  _waypoints:
+  - {fileID: 603822548574033189}
+  - {fileID: 603822548428266870}
+  _speed: 10
+  _loopBackwards: 0
 --- !u!58 &603822549549220314
 CircleCollider2D:
   m_ObjectHideFlags: 0

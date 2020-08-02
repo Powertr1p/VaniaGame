@@ -1,18 +1,17 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
 public abstract class MovableObject : MonoBehaviour, ITriggerable
 {
-   [SerializeField] private Transform[] _waypoints;
-   [SerializeField] protected float Speed = 10f;
-   [SerializeField] private bool _loopBackwards;
    [SerializeField] private float _delayBeforeStart = 0f;
+   
+   protected Transform[] Waypoints;
+   protected float Speed = 10f;
+   protected bool LoopBackwards;
    
    protected Transform Target;
    
-   private int _currentWaypoint = 0;
+   private int _currentPoint = 0;
    private bool _isBackwards = false;
    private bool _isStarted = false;
 
@@ -23,7 +22,7 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
 
    protected virtual void Init()
    {
-      Target = _waypoints[_currentWaypoint];
+      Target = Waypoints[_currentPoint];
       
       StartCoroutine(WaitBeforeStartMoving());
    }
@@ -47,13 +46,13 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
          ChangeTarget();
    }
 
-   private void ChangeTarget()
+   protected virtual void ChangeTarget()
    {
       ChangeTargetForward();
       ChangeTargetBackward();
    }
 
-   private IEnumerator WaitBeforeStartMoving()
+   protected IEnumerator WaitBeforeStartMoving()
    {
       yield return new WaitForSeconds(_delayBeforeStart);
       _isStarted = true;
@@ -63,50 +62,40 @@ public abstract class MovableObject : MonoBehaviour, ITriggerable
    {
       if (_isBackwards) return;
       
-      var nextWaypoint = _currentWaypoint + 1;
+      var nextWaypoint = _currentPoint + 1;
 
-      if (nextWaypoint < _waypoints.Length) 
-            _currentWaypoint = nextWaypoint;
-      else if (_loopBackwards)
+      if (nextWaypoint < Waypoints.Length) 
+            _currentPoint = nextWaypoint;
+      else if (LoopBackwards)
          _isBackwards = true;
       else
-         _currentWaypoint = 0;
+         _currentPoint = 0;
       
-      Target = _waypoints[_currentWaypoint];
+      Target = Waypoints[_currentPoint];
    }
 
    private void ChangeTargetBackward()
    {
       if (!_isBackwards) return;
       
-      var nextWaypoint = _currentWaypoint - 1;
+      var nextWaypoint = _currentPoint - 1;
 
       if (nextWaypoint >= 0)
-         _currentWaypoint = nextWaypoint;
+         _currentPoint = nextWaypoint;
 
       if (nextWaypoint == 0)
          _isBackwards = false;
       
-      Target = _waypoints[_currentWaypoint];
+      Target = Waypoints[_currentPoint];
    }
-
-   protected void OnCollisionEnter2D(Collision2D other)
-   {
-      other.collider.transform.SetParent(transform);
-   }
-
-   protected void OnCollisionExit2D(Collision2D other)
-   {
-      other.collider.transform.SetParent(null);
-   }
-
+   
    public void Activate()
    {
-      _loopBackwards = true;
+      LoopBackwards = true;
    }
 
    public void Deactivate()
    {
-      _loopBackwards = false;
+      LoopBackwards = false;
    }
 }
