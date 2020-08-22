@@ -1,15 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
     [SerializeField] private Transform _camera;
-    [SerializeField] private float _parallaxMovement = 1f;
+    [SerializeField] private float _parallaxMovement = 0.1f;
 
     private float _cameraOffset;
-    
-    
-    private void Update()
+    private Vector3 _lastPosition;
+
+    private void Start()
     {
-        transform.position = new Vector2(_camera.position.x  * _parallaxMovement , transform.position.y);
+        _lastPosition = _camera.transform.position;
+    }
+
+    private void LateUpdate()
+    {
+        float deltaMovement = _camera.transform.position.x - _lastPosition.x;
+        transform.position += new Vector3(deltaMovement * _parallaxMovement, 0, 0);
+        _lastPosition = _camera.transform.position;
     }
 }
