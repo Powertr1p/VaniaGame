@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2622468647303509824}
   - component: {fileID: 2622468647303509826}
   m_Layer: 14
-  m_Name: ExitPortal
+  m_Name: XitPortal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,6 +49,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -71,9 +72,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1734361667
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 489324813500202061, guid: c2168a9b7a72c5d499e2474327c9c883, type: 3}
+  m_Sprite: {fileID: -1628499840244329421, guid: 6cfda65c701684d5a8288b3ac79bc53d,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -152,3 +154,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9327b7674de79d47a9f90055a615a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelLoadDelay: 0.1
