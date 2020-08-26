@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         PerformDash();
         TryRestoreJump();
         
-        _animator.SetBool("isJumping", _isJumping);
+        _animator.SetBool(Constants.IsJumping, _isJumping);
     }
 
     private void TryDash(float direction)
@@ -215,9 +215,6 @@ public class PlayerMovement : MonoBehaviour
     public void RechargeDash()
     {
         if (!_canDash)
-        {
             _canDash = true;
-            UnityEngine.Debug.Log("Dash");
-        }
     }
 }
