@@ -37,6 +37,9 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] private bool _canWallClimb = true;
     [SerializeField] private bool _canDash = true;
+    
+    public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
+    
     private bool _isDashing;
     private bool _restoringJump;
     
@@ -48,10 +51,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput _input;
 
     private bool CanMove => _player.IsAlive;
-
-    public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
     private bool _isJumping => !_collisions.IsGrounded;
-
+    
     private void Awake()
     {
         _player = GetComponent<PlayerState>();
