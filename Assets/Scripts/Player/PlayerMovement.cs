@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     private bool CanMove => _player.IsAlive;
 
     public bool IsRunning() => Mathf.Abs(_rb2d.velocity.x) > Mathf.Epsilon;
+    private bool _isJumping => !_collisions.IsGrounded;
 
     private void Awake()
     {
@@ -87,6 +88,8 @@ public class PlayerMovement : MonoBehaviour
 
         PerformDash();
         TryRestoreJump();
+        
+        _animator.SetBool("isJumping", _isJumping);
     }
 
     private void TryDash(float direction)
@@ -151,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         if (AmountOfJumps < 1) return;
-
+        
         AmountOfJumps--;
         _rb2d.gravityScale = 1f;
         _rb2d.velocity = Vector2.up * _jumpVelocity;
@@ -216,6 +219,5 @@ public class PlayerMovement : MonoBehaviour
             _canDash = true;
             UnityEngine.Debug.Log("Dash");
         }
-        
     }
 }
