@@ -1541,8 +1541,8 @@ TextureImporter:
       name: Sam_edit_0.5_0
       rect:
         serializedVersion: 2
-        x: 48
-        y: 426
+        x: 150
+        y: 257
         width: 16
         height: 16
       alignment: 0
@@ -3134,7 +3134,26 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -6, y: -8}
+        - {x: -5, y: -6}
+        - {x: -4, y: -4}
+        - {x: -4, y: 0}
+        - {x: -3, y: 0}
+        - {x: -3, y: -2}
+        - {x: -2, y: -2}
+        - {x: 0, y: -2}
+        - {x: 0, y: -6}
+        - {x: 2, y: -5}
+        - {x: 2, y: -2}
+        - {x: 3, y: -2}
+        - {x: 3, y: 0}
+        - {x: 4, y: 0}
+        - {x: 4, y: -1}
+        - {x: 5, y: -1}
+        - {x: 5, y: -5}
+        - {x: 6, y: -5}
+        - {x: 6, y: -8}
       tessellationDetail: 0
       bones: []
       spriteID: 6ef00e23df94e55b0800000000000000
@@ -4325,7 +4344,16 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 1, y: -5}
+        - {x: 0, y: -4}
+        - {x: 2, y: -2}
+        - {x: 2, y: 3}
+        - {x: 0, y: 3}
+        - {x: 0, y: 4}
+        - {x: 4, y: 4}
+        - {x: 8, y: 6}
+        - {x: 8, y: -6}
       tessellationDetail: 0
       bones: []
       spriteID: 76ea91049e5b9a310800000000000000
